@@ -83,7 +83,7 @@ int main()
                         	cin >> mat;
                        	 
                         	switch (mat){
-                            	case 1: cout << " STRAPS \n";
+                            	case 1: cout << " STRAPS HEUY\n";
                             	case 2: cout << "BATTERIES\n";
                         	}
                  	}
