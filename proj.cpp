@@ -43,50 +43,70 @@ using namespace std;
             	return price;
         	}
 	} ;
-int main()
-{
+
+int main(){ 
 	int opt, mat, inv, again;
     
 	do{
-    	cout << "PICK FROM THE FOLLOWING: \n";
-    	cout << "1. INVENTORY\n";
-    	cout << "2. POINT OF SALES (POS)\n\n";
-    	cout << "CHOOSE OPTION: \n";
+    	cout << "\n\nPICK FROM THE FOLLOWING: \n";
+    	cout << "[1] INVENTORY\n";
+    	cout << "[2] POINT OF SALES (POS)\n";
+    	cout << "[0] End\n\n";
+    	cout << "Choose an option: ";
     	cin >> opt;
    	 
     
         	switch (opt){
-            	case 1:
-                	cout << "INVENTORY\n";
-                	cout << "1. EDIT\n";
-                	cout << "2. VIEW\n";
-                	cout << "CHOOSE: \n";
-                	cin >> inv;
-               	 
-                	switch (inv){
-                     	case 1:
-                        	cout << "EDIT MATERIALS: \n";
-                        	cout << "1. STRAPS\n";
-                        	cout << "2. BATTERIES\n";
-                        	cout << "CHOOSE FROM THE FOLLOWING: ";
-                        	cin >> mat;
-                       	 
-                        	switch (mat){
-                            	case 1: cout << " STRAPS \n";
-                            	case 2: cout << "BATTERIES\n";
-                        	}
-                     	case 2:
-                        	cout << "VIEW LIST OF MATERIALS: \n";
-                        	cout << "1. STRAPS\n";
-                        	cout << "2. BATTERIES\n";
-                        	cout << "CHOOSE FROM THE FOLLOWING: ";
-                        	cin >> mat;
-                       	 
-                        	switch (mat){
-                            	case 1: cout << " STRAPS\n";
-                            	case 2: cout << "BATTERIES\n";
-                        	}
-                 	}
+            	case 1: 
+					cout << "\nINVENTORY\n";
+					cout << "[1] EDIT\n";
+					cout << "[2] VIEW\n";
+					cout << "[0] back\n\n";
+					cout << "Choose an option: ";
+					cin >> inv;
+					
+					do{
+						switch (inv){
+							case 1:
+								cout << "\nEDIT MATERIALS: \n";
+								cout << "[1] STRAPS\n";
+								cout << "[2] BATTERIES\n";
+								cout << "Choose an option: ";
+								cin >> mat;
+							
+								switch (mat){
+									case 1: 
+										cout << " STRAPS \n";
+										break;
+									case 2: 
+										cout << "BATTERIES\n";
+										break;
+								}
+								break;
+
+							case 2:
+								cout << "VIEW LIST OF MATERIALS: \n";
+								cout << "[1] STRAPS\n";
+								cout << "[2] BATTERIES\n";
+								cout << "Choose an option: ";
+								cin >> mat;
+								
+								switch (mat){
+									case 1: 
+										cout << " STRAPS\n";
+										break;
+									case 2: 
+										cout << "BATTERIES\n";
+										break;
+								}
+
+							}
+						break;
+						}while(inv != 0);
+
+				
+                 	
+
             	break;
            	 
             	case 2:
@@ -94,9 +114,8 @@ int main()
             	break;
         	}
        	 
-    	cout << "BACK TO MAIN MENU? (1-YES, 0-NO)\n";
-    	cin >> again;
-	}while (again < 0);    
+	}while (opt != 0);    
+
 	return 0;
 }
 
