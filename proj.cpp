@@ -1,6 +1,16 @@
  #include <iostream>
 using namespace std;
 
+ 	class Batteries{
+		private:
+			string brand; 
+		
+		public: 
+			void setBrand(string b){
+				brand = b;
+			}
+	};
+
 	class Straps{
     	private:
         	string color;
@@ -71,6 +81,7 @@ int main(){
 								cout << "\nEDIT MATERIALS: \n";
 								cout << "[1] STRAPS\n";
 								cout << "[2] BATTERIES\n";
+								cout << "[0] back\n\n";
 								cout << "Choose an option: ";
 								cin >> mat;
 							
@@ -88,6 +99,7 @@ int main(){
 								cout << "VIEW LIST OF MATERIALS: \n";
 								cout << "[1] STRAPS\n";
 								cout << "[2] BATTERIES\n";
+								cout << "[0] back\n\n";
 								cout << "Choose an option: ";
 								cin >> mat;
 								
