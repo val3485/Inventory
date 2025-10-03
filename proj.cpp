@@ -9,6 +9,9 @@ using namespace std;
 			void setBrand(string b){
 				brand = b;
 			}
+			string getBrand (string b){
+            	return b;
+        	}
 	};
 
 	class Straps{
@@ -55,7 +58,7 @@ using namespace std;
 	} ;
 
 int main(){ 
-	int opt, mat, inv, again;
+	int opt, mat, inv, pos;
     
 	do{
     	cout << "\n\nPICK FROM THE FOLLOWING: \n";
@@ -96,7 +99,7 @@ int main(){
 								break;
 
 							case 2:
-								cout << "VIEW LIST OF MATERIALS: \n";
+								cout << "\nVIEW LIST OF MATERIALS: \n";
 								cout << "[1] STRAPS\n";
 								cout << "[2] BATTERIES\n";
 								cout << "[0] back\n\n";
@@ -111,19 +114,38 @@ int main(){
 										cout << "BATTERIES\n";
 										break;
 								}
+							break;
+						}
 
-							}
-						break;
-						}while(inv != 0);
-
-				
-                 	
+					}while(inv != 0 && mat != 0);
 
             	break;
            	 
             	case 2:
-                	cout << "POINT OF SALES (POS)\n";
-            	break;
+                	cout << "\nPOINT OF SALES (POS)\n";
+					cout << "[1] OVERVIEW OF SALES\n";
+					cout << "[2] SEARCH DATE OF SALES\n";
+					cout << "[3] HISTORY OF RECEIPTS\n";
+					cout << "[0] back\n\n";
+					cout << "Choose an option: ";
+					cin >> pos;
+					
+					do{
+						switch (pos){
+							case 1: 	
+								cout << "\nOVERVIEW OF SALES";
+								break; 
+
+							case 2: 
+								cout << "\nSEARCH DATE OF SALES";
+								break;
+							case 3:
+								cout << "\nHISTORY OF RECEIPTS";
+								break;
+						}
+					}while(pos < 0);
+
+            	// break;
         	}
        	 
 	}while (opt != 0);    
