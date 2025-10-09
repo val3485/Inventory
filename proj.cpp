@@ -86,9 +86,9 @@ int main(){
 								cout << "[2] BATTERIES\n";
 								cout << "[0] back\n\n";
 								cout << "Choose an option: ";
-								cin >> mat;
+								cin >> inv;
 							
-								switch (mat){
+								switch (inv){
 									case 1: 
 										cout << " STRAPS \n";
 										break;
@@ -143,7 +143,7 @@ int main(){
 								cout << "\nHISTORY OF RECEIPTS";
 								break;
 						}
-					}while(pos < 0);
+					}while(pos != 0);
 
             	// break;
         	}
