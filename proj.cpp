@@ -81,6 +81,7 @@ int main(){
 					do{
 						switch (inv){
 							case 1:
+							//make function
 								cout << "\nEDIT MATERIALS: \n";
 								cout << "[1] STRAPS\n";
 								cout << "[2] BATTERIES\n";
@@ -146,6 +147,7 @@ int main(){
 					}while(pos != 0);
 
             	// break;
+				//add POS
         	}
        	 
 	}while (opt != 0);    
