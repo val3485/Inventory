@@ -1,4 +1,5 @@
  #include <iostream>
+ #include <iomanip>
 using namespace std;
 
  	class Batteries{
@@ -55,10 +56,73 @@ using namespace std;
         	double getPrice (){
             	return price;
         	}
+
+			int switch_bat (int bat){
+				 switch(bat){
+					case 1:
+						cout << "\nMAXWELL\n";
+						// details
+						break;
+					case 2:
+						cout << "\nRENATA\n"; 
+						string items[16] = {
+							"Renata 315", "Renata 315",
+							"Renata 315", "Renata 315",
+							"Renata 315", "Renata 315",
+							"Renata 315", "Renata 315",
+							"Renata 315", "Renata 315",
+							"Renata 315", "Renata 315",
+							"Renata 315", "Renata 315",
+							"Renata 315", "Renata 315",
+						};
+						//array function
+						//call function 
+						int index = 0; 
+						for(int i = 0; i < 5; i++){
+							cout << setw(20) << left << items[index++];
+							cout << setw(20) << left << items[index++];
+							//make function
+							//return variabke 
+							//call here
+							cout << endl;
+						}                                    
+						break;                      
+				}
+			}
+			int switch_bat (int bat){
+				 switch(bat){
+					case 1:
+						cout << "\nMAXWELL\n";
+						// details
+						break;
+					case 2:
+						cout << "\nRENATA\n"; 
+						string items[10] = {
+							"Renata 315", "Renata 315",
+							"Renata 315", "Renata 315",
+							"Renata 315", "Renata 315",
+							"Renata 315", "Renata 315",
+							"Renata 315", "Renata 315",
+						};
+						//array function
+						//call function 
+						int index = 0; 
+						for(int i = 0; i < 5; i++){
+							cout << setw(20) << left << items[index++];
+							cout << setw(20) << left << items[index++];
+							//make function
+							//return variabke 
+							//call here
+							cout << endl;
+						}                                    
+						break;                      
+				}
+			}
 	} ;
 
 int main(){ 
-	int opt, mat, inv, pos;
+	int opt, mat, inv, pos, bat, strp;
+	Straps obj; 
     
 	do{
     	cout << "\n\nPICK FROM THE FOLLOWING: \n";
@@ -81,21 +145,61 @@ int main(){
 					do{
 						switch (inv){
 							case 1:
-							//make function
 								cout << "\nEDIT MATERIALS: \n";
 								cout << "[1] STRAPS\n";
 								cout << "[2] BATTERIES\n";
 								cout << "[0] back\n\n";
 								cout << "Choose an option: ";
-								cin >> inv;
+								cin >> mat;
 							
-								switch (inv){
+								switch (mat){
 									case 1: 
-										cout << " STRAPS \n";
+                                    do{
+										cout << "\nSTRAPS\n";
+                                        cout << "[1] EDIT\n";
+                                        cout << "[2] ADD\n";
+                                        cout << "[3] DELETE\n";                                    
+                                        cout << "[4] SEARCH NAME OF STRAP \n";
+                                        cout << "[0] back\n";
+                                        cout << "Choose an option: ";
+                                        cin >> strp;
+
+                                        switch(strp){
+                                            case 1:
+                                            	break;
+                                            case 2:
+                                            	break;
+                                            case 3:
+                                            	break;
+                                            case 4:
+                                            	break;
+                                        }
+                                    }while(strp !=0);
 										break;
+
 									case 2: 
-										cout << "BATTERIES\n";
-										break;
+                                    do{
+										cout << "\nBATTERIES\n";
+                                        cout << "[1] EDIT\n";
+                                        cout << "[2] ADD\n";
+                                        cout << "[3] DELETE\n";                                    
+                                        cout << "[4] SEARCH NAME OF BATTERY \n";
+                                        cout << "[0] back\n";
+                                        cout << "Choose an option: ";
+                                        cin >> bat;
+
+                                        switch(bat){
+                                            case 1:
+                                            	break;
+                                            case 2:
+                                            	break;
+                                            case 3:
+                                            	break;
+                                            case 4:
+                                            	break;
+                                        }
+                                    }while(bat != 0);   
+                                        break;
 								}
 								break;
 
@@ -106,15 +210,47 @@ int main(){
 								cout << "[0] back\n\n";
 								cout << "Choose an option: ";
 								cin >> mat;
-								
+								                                                 
 								switch (mat){
 									case 1: 
-										cout << " STRAPS\n";
-										break;
+										do{
+											cout << "\nSTRAPS\n";
+											cout << "[1] Name of strap\n";
+											cout << "[2] Name of strap\n";
+											cout << "[3] SEARCH NAME OF STRAP \n";
+											cout << "[0] back\n";
+											cout << "Choose an option: ";
+											cin >> strp;
+
+											switch(strp){
+												case 1:
+													cout << "\nName of strap\n";
+													// details
+													break;
+												case 2:
+													cout << "\nName of strap\n";
+													// details
+													break;                                            
+											}
+										}while(strp != 0);
+											break;
+                                    
 									case 2: 
-										cout << "BATTERIES\n";
-										break;
-								}
+										do{
+											cout << "\nBATTERIES\n";
+											cout << "[1] MAXWELL\n";
+											cout << "[2] RENATA\n";
+											cout << "[3] SEARCH NAME OF BATTERY \n";
+											cout << "[0] back\n";
+											cout << "Choose an option: ";
+											cin >> bat;
+
+				
+											obj.switch_bat(bat); 
+
+										}while(bat != 0);
+									    break;
+                                }
 							break;
 						}
 
@@ -144,18 +280,13 @@ int main(){
 								cout << "\nHISTORY OF RECEIPTS";
 								break;
 						}
-					}while(pos != 0);
+					}while(pos < 0);
 
             	// break;
-				//add POshvsrfhjbsfkjnsaz
         	}
        	 
 	}while (opt != 0);    
 
 	return 0;
 }
-
-
-
-
 
