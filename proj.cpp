@@ -55,10 +55,54 @@ using namespace std;
         	double getPrice (){
             	return price;
         	}
-	} ;
+	};
+
+	int POS_sales (int &sale){
+			// cin >> sale;
+			switch(sale) {
+				case 1:
+					cout << "\nORDER BY DAY";
+						cout <<"\n[0] back\n";
+						cin >> sale;
+					
+					break;
+				case 2:
+					cout << "\nOrder by Week: ";
+					break;
+				// default: 
+				// 	cout << "Invalid input :<"; 
+				// 	break; 
+
+			}
+	
+	}
+
+	int POS_switch(int pos, int sale, int search){
+		switch (pos){
+			case 1: 	
+				do{
+					cout << "\nOVERVIEW OF SALES";
+					cout << "\nSearch by\n" << "[1] Day\n[2] Week\n[0] back\n" <<"Enter Option: ";
+					cin >> sale;
+
+					POS_sales(sale);
+				}while(sale != 0);
+
+				break; 
+
+			case 2: 
+				pos = 0;
+				cout << "\nSEARCH DATE OF SALES";
+				break;
+			case 3:
+				pos = 0;
+				cout << "\nHISTORY OF RECEIPTS";
+				break;
+		}
+	}
 
 int main(){ 
-	int opt, mat, inv, pos;
+	int opt, mat, inv, pos, sale,edit, search;
     
 	do{
     	cout << "\n\nPICK FROM THE FOLLOWING: \n";
@@ -81,15 +125,14 @@ int main(){
 					do{
 						switch (inv){
 							case 1:
-							//make function
 								cout << "\nEDIT MATERIALS: \n";
 								cout << "[1] STRAPS\n";
 								cout << "[2] BATTERIES\n";
 								cout << "[0] back\n\n";
 								cout << "Choose an option: ";
-								cin >> inv;
+								cin >> edit;
 							
-								switch (inv){
+								switch (edit){
 									case 1: 
 										cout << " STRAPS \n";
 										break;
@@ -100,25 +143,27 @@ int main(){
 								break;
 
 							case 2:
-								cout << "\nVIEW LIST OF MATERIALS: \n";
-								cout << "[1] STRAPS\n";
-								cout << "[2] BATTERIES\n";
-								cout << "[0] back\n\n";
-								cout << "Choose an option: ";
-								cin >> mat;
+								do {
+									cout << "\nVIEW LIST OF MATERIALS: \n";
+									cout << "[1] STRAPS\n";
+									cout << "[2] BATTERIES\n";
+									cout << "[0] back\n\n";
+									cout << "Choose an option: ";
+									cin >> mat;
 								
-								switch (mat){
-									case 1: 
-										cout << " STRAPS\n";
-										break;
-									case 2: 
-										cout << "BATTERIES\n";
-										break;
-								}
+									switch (mat){
+										case 1: 
+											cout << " STRAPS\n";
+											break;
+										case 2: 
+											cout << "BATTERIES\n";
+											break;
+									}
+								}while (mat != 0);
 							break;
 						}
 
-					}while(inv != 0 && mat != 0);
+					}while(inv != 0 && mat != 0 && edit != 0);
 
             	break;
            	 
@@ -132,22 +177,9 @@ int main(){
 					cin >> pos;
 					
 					do{
-						switch (pos){
-							case 1: 	
-								cout << "\nOVERVIEW OF SALES";
-								break; 
+						POS_switch(pos, sale,search);
+					}while(pos != 0 && sale != 0);
 
-							case 2: 
-								cout << "\nSEARCH DATE OF SALES";
-								break;
-							case 3:
-								cout << "\nHISTORY OF RECEIPTS";
-								break;
-						}
-					}while(pos != 0);
-
-            	// break;
-				//add POshvsrfhjbsfkjnsaz
         	}
        	 
 	}while (opt != 0);    
