@@ -1,17 +1,76 @@
  #include <iostream>
+ #include <iomanip>
+ #include <vector>
 using namespace std;
 
  	class Batteries{
 		private:
 			string brand; 
+			
 		
-		public: 
+			
+			public: 
 			void setBrand(string b){
 				brand = b;
 			}
 			string getBrand (string b){
-            	return b;
+				return b;
         	}
+			
+			struct batt {
+				int id;
+				string name;
+				int quantity;
+				int price;
+			};
+
+		
+			vector<batt> renata_arr = {
+				{1, "Renata 314", 10, 500},
+				{2, "Renata 510", 10, 500},
+				{3, "Renata 600", 10, 500},
+				{4, "Renata 700", 10, 500},
+			};
+
+			vector<batt> maxwell_arr = {
+				{1, "Maxwell 314", 10, 500},
+				{2, "Maxwell 510", 10, 500},
+				{3, "Maxwell 600", 10, 500},
+				{4, "Maxwell 700", 10, 500},
+			};
+			// int size = sizeof(hihi) / sizeof(hihi[0]);
+
+			// int battery_list(int i){
+			// 	for(int i = 0; i < size; i++){
+			// 		cout << "ID: " << hihi[i].id << endl;
+			// 	}
+			// }
+			// int switch_bat (int bat){
+			// 	 switch(bat){
+			// 		case 1:
+			// 			cout << "\nMAXWELL\n";
+			// 			// details
+			// 			break;
+			// 		case 2:
+			// 			cout << "\nRENATA\n"; 
+				
+						//array function
+						//call function 
+						// int index = 0; 
+						// for(int i = 0; i < 5; i++){
+						// 	cout << setw(20) << left << items[index++];
+						// 	cout << setw(20) << left << items[index++];
+						// 	//make function
+						// 	//return variabke 
+						// 	//call here
+						// 	cout << endl;
+						// }        
+						
+						// int hihi = battery_list(bat);
+						// return hihi;
+						// break;                      
+			// 	}
+			// };
 	};
 
 	class Straps{
@@ -134,11 +193,52 @@ int main(){
 							
 								switch (edit){
 									case 1: 
-										cout << " STRAPS \n";
+                                    do{
+										cout << "\nSTRAPS\n";
+                                        cout << "[1] EDIT\n";
+                                        cout << "[2] ADD\n";
+                                        cout << "[3] DELETE\n";                                    
+                                        cout << "[4] SEARCH NAME OF STRAP \n";
+                                        cout << "[0] back\n";
+                                        cout << "Choose an option: ";
+                                        cin >> strp;
+
+                                        switch(strp){
+                                            case 1:
+                                            	break;
+                                            case 2:
+                                            	break;
+                                            case 3:
+                                            	break;
+                                            case 4:
+                                            	break;
+                                        }
+                                    }while(strp !=0);
 										break;
+
 									case 2: 
-										cout << "BATTERIES\n";
-										break;
+                                    do{
+										cout << "\nBATTERIES\n";
+                                        cout << "[1] EDIT\n";
+                                        cout << "[2] ADD\n";
+                                        cout << "[3] DELETE\n";                                    
+                                        cout << "[4] SEARCH NAME OF BATTERY \n";
+                                        cout << "[0] back\n";
+                                        cout << "Choose an option: ";
+                                        cin >> bat;
+
+                                        switch(bat){
+                                            case 1:
+                                            	break;
+                                            case 2:
+                                            	break;
+                                            case 3:
+                                            	break;
+                                            case 4:
+                                            	break;
+                                        }
+                                    }while(bat != 0);   
+                                        break;
 								}
 								break;
 
@@ -186,8 +286,4 @@ int main(){
 
 	return 0;
 }
-
-
-
-
 
