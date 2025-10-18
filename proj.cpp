@@ -1,13 +1,13 @@
  #include <iostream>
  #include <iomanip>
  #include <vector>
+ #include <string>
+
 using namespace std;
 
  	class Batteries{
 		private:
 			string brand; 
-			
-		
 			
 			public: 
 			void setBrand(string b){
@@ -38,39 +38,11 @@ using namespace std;
 				{3, "Maxwell 600", 10, 500},
 				{4, "Maxwell 700", 10, 500},
 			};
-			// int size = sizeof(hihi) / sizeof(hihi[0]);
 
-			// int battery_list(int i){
-			// 	for(int i = 0; i < size; i++){
-			// 		cout << "ID: " << hihi[i].id << endl;
-			// 	}
-			// }
-			// int switch_bat (int bat){
-			// 	 switch(bat){
-			// 		case 1:
-			// 			cout << "\nMAXWELL\n";
-			// 			// details
-			// 			break;
-			// 		case 2:
-			// 			cout << "\nRENATA\n"; 
+			void selected(){
 				
-						//array function
-						//call function 
-						// int index = 0; 
-						// for(int i = 0; i < 5; i++){
-						// 	cout << setw(20) << left << items[index++];
-						// 	cout << setw(20) << left << items[index++];
-						// 	//make function
-						// 	//return variabke 
-						// 	//call here
-						// 	cout << endl;
-						// }        
-						
-						// int hihi = battery_list(bat);
-						// return hihi;
-						// break;                      
-			// 	}
-			// };
+
+			}
 	};
 
 	class Straps{
@@ -114,54 +86,93 @@ using namespace std;
         	double getPrice (){
             	return price;
         	}
+			struct strap{
+				string categ_straps; 
+				string color; 
+				int qty; 
+				int size; 
+				int price; 
+				bool kid_size; 
+				
+			};
 	};
 
-	int POS_sales (int &sale){
-			// cin >> sale;
-			switch(sale) {
-				case 1:
-					cout << "\nORDER BY DAY";
-						cout <<"\n[0] back\n";
-						cin >> sale;
-					
-					break;
-				case 2:
-					cout << "\nOrder by Week: ";
-					break;
-				// default: 
-				// 	cout << "Invalid input :<"; 
-				// 	break; 
+	class Pos{ 
+		private:  
+			string name;
+			int mobile_num; 
+			// struct straps{
+				// get picked strap fro functions same with batt
+			// }
+
+			// struct batt{
+
+			// }
+
+			struct materials{
+				// combine struct strapa and batt
+			}
+
+			struct total_used {
+				// get strtuct mats and add other expenses aside from materials
+				//possible function 1
 
 			}
-	
-	}
+		
+		public: 
+			void setName(string n){
+				name = n;
+			}
+			void setMobile_num(int m){
+				mobile_num = m;
+			}
 
-	int POS_switch(int pos, int sale, int search){
-		switch (pos){
-			case 1: 	
-				do{
-					cout << "\nOVERVIEW OF SALES";
-					cout << "\nSearch by\n" << "[1] Day\n[2] Week\n[0] back\n" <<"Enter Option: ";
-					cin >> sale;
+			int POS_sales (int &sale){
+					switch(sale) {
+						case 1:
+							cout << "\nORDER BY DAY";
+								cout <<"\nDATA\n";
+								// cin >> sale;
+							
+							break;
+						case 2:
+							cout << "\nOrder by Week: ";
+							break;
+					}
+			
+			}
 
-					POS_sales(sale);
-				}while(sale != 0);
+			int POS_switch(int pos, int sale, int search){
+				switch (pos){
+					case 1: 	
+						do{
+							cout << "\nOVERVIEW OF SALES";
+							cout << "\nSearch by\n" << "[1] Day\n[2] Week\n[0] back\n" <<"Enter Option: ";
+							cin >> sale;
+		
+							POS_sales(sale);
+						}while(sale != 0);
+		
+						break; 
+		
+					case 2: 
+						pos = 0;
+						cout << "\nSEARCH DATE OF SALES";
+						break;
+					case 3:
+						pos = 0;
+						cout << "\nHISTORY OF RECEIPTS";
+						break;
+				}
+			}
 
-				break; 
 
-			case 2: 
-				pos = 0;
-				cout << "\nSEARCH DATE OF SALES";
-				break;
-			case 3:
-				pos = 0;
-				cout << "\nHISTORY OF RECEIPTS";
-				break;
-		}
-	}
+	};
+
 
 int main(){ 
-	int opt, mat, inv, pos, sale,edit, search;
+	int opt, mat, inv, pos, sale,edit, search,bat,strp;
+	Pos myPOS; 
     
 	do{
     	cout << "\n\nPICK FROM THE FOLLOWING: \n";
@@ -268,17 +279,21 @@ int main(){
             	break;
            	 
             	case 2:
-                	cout << "\nPOINT OF SALES (POS)\n";
-					cout << "[1] OVERVIEW OF SALES\n";
-					cout << "[2] SEARCH DATE OF SALES\n";
-					cout << "[3] HISTORY OF RECEIPTS\n";
-					cout << "[0] back\n\n";
-					cout << "Choose an option: ";
-					cin >> pos;
-					
 					do{
-						POS_switch(pos, sale,search);
+						cout << "\nPOINT OF SALES (POS)\n";
+						cout << "[1] OVERVIEW OF SALES\n";
+						cout << "[2] SEARCH DATE OF SALES\n";
+						cout << "[3] HISTORY OF RECEIPTS\n";
+						cout << "[0] back\n\n";
+						cout << "Choose an option: ";
+						cin >> pos;
+						
+						myPOS.POS_switch(pos, sale,search);
 					}while(pos != 0 && sale != 0);
+					break; 
+				case 3: 
+					cout << "";
+					break;
 
         	}
        	 
