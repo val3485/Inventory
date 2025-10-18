@@ -19,7 +19,7 @@ using namespace std;
 			
 			struct batt {
 				int id;
-				string name;
+				string brand;
 				int quantity;
 				int price;
 			};
@@ -43,6 +43,19 @@ using namespace std;
 				
 
 			}
+	};
+
+	struct StrapItems {
+		int id;
+		string color;
+		string brand;
+		string leather_type;
+		int quantity;
+		string size;
+		double price;
+
+		StrapItems(int i, string c, string b, string lt, int q, string s, double p)
+        : id(i), color(c), brand(b), leather_type(lt), quantity(q), size(s), price(p) {}
 	};
 
 	class Straps{
@@ -86,6 +99,37 @@ using namespace std;
         	double getPrice (){
             	return price;
         	}
+
+			vector<StrapItems> withstitch_arr = {
+				{1, "black w/ black", "", "Buffalo Calf", 10, "16-19", 850},
+				{2, "black w/ white", "", "Buffalo Calf", 10, "16-19", 850},
+				{3, "dark brown", "", "Buffalo Calf", 10, "16-19", 850},
+				{4, "light brown", "", "Buffalo Calf", 10, "16-19", 850}
+			};
+			vector<StrapItems> nostitch_arr = {
+				{1, "black", "Alpha", "", 10, "16 - 24", 1500}
+			};
+
+			int DisplayCategory(vector<StrapItems> arr, string categ) {
+				cout << "\n " << categ << " \n";
+				cout << left << setw(5) << "ID"
+					<< setw(15) << "Color"
+					<< setw(15) << "Brand"
+         			<< setw(15) << "Leather Type"
+         			<< setw(10) << "Qty"
+         			<< setw(10) << "Price" << "\n";
+
+				for (auto &i : arr) {
+        			cout << left << setw(5) << i.id
+						 << setw(15) << i.color
+						 << setw(15) << i.brand
+             			 << setw(15) << i.leather_type
+            			 << setw(10) << i.quantity
+            			 << setw(10) << i.price << "\n";
+				}
+				return 0;
+			}
+	};
 			struct strap{
 				string categ_straps; 
 				string color; 
@@ -171,6 +215,9 @@ using namespace std;
 
 
 int main(){ 
+	int opt, mat, inv, pos, bat, strp;
+	Batteries battery;
+	Straps s; 
 	int opt, mat, inv, pos, sale,edit, search,bat,strp;
 	Pos myPOS; 
     
@@ -254,6 +301,55 @@ int main(){
 								break;
 
 							case 2:
+								cout << "\nVIEW LIST OF MATERIALS: \n";
+								cout << "[1] STRAPS\n";
+								cout << "[2] BATTERIES\n";
+								cout << "[0] back\n\n";
+								cout << "Choose an option: ";
+								cin >> mat;
+								                                                 
+								switch (mat){
+									case 1: 
+										do{
+											cout << "\nSTRAPS\n";
+											cout << "[1] WITH STITCH STRAP\n";
+											cout << "[2] NO STITCH STRAP\n";
+											cout << "[3] SEARCH NAME OF STRAP \n";
+											cout << "[0] back\n";
+											cout << "Choose an option: ";
+											cin >> strp;
+
+											
+											switch(strp){
+												case 1:
+													s.DisplayCategory(s.withstitch_arr, "WITH STITCH STRAPS");
+													break;
+												case 2:
+													s.DisplayCategory(s.nostitch_arr, "NO STITCH STRAPS");           
+													break;                      
+												}										 
+											
+										}while(strp != 0);
+										break;
+									 
+                                    
+									case 2: 
+										do{
+											cout << "\nBATTERIES\n";
+											cout << "[1] MAXWELL\n";
+											cout << "[2] RENATA\n";
+											cout << "[3] SEARCH NAME OF BATTERY \n";
+											cout << "[0] back\n";
+											cout << "Choose an option: ";
+											cin >> bat;
+
+				
+											// battery.switch_bat(bat); 
+
+										}while(bat != 0);
+									    break;
+                                }
+								break;
 								do {
 									cout << "\nVIEW LIST OF MATERIALS: \n";
 									cout << "[1] STRAPS\n";
