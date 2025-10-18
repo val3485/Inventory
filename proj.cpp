@@ -124,7 +124,6 @@ int main(){
 										}while(strp != 0);
 										break;
 									 
-                                    
 									case 2: 
 										do{
 											cout << "\nBATTERIES\n";
@@ -134,8 +133,6 @@ int main(){
 											cout << "[0] back\n";
 											cout << "Choose an option: ";
 											cin >> bat;
-
-				
 											// battery.switch_bat(bat); 
 
 										}while(bat != 0);
