@@ -106,20 +106,13 @@ int main(){
 											cout << "\nSTRAPS\n";
 											cout << "[1] WITH STITCH STRAP\n";
 											cout << "[2] NO STITCH STRAP\n";
-											cout << "[3] SEARCH NAME OF STRAP \n";
+											cout << "[3] CASIO STRAP\n";
+											cout << "[4] SEARCH NAME OF STRAP \n";
 											cout << "[0] back\n";
 											cout << "Choose an option: ";
 											cin >> strp;
 
-											
-											switch(strp){
-												case 1:
-													s.DisplayCategory(s.withstitch_arr, "WITH STITCH STRAPS");
-													break;
-												case 2:
-													s.DisplayCategory(s.nostitch_arr, "NO STITCH STRAPS");           
-													break;                      
-												}										 
+											s.switch_strp(strp);
 											
 										}while(strp != 0);
 										break;
