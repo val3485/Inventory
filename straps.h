@@ -96,6 +96,7 @@ class Straps{
 
 			int DisplayStitched(vector<StrapItems> arr, string categ) {
 				cout << "\n " << categ << " \n";
+				cout << right << setw(10) << " ";
 				cout << left << setw(5) << "ID"
 					<< setw(20) << "Color"
 					<< setw(15) << "Brand"
@@ -106,6 +107,7 @@ class Straps{
 
 				for (auto &i : arr) {
 					if(i.categ == "stitched"){
+						cout << right << setw(10) << " ";
 						cout << left << setw(5) << i.id
 							<< setw(20) << i.color
 							<< setw(15) << i.brand
@@ -120,6 +122,7 @@ class Straps{
 
 			int DisplayNoStitched(vector<StrapItems> arr, string categ) {
 				cout << "\n " << categ << " \n";
+				cout << right << setw(10) << " ";
 				cout << left << setw(5) << "ID"
 					<< setw(20) << "Color"
 					<< setw(15) << "Brand"
@@ -130,6 +133,7 @@ class Straps{
 
 				for (auto &i : arr) {
 					if(i.categ == "no stitch"){
+						cout << right << setw(10) << " ";
 						cout << left << setw(5) << i.id
 							<< setw(20) << i.color
 							<< setw(15) << i.brand
@@ -146,7 +150,7 @@ class Straps{
 				cout << "\n " << categ << " \n";
 				cout << right << setw(10) << " ";
 				cout << left << setw(5) << "ID"
-					<< setw(15) << "Color"
+					<< setw(20) << "Color"
 					<< setw(15) << "Brand"
          			<< setw(15) << "Leather Type"
          			<< setw(10) << "Qty"
@@ -158,7 +162,7 @@ class Straps{
 					if(i.hole == "1 hole"){
 						cout << right << setw(10) << " ";
 						cout << left << setw(5) << i.id
-							<< setw(15) << i.color
+							<< setw(20) << i.color
 							<< setw(15) << i.brand
 							<< setw(15) << i.leather_type
 							<< setw(10) << i.quantity
@@ -172,7 +176,7 @@ class Straps{
 					if(i.hole == "2 hole"){
 						cout << right << setw(10) << " ";
 						cout << left << setw(5) << i.id
-							<< setw(15) << i.color
+							<< setw(20) << i.color
 							<< setw(15) << i.brand
 							<< setw(15) << i.leather_type
 							<< setw(10) << i.quantity
@@ -187,7 +191,7 @@ class Straps{
 				cout << "\n " << categ << " \n";
 				cout << right << setw(10) << " ";
 				cout << left << setw(5) << "ID"
-					<< setw(15) << "Color"
+					<< setw(20) << "Color"
 					<< setw(15) << "Brand"
          			<< setw(15) << "Leather Type"
          			<< setw(10) << "Qty"
@@ -199,7 +203,7 @@ class Straps{
 					if(i.size == "small"){
 						cout << right << setw(10) << " ";
 						cout << left << setw(5) << i.id
-							<< setw(15) << i.color
+							<< setw(20) << i.color
 							<< setw(15) << i.brand
 							<< setw(15) << i.leather_type
 							<< setw(10) << i.quantity
@@ -213,7 +217,7 @@ class Straps{
 					if(i.size == "large"){
 						cout << right << setw(10) << " ";
 						cout << left << setw(5) << i.id
-							<< setw(15) << i.color
+							<< setw(20) << i.color
 							<< setw(15) << i.brand
 							<< setw(15) << i.leather_type
 							<< setw(10) << i.quantity
@@ -224,21 +228,23 @@ class Straps{
 				return 0;
 			}
 
-			int switch_strp(int strp){
+			void switch_view(int strp){
 			int choice;
 			switch(strp){
 				case 1:
 					DisplayStitched(allstraps_arr, "WITH STITCH STRAPS");
 					break;
+
 				case 2:
 					DisplayNoStitched(allstraps_arr, "NO STITCH STRAPS");           
-					break;                      
+					break;    
+
 				case 3:
-					cout << "CHOOSE CASIO TYPE:\n";
+					cout << "\nCHOOSE CASIO TYPE:\n";
 					cout << "[1] KIDS SIZE\n" ;
 					cout << "[2] ADULT SIZE\n" ;
 					cout << "[0] back\n" ;
-					cout << "Choose an option: \n" ;
+					cout << "Choose an option: " ;
 					cin >> choice;
 
 					if(choice == 1) {
@@ -246,9 +252,62 @@ class Straps{
 					} else if(choice == 2) {
 						DisplayCasio(allstraps_arr, "CASIO STRAPS ADULT SIZE");                                 
 					}
+					break;   
 
-					break;                      
+				case 4:
+					DisplayStitched(allstraps_arr, "WITH STITCH STRAPS");
+					DisplayNoStitched(allstraps_arr, "NO STITCH STRAPS");
+					DisplayCasioKids(allstraps_arr, "CASIO STRAPS KIDS SIZE W/ COVER");
+					DisplayCasio(allstraps_arr, "CASIO STRAPS ADULT SIZE"); 
+					break;
 				}	
-			}			
+			}	
+
+			void switch_edit(int strp){  //go by id??
+				switch(strp){
+					case 1:
+						do{
+							cout << "\nADD ITEM\n";
+							cout << "[1] WITH STITCH STRAP\n";
+							cout << "[2] NO STITCH STRAP\n";
+							cout << "[3] CASIO STRAP\n";
+							cout << "[0] back\n";
+							cout << "Choose an option: ";
+							cin >> strp;
+							
+
+						}while(strp != 0);
+						break;
+					case 2:
+						do{
+							cout << "\nEDIT ITEM\n";
+							cout << "[1] WITH STITCH STRAP\n";
+							cout << "[2] NO STITCH STRAP\n";
+							cout << "[3] CASIO STRAP\n";
+							cout << "[0] back\n";
+							cout << "Choose an option: ";
+							cin >> strp;
+							
+
+						}while(strp != 0);
+						break;
+					case 3:
+						do{
+							cout << "\nDELETE ITEM\n";
+							cout << "[1] WITH STITCH STRAP\n";
+							cout << "[2] NO STITCH STRAP\n";
+							cout << "[3] CASIO STRAP\n";
+							cout << "[4] SEARCH NAME OF STRAP \n";
+							cout << "[0] back\n";
+							cout << "Choose an option: ";
+							cin >> strp;
+							
+
+						}while(strp != 0);
+						break;
+					case 4:
+						break;
+				}
+			}
 };
 // #endif
