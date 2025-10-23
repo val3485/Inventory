@@ -14,6 +14,7 @@ class Pos{
             int straps; 
             int access;
             Straps s;
+            vector <int> store;
 			// struct straps{
 				// get picked strap fro functions same with batt
 			// }
@@ -92,14 +93,43 @@ class Pos{
                 }
                 // return 0;
             }
+
+            //function to store picked data :> 
+            //add here function to remove when access is 0 
+
             int POS_straps(int straps){
                 switch (straps){
                     case 1: 
-                        s.DisplayCategory(s.withstitch_arr, "WITH STITCH STRAPS");
-                        // cin >> access;
+                        do{
+
+                            s.DisplayCategory(s.withstitch_arr, "WITH STITCH STRAPS");
+                            cout << "\n[0] done\npick by id: ";
+
+                            cin >> access;
+                            store.push_back(access);
+                                
+                        }while(access != 0);
+                        
+                        for(int i =0 ; i < store.size(); i++){
+                            cout << store[i] << " ";
+                        }
+
                         break; 
                     case 2:
-                        s.DisplayCategory(s.nostitch_arr, "NO STITCH STRAPS"); 
+                do{
+
+                    s.DisplayCategory(s.nostitch_arr, "NO STITCH STRAPS"); 
+                    cout << "\n[0] done\npick by id: ";
+
+                    cin >> access;
+                    store.push_back(access);
+                            
+                }while(access != 0);
+                        
+                        for(int i =0 ; i < store.size(); i++){
+                            cout << store[i] << " ";
+                        }
+                        
                         break;
                 }
                 return 0;
@@ -129,6 +159,7 @@ class Pos{
 				}
                 return 0;
 			}
+
 
             int POS_sales (int &sale){
 					switch(sale) {
