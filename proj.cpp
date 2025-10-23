@@ -7,7 +7,7 @@
  using namespace std;
 
 int main(){ 
-	int opt, mat, inv, pos, sale= 0,edit,bat,strp;
+	int opt, mat, inv, pos, sale=0, edit, search, bat, strp;
 	Batteries battery;
 	string brandName, newBrand;
 	int newQty, newPrice, id, dec;
@@ -48,28 +48,16 @@ int main(){
 									case 1: 
                                     do{
 										cout << "\nSTRAPS\n";
-                                        cout << "[1] EDIT\n";
-                                        cout << "[2] ADD\n";
-                                        cout << "[3] DELETE\n";                                    
-                                        cout << "[4] SEARCH NAME OF STRAP \n";
+                                        cout << "[1] ADD ITEM\n";
+                                        cout << "[2] EDIT ITEM\n";
+                                        cout << "[3] DELETE ITEM\n";                                    
+                                        cout << "[4] DISPLAY ALL ITEMS\n";  //i think this is not needed(?) since it will fall under view option                                  
+                                        cout << "[5] SEARCH NAME OF STRAP \n";
                                         cout << "[0] back\n";
                                         cout << "Choose an option: ";
                                         cin >> strp;
 
-                                        switch(strp){
-                                            case 1:
-												cout << "EDIT";
-                                            	break;
-											case 2:
-												cout << "ADD";
-                                            	break;
-											case 3:
-												cout << "DELETE";
-                                            	break;
-											case 4:
-												cout << "SEARCH";
-                                            	break;
-                                        }
+                                        s.switch_edit(strp);
                                     }while(strp !=0);
 										break;
 
@@ -151,20 +139,14 @@ int main(){
 											cout << "\nSTRAPS\n";
 											cout << "[1] WITH STITCH STRAP\n";
 											cout << "[2] NO STITCH STRAP\n";
-											cout << "[3] SEARCH NAME OF STRAP \n";
+											cout << "[3] CASIO STRAP\n";
+											cout << "[4] DISPLAY ALL INVENTORY\n";
+											cout << "[5] SEARCH NAME OF STRAP \n";
 											cout << "[0] back\n";
 											cout << "Choose an option: ";
 											cin >> strp;
 
-											
-											switch(strp){
-												case 1:
-													s.DisplayCategory(s.withstitch_arr, "WITH STITCH STRAPS");
-													break;
-												case 2:
-													s.DisplayCategory(s.nostitch_arr, "NO STITCH STRAPS");           
-													break;                      
-												}										 
+											s.switch_view(strp);
 											
 										}while(strp != 0);
 										break;

@@ -4,41 +4,19 @@
  #include <limits>
  #include <algorithm>
  #include <cmath>
+ #include "Straps.h" 
  using namespace std;
 
 class Pos{ 
 		private:  
+        Straps s;
 			string name;
 			string mobile_num; 
             int pick;
             int straps; 
             int access;
-            Straps s;
             vector <int> store;
-			// struct straps{
-				// get picked strap fro functions same with batt
-			// }
 
-			// struct batt{
-			// }
-
-			// struct materials{
-            //     string id; 
-            //     string item;
-            //     int price;
-            //     int quantity; 
-			// };
-            
-			// struct total_used {
-            //     string name; 
-            //     int mobile_num;
-            //     materials mat; 
-			// };
-
-            // vector<total_used> total = {
-            //     {}
-            // }
-		
 		public: 
             void input() {
                 cout << "Costumers name: ";
@@ -102,7 +80,7 @@ class Pos{
                     case 1: 
                         do{
 
-                            s.DisplayCategory(s.withstitch_arr, "WITH STITCH STRAPS");
+                            s.DisplayStitched();
                             cout << "\n[0] done\npick by id: ";
 
                             cin >> access;
@@ -116,15 +94,14 @@ class Pos{
 
                         break; 
                     case 2:
-                do{
+                        do{
+                            s.DisplayNoStitched(); 
+                            cout << "\n[0] done\npick by id: ";
 
-                    s.DisplayCategory(s.nostitch_arr, "NO STITCH STRAPS"); 
-                    cout << "\n[0] done\npick by id: ";
-
-                    cin >> access;
-                    store.push_back(access);
-                            
-                }while(access != 0);
+                            cin >> access;
+                            store.push_back(access);
+                                    
+                        }while(access != 0);
                         
                         for(int i =0 ; i < store.size(); i++){
                             cout << store[i] << " ";
