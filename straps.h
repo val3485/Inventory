@@ -12,23 +12,23 @@ class Straps{
         	int size;
         	double price;
        	 
-		struct StrapItems { //struct is used as a container for related data
-			int id;
-			string categ;
-			string color;
-			string brand;
-			string leather_type;
-			int quantity;
-			string size;
-			string kid_size;
-			double price;
-			string hole;
-
-			StrapItems(int i, string ct, string c, string b, string lt, int q, string s, double p, string h) //this is called a constructor, it reads(?) the data from the array in order.
-			: id(i), categ (ct), color(c), brand(b), leather_type(lt), quantity(q), size(s), price(p), hole(h) {}
-		};
+			public:
 			
-    	public:
+			struct StrapItems { //struct is used as a container for related data
+				int id;
+				string categ;
+				string color;
+				string brand;
+				string leather_type;
+				int quantity;
+				string size;
+				string kid_size;
+				double price;
+				string hole;
+	
+				StrapItems(int i, string ct, string c, string b, string lt, int q, string s, double p, string h) //this is called a constructor, it reads(?) the data from the array in order.
+				: id(i), categ (ct), color(c), brand(b), leather_type(lt), quantity(q), size(s), price(p), hole(h) {}
+			};
         	void setColor(string c){
             	color = c;
         	}

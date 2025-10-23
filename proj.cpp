@@ -13,7 +13,7 @@ int main(){
 	int newQty, newPrice, id, dec;
 	BatteryCRUD crud(&battery);
 	Straps s; 
-	Pos myPOS; 
+	Pos myPOS(s); 
     
 	do{
     	cout << "\n\nPICK FROM THE FOLLOWING: \n";

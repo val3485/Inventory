@@ -4,20 +4,21 @@
  #include <limits>
  #include <algorithm>
  #include <cmath>
- #include "Straps.h" 
  using namespace std;
-
 class Pos{ 
 		private:  
-        Straps s;
+            Straps& s;
 			string name;
 			string mobile_num; 
             int pick;
             int straps; 
             int access;
             vector <int> store;
-
+            vector<Straps :: StrapItems>& allstraps_arr;
 		public: 
+
+            Pos(Straps& straps) : s(straps), allstraps_arr(s.allstraps_arr){}
+
             void input() {
                 cout << "Costumers name: ";
                 cin.ignore();
@@ -80,7 +81,7 @@ class Pos{
                     case 1: 
                         do{
 
-                            s.DisplayStitched();
+                            s.DisplayStitched(s.allstraps_arr, "WITH STITCH STRAPS");;
                             cout << "\n[0] done\npick by id: ";
 
                             cin >> access;
@@ -95,7 +96,7 @@ class Pos{
                         break; 
                     case 2:
                         do{
-                            s.DisplayNoStitched(); 
+                            s.DisplayNoStitched(s.allstraps_arr, "NO STITCH STRAPS"); 
                             cout << "\n[0] done\npick by id: ";
 
                             cin >> access;
