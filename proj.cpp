@@ -1,5 +1,4 @@
  #include <iostream>
- #include <iomanip>
  #include <vector>
  #include <string>
  #include "batteries.h"
@@ -8,8 +7,11 @@
  using namespace std;
 
 int main(){ 
-	int opt, mat, inv, pos, sale,edit, search,bat,strp;
+	int opt, mat, inv, pos, sale= 0,edit,bat,strp;
 	Batteries battery;
+	string brandName, newBrand;
+	int newQty, newPrice, id, dec;
+	BatteryCRUD crud(&battery);
 	Straps s; 
 	Pos myPOS; 
     
@@ -17,6 +19,7 @@ int main(){
     	cout << "\n\nPICK FROM THE FOLLOWING: \n";
     	cout << "[1] INVENTORY\n";
     	cout << "[2] POINT OF SALES (POS)\n";
+    	cout << "[3] ADD RECEIPT\n";
     	cout << "[0] End\n\n";
     	cout << "Choose an option: ";
     	cin >> opt;
@@ -55,12 +58,16 @@ int main(){
 
                                         switch(strp){
                                             case 1:
+												cout << "EDIT";
                                             	break;
-                                            case 2:
+											case 2:
+												cout << "ADD";
                                             	break;
-                                            case 3:
+											case 3:
+												cout << "DELETE";
                                             	break;
-                                            case 4:
+											case 4:
+												cout << "SEARCH";
                                             	break;
                                         }
                                     }while(strp !=0);
@@ -79,12 +86,50 @@ int main(){
 
                                         switch(bat){
                                             case 1:
+												cout << "\nInput brand name you want to edit [Renata/Maxwell]: ";
+												cin >> brandName;
+												cout << "Input Item ID: ";
+												cin >> id;
+												cout << "Input new brand: ";
+												cin >> newBrand;
+												cout << "Input new quantity: ";
+												cin.ignore(numeric_limits<streamsize>::max(), '\n');
+												cin >> newQty;
+												cout << "Input new price: ";
+												cin >> newPrice;
+
+												crud.editItems(brandName, id, newBrand, newQty, newPrice);
+
                                             	break;
                                             case 2:
+												cout << "\nInput brand name you want to edit add [Renata/Maxwell]: ";
+												cin >> brandName;
+												cout << "Input Item ID: ";
+												cin >> id;
+												cout << "Input new brand: ";
+												cin >> newBrand;
+												cout << "Input new quantity: ";
+												cin.ignore(numeric_limits<streamsize>::max(), '\n');
+												cin >> newQty;
+												cout << "Input new price: ";
+												cin >> newPrice;
+
+												crud.addItems(brandName, id, newBrand, newQty, newPrice);
+
                                             	break;
                                             case 3:
+												cout << "\nInput brand name you want to delete [Renata/Maxwell]: ";
+												cin >> brandName;
+												cout << "Input ID you want to delete: ";
+												cin >> id;
+												cout << "Are you sure you want to delete item? [1-Yes/0-No]: ";
+												cin >> dec;
+
+												crud.deleteItems(brandName, id, dec);
+												
                                             	break;
                                             case 4:
+												cout << "SEARCH";
                                             	break;
                                         }
                                     }while(bat != 0);   
@@ -173,16 +218,17 @@ int main(){
 						cout << "Choose an option: ";
 						cin >> pos;
 						
-						myPOS.POS_switch(pos, sale,search);
+						myPOS.POS_switch(pos, sale);
 					}while(pos != 0 && sale != 0);
 					break; 
+
 				case 3: 
-					cout << "";
+					myPOS.input();
 					break;
 
         	}
-       	 
 	}while (opt != 0);    
+
 
 	return 0;
 }
