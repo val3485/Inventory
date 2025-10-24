@@ -8,10 +8,10 @@
 
 int main(){ 
 	int opt, mat, inv, pos, sale=0, edit, search, bat, strp;
-	Batteries battery;
+	Batteries b;
 	string brandName, newBrand;
 	int newQty, newPrice, id, dec;
-	BatteryCRUD crud(&battery);
+	// BatteryCRUD crud(&battery);
 	Straps s; 
 	Pos myPOS(s); 
     
@@ -86,7 +86,7 @@ int main(){
 												cout << "Input new price: ";
 												cin >> newPrice;
 
-												crud.editItems(brandName, id, newBrand, newQty, newPrice);
+												// crud.editItems(brandName, id, newBrand, newQty, newPrice);
 
                                             	break;
                                             case 2:
@@ -102,7 +102,7 @@ int main(){
 												cout << "Input new price: ";
 												cin >> newPrice;
 
-												crud.addItems(brandName, id, newBrand, newQty, newPrice);
+												// crud.addItems(brandName, id, newBrand, newQty, newPrice);
 
                                             	break;
                                             case 3:
@@ -113,7 +113,7 @@ int main(){
 												cout << "Are you sure you want to delete item? [1-Yes/0-No]: ";
 												cin >> dec;
 
-												crud.deleteItems(brandName, id, dec);
+												// crud.deleteItems(brandName, id, dec);
 												
                                             	break;
                                             case 4:
@@ -140,7 +140,7 @@ int main(){
 											cout << "[1] WITH STITCH STRAP\n";
 											cout << "[2] NO STITCH STRAP\n";
 											cout << "[3] CASIO STRAP\n";
-											cout << "[4] DISPLAY ALL INVENTORY\n";
+											cout << "[4] DISPLAY ALL STRAPS\n";
 											cout << "[5] SEARCH NAME OF STRAP \n";
 											cout << "[0] back\n";
 											cout << "Choose an option: ";
@@ -156,11 +156,13 @@ int main(){
 											cout << "\nBATTERIES\n";
 											cout << "[1] MAXWELL\n";
 											cout << "[2] RENATA\n";
-											cout << "[3] SEARCH NAME OF BATTERY \n";
+											cout << "[3] DISPLAY ALL BATTERIES\n";
+											cout << "[4] SEARCH NAME OF BATTERY \n";
 											cout << "[0] back\n";
 											cout << "Choose an option: ";
 											cin >> bat;
-											// battery.switch_bat(bat); 
+											
+											b.switch_view(bat);
 
 										}while(bat != 0);
 									    break;
