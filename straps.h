@@ -12,7 +12,7 @@ class Straps{
         	int size;
         	double price;
        	 
-			public:
+		public:
 			
 			struct StrapItems { //struct is used as a container for related data
 				int id;
