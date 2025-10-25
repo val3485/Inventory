@@ -4,5 +4,6 @@ git syntax:
 3. git push origin head: make yours public
 4. git status: check what branch you're in
 5. git branch -a: to check all branch
-6. git checkout main/name: use to switch branches
-7. git pull origin " ": to get updates
+6. git branch <name>: create branch
+7. git checkout main/name: use to switch branches
+8. git pull origin " ": to get updates
