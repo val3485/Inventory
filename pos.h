@@ -13,11 +13,22 @@ class Pos{
             int pick;
             int straps; 
             int access;
-            vector <int> store;
+            int qty;
+            // vector <stored> all;
+            vector <pair<int,int>> a_id;
+            vector <Straps :: StrapItems> store;
             vector<Straps :: StrapItems>& allstraps_arr;
+            
+            // struct Stored {
+            //     int access;
+            //     int qty;
+            //     Straps::StrapItems item;
+            // };
 		public: 
 
-            Pos(Straps& straps) : s(straps), allstraps_arr(s.allstraps_arr){}
+            Pos(Straps& straps) : s(straps), allstraps_arr(straps.allstraps_arr){}
+
+
 
             void input() {
                 cout << "Costumers name: ";
@@ -68,22 +79,31 @@ class Pos{
 
                     case 2:
                         cout << "BATTERIES";
+
                         break; 
                 }
             }
 
 
-            //add here function to remove when access is 0 
 
             int POS_straps(int straps){
                 switch (straps){
                     case 1: 
                         do{
-
                             s.DisplayStitched(s.allstraps_arr, "WITH STITCH STRAPS");;
                             cout << "\n[0] done\npick by id: ";
-                            cin >> access;  
-                            access_id( access);
+                            cin >> access;
+                            
+                            if (access == 0) break;
+                            
+                                do{ 
+                                    cout << "Quantity: ";
+                                    cin >> qty;
+                                    if (qty == 0 ){
+                                        cout << "invalid :<\n";
+                                    }
+                                }while(qty == 0);
+                            access_id(access, qty);
                         }while(access != 0);
                         break; 
 
@@ -92,8 +112,17 @@ class Pos{
                             s.DisplayNoStitched(s.allstraps_arr, "NO STITCH STRAPS"); 
                             cout << "\n[0] done\npick by id: ";
                             cin >> access;
-                            access_id(access);
+                             if (access == 0) break;
                             
+                                do{ 
+                                   
+                                    cout << "Quantity: ";
+                                    cin >> qty;
+                                    if (qty == 0 ){
+                                        cout << "invalid :<\n";
+                                    }
+                                }while(qty == 0);
+                            access_id(access, qty);
                         }while(access != 0);
      
                         break;
@@ -103,27 +132,86 @@ class Pos{
                             s.DisplayCasioKids(allstraps_arr, "CASIO STRAPS KIDS SIZE W/ COVER");
                             cout << "\n[0] done\npick by id: ";
                             cin >> access;
-                             access_id(access);
-                        }while(access !=0);
+                           
+                             if (access == 0) break;
+                            
+                                do{ 
+                                   
+                                    cout << "Quantity: ";
+                                    cin >> qty;
+                                    if (qty == 0 ){
+                                        cout << "invalid :<\n";
+                                    }
+                                }while(qty == 0);
+                            access_id(access, qty);
+                        }while(access != 0);
+                        break; 
                     case 4: 
                          do{
                             s.DisplayCasio(allstraps_arr, "CASIO STRAPS ADULT SIZE"); 
                             cout << "\n[0] done\npick by id: ";
+
                             cin >> access;
-                             access_id(access);
-                        }while(access !=0);
+                             if (access == 0) break;
+                            
+                                do{ 
+                                   
+                                    cout << "Quantity: ";
+                                    cin >> qty;
+                                    if (qty == 0 ){
+                                        cout << "invalid :<\n";
+                                    }
+                                }while(qty == 0);
+                            access_id(access, qty);
+
+                        }while(access !=0 );
+
+                        break; 
+
+
                 }
+                
                 return 0;
             }
 
-            void access_id(int access){
-                store.push_back(access);
-                for(size_t i =0 ; i < store.size(); i++){
-                    if(access == 0){
-                        cout << store[i] << " ";
-                    }
+
+            void access_id(int access,int& qty){
+                a_id.emplace_back(access, qty);
+
+                store.emplace_back(s.allstraps_arr[access - 1]);    
+                
+                if(access == 0){
+                    a_id.erase(
+                        remove_if(a_id.begin(), a_id.end(), 
+                                    [](pair<int,int>& p ){
+                                        return p.first == 0;
+                                    }), a_id.end()
+                    );
                 }
+
+                store[access - 1].quantity -=  qty;
+                allstraps_arr[access -1].quantity -= qty;
+                
+
+                cout << right << setw(10) << " ";
+			    cout << left << setw(5) << "ID"
+				<< setw(20) << "Color"
+				<< setw(15) << "Brand"
+				<< setw(15) << "Leather Type"
+				<< setw(10) << "Qty"
+				<< setw(10) << "Size"
+				<< setw(10) << "Price" << "\n";
+
+                cout << right << setw(10) << " ";
+                cout << left << setw(5) << store[access - 1].id
+                    << setw(20) << store[access - 1].color
+                    << setw(15) << store[access - 1].brand
+                    << setw(15) << store[access - 1].leather_type
+                    << setw(10) << store[access - 1].quantity
+                    << setw(10) << store[access - 1].size
+                    << setw(10) << store[access - 1].price << "\n";
             }
+                
 
 
 			int POS_switch(int pos, int sale){

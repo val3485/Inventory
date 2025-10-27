@@ -7,9 +7,9 @@
  using namespace std;
 
 int main(){ 
-	int opt, mat, inv, pos, sale=0, edit, search, bat, strp;
+	int opt, mat, inv, pos, sale=0, edit, search	, bat, strp;
 	Batteries b;
-	string brandName, newBrand;
+	string brandName, newBrand; 
 	int newQty, newPrice, id, dec;
 	BatteryCRUD crud(b);
 	Straps s; 
@@ -102,7 +102,7 @@ int main(){
 												cout << "Input new price: ";
 												cin >> newPrice;
 
-												crud.addItems(brandName, id, newBrand, newQty, newPrice);
+												// crud.addItems(brandName, id, newBrand, newQty, newPrice);
 
                                             	break;
                                             case 3:

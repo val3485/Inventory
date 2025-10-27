@@ -139,30 +139,30 @@ class Batteries{
 			}
 
 			//ADD
-			void addItems(string categ, int id, string brand, int quantity, int price) { 
-				vector<Batteries::BattItems>& allbatt_arr;
+			// void addItems(string categ, int id, string brand, int quantity, int price) { 
+			// 	vector<Batteries::BattItems>& allbatt_arr;
 				
-				Batteries::BattItems newBatt(id, categ, brand, quantity, price);
+			// 	Batteries::BattItems newBatt(id, categ, brand, quantity, price);
 
-				transform(categ.begin(), categ.end(), categ.begin(), 
-					[](unsigned char c){return tolower(c);}
-				);
+			// 	transform(categ.begin(), categ.end(), categ.begin(), 
+			// 		[](unsigned char c){return tolower(c);}
+			// 	);
 
-				if(categ == "renata" || categ == "maxwell"){
-					batt.allbatt_arr.push_back(newBatt);
+			// 	if(categ == "renata" || categ == "maxwell"){
+			// 		batt.allbatt_arr.push_back(newBatt);
 
-					cout << newBatt.brand << " " << newBatt.id;
-					batt.DisplayMaxwell(allbatt_arr, "MAXWELL BATTERY");
-					batt.DisplayRenata(allbatt_arr, "RENATA BATTERY");
-					return;
-				}	
-				else{
-					cout << "Brand Name not found :(\n";
-					return;
-				}
+			// 		cout << newBatt.brand << " " << newBatt.id;
+			// 		batt.DisplayMaxwell(allbatt_arr, "MAXWELL BATTERY");
+			// 		batt.DisplayRenata(allbatt_arr, "RENATA BATTERY");
+			// 		return;
+			// 	}	
+			// 	else{
+			// 		cout << "Brand Name not found :(\n";
+			// 		return;
+			// 	}
 
-				cout << "Battery successfully added to " << categ << " list.\n";
-			}
+			// 	cout << "Battery successfully added to " << categ << " list.\n";
+			// }
 
 			//DELETE
 			void deleteItems(int id, int dec) {
