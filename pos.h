@@ -58,8 +58,8 @@ class Pos{
                 switch(pick){
                     case 1: 
                          do{
-                            cout << "\nSTRAPS";
-                            cout << "\n[1] WITH STITCH STRAPS\n[2] NO STITCH STRAPS\n[0]back\n";
+                            cout << "\n\nSTRAPS";
+                            cout << "\n[1] WITH STITCH STRAPS\n[2] NO STITCH STRAPS\n[3] CASIO STRAPS KIDS SIZE W/ COVER\n[4] CASIO STRAPS ADULT SIZE\n[0]back\n";
                             cout << "items: ";
                             cin >> straps;  
                             POS_straps(straps);
@@ -70,10 +70,9 @@ class Pos{
                         cout << "BATTERIES";
                         break; 
                 }
-                // return 0;
             }
 
-            //function to store picked data :> 
+
             //add here function to remove when access is 0 
 
             int POS_straps(int straps){
@@ -83,35 +82,49 @@ class Pos{
 
                             s.DisplayStitched(s.allstraps_arr, "WITH STITCH STRAPS");;
                             cout << "\n[0] done\npick by id: ";
-
-                            cin >> access;
-                            store.push_back(access);
-                                
+                            cin >> access;  
+                            access_id( access);
                         }while(access != 0);
-                        
-                        for(int i =0 ; i < store.size(); i++){
-                            cout << store[i] << " ";
-                        }
-
                         break; 
+
                     case 2:
                         do{
                             s.DisplayNoStitched(s.allstraps_arr, "NO STITCH STRAPS"); 
                             cout << "\n[0] done\npick by id: ";
-
                             cin >> access;
-                            store.push_back(access);
-                                    
+                            access_id(access);
+                            
                         }while(access != 0);
-                        
-                        for(int i =0 ; i < store.size(); i++){
-                            cout << store[i] << " ";
-                        }
-                        
+     
                         break;
+
+                    case 3: 
+                        do{
+                            s.DisplayCasioKids(allstraps_arr, "CASIO STRAPS KIDS SIZE W/ COVER");
+                            cout << "\n[0] done\npick by id: ";
+                            cin >> access;
+                             access_id(access);
+                        }while(access !=0);
+                    case 4: 
+                         do{
+                            s.DisplayCasio(allstraps_arr, "CASIO STRAPS ADULT SIZE"); 
+                            cout << "\n[0] done\npick by id: ";
+                            cin >> access;
+                             access_id(access);
+                        }while(access !=0);
                 }
                 return 0;
             }
+
+            void access_id(int access){
+                store.push_back(access);
+                for(size_t i =0 ; i < store.size(); i++){
+                    if(access == 0){
+                        cout << store[i] << " ";
+                    }
+                }
+            }
+
 
 			int POS_switch(int pos, int sale){
 				switch (pos){
