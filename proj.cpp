@@ -11,7 +11,7 @@ int main(){
 	Batteries b;
 	string brandName, newBrand;
 	int newQty, newPrice, id, dec;
-	// BatteryCRUD crud(&battery);
+	BatteryCRUD crud(b);
 	Straps s; 
 	Pos myPOS(s); 
     
@@ -86,11 +86,11 @@ int main(){
 												cout << "Input new price: ";
 												cin >> newPrice;
 
-												// crud.editItems(brandName, id, newBrand, newQty, newPrice);
+												crud.editItems(brandName, id, newBrand, newQty, newPrice);
 
                                             	break;
                                             case 2:
-												cout << "\nInput brand name you want to edit add [Renata/Maxwell]: ";
+												cout << "\nInput brand name you want to add [Renata/Maxwell]: ";
 												cin >> brandName;
 												cout << "Input Item ID: ";
 												cin >> id;
@@ -102,18 +102,16 @@ int main(){
 												cout << "Input new price: ";
 												cin >> newPrice;
 
-												// crud.addItems(brandName, id, newBrand, newQty, newPrice);
+												crud.addItems(brandName, id, newBrand, newQty, newPrice);
 
                                             	break;
                                             case 3:
-												cout << "\nInput brand name you want to delete [Renata/Maxwell]: ";
-												cin >> brandName;
 												cout << "Input ID you want to delete: ";
 												cin >> id;
 												cout << "Are you sure you want to delete item? [1-Yes/0-No]: ";
 												cin >> dec;
 
-												// crud.deleteItems(brandName, id, dec);
+												crud.deleteItems(id, dec);
 												
                                             	break;
                                             case 4:

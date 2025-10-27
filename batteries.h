@@ -3,6 +3,8 @@
 #include <vector>
 #include <string>
 #include <limits>
+#include <algorithm>
+#include <cctype>
 
  using namespace std;
 
@@ -26,7 +28,7 @@ class Batteries{
 				int price;
 
 				BattItems(int i, string ct, string b, int q, double p) //this is called a constructor, it reads(?) the data from the array in order.
-				: id(i), categ (ct), brand(b), quantity(q), price(p) {}
+				: id(i), categ(ct), brand(b), quantity(q), price(p) {}
 			};
 			
 			vector<BattItems> allbatt_arr = {
@@ -96,95 +98,94 @@ class Batteries{
 			}	
 		};
 
-		struct BatteryCRUD {
+		class BatteryCRUD {
 			private:
-				Batteries *batteryData;
-
+				Batteries& batt;
+				// int geh;
+				vector<Batteries::BattItems>& allbatt_arr;
+				// vector<Batteries::BattItems>& heuy;
+					
 			public:
-				BatteryCRUD(Batteries *data) {
-					batteryData = data;
+
+				BatteryCRUD(Batteries& batts) : batt(batts), allbatt_arr(batts.allbatt_arr){}
+
+				//EDIT
+			void editItems(string categ, int id, string newCateg, int newQty, int newPrice ) {
+				
+				transform(categ.begin(), categ.end(), categ.begin(), 
+					[](unsigned char c)
+					{
+						return tolower(c);
+					}
+				);
+
+				if(!categ.empty()){
+					categ[0] = toupper(categ[0]);
 				}
 
-			BatteryCRUD() {
-				batteryData = nullptr;
+				batt.allbatt_arr = allbatt_arr;
+				//play with this
+				for(auto &b : allbatt_arr) {
+					if(b.id == id) {
+						b.categ = newCateg;
+						b.quantity = newQty;
+						b.price = newPrice;
+						cout << "Item updated successfully!\n";
+						return;
+					}
+				}
+
+				cout << "Battery with ID " << id << " not found.\n";
 			}
 
+			//ADD
+			void addItems(string categ, int id, string brand, int quantity, int price) { 
+				vector<Batteries::BattItems>& allbatt_arr;
+				
+				Batteries::BattItems newBatt(id, categ, brand, quantity, price);
 
-	
-			// 	//EDIT
-			// void editItems(string brandName, int id, string newBrand, int newQty, int newPrice) {
-			// 	vector<Batteries::batt>*arr = nullptr;
+				transform(categ.begin(), categ.end(), categ.begin(), 
+					[](unsigned char c){return tolower(c);}
+				);
 
-			// 	if(brandName == "Renata")
-			// 		arr = &batteryData->allbatt_arr;
+				if(categ == "renata" || categ == "maxwell"){
+					batt.allbatt_arr.push_back(newBatt);
 
-			// 	else if(brandName == "Maxwell")
-			// 		arr = &batteryData->allbatt_arr;
+					cout << newBatt.brand << " " << newBatt.id;
+					batt.DisplayMaxwell(allbatt_arr, "MAXWELL BATTERY");
+					batt.DisplayRenata(allbatt_arr, "RENATA BATTERY");
+					return;
+				}	
+				else{
+					cout << "Brand Name not found :(\n";
+					return;
+				}
 
-			// 	else {
-			// 		cout << "Brand Name not found :(\n";
-			// 		return;
-			// 	}
+				cout << "Battery successfully added to " << categ << " list.\n";
+			}
 
-			// 	for(auto &b : *arr) {
-			// 		if(b.id == id) {
-			// 			b.brand = newBrand;
-			// 			b.quantity = newQty;
-			// 			b.price = newPrice;
-			// 			cout << "Item updated successfully!\n";
-			// 			return;
-			// 		}
-			// 	}
-
-			// 	cout << "Battery with ID " << id << " not found.\n";
-			// }
-
-			// //ADD
-			// void addItems(string brandName, int id, string brand, int quantity, int price) {
-			// 	Batteries::batt newBatt = {id, brand, quantity, price};
-
-			// 	if(brandName == "Renata")
-			// 		batteryData->allbatt_arr.push_back(newBatt);
-
-			// 	else if(brandName == "Maxwell")
-			// 		batteryData->allbatt_arr.push_back(newBatt);
-			// 	else {
-			// 		cout << "Brand Name not found :(\n";
-			// 		return;
-			// 	}
-
-			// 	cout << "Battery successfully added to " << brandName << " list.\n";
-			// }
-
-			// //DELETE
-			// void deleteItems(string brandName, int id, int dec) {
-			// 	vector<Batteries::batt> *arr = nullptr;
-
-			// 	if(brandName == "Renata")
-			// 		arr = &batteryData->allbatt_arr;
-
-			// 	else if(brandName == "Maxwell")
-			// 		arr = &batteryData->allbatt_arr;
-
-			// 	else {
-			// 		cout << "Brand Name not found :(\n";
-			// 		return;
-			// 	}
-
-			// 	if(dec == 1 ){
-			// 		for(auto it = arr->begin(); it != arr->end(); it++) {
-			// 			if(it->id == id) {
-			// 				arr->erase(it);
-			// 				cout << "Item deleted successfully.\n";
-			// 				return;
-			// 			}
-			// 		}
-			// 	}	
-
-			// 	else{
-			// 		cout << "Item not deleted.";
-			// 		return;
-			// 	}
-			// 	cout << "Item with ID " << id << " not found.\n";
-			// }
+			//DELETE
+			void deleteItems(int id, int dec) {
+				// batt.allbatt_arr
+				// allbatt_arr* hi = &heuy;
+				// batt.BattItems(int i) 
+				// : id(i){}
+				if(dec == 1 ){
+					// for(auto it = allbatt_arr.begin(); it != allbatt_arr.end(); it++) {
+						// if(it->id == id) {
+							allbatt_arr.erase(allbatt_arr.begin() );
+							cout << "Item deleted successfully.\n";
+							cout << id;
+							batt.DisplayMaxwell(allbatt_arr, "MAXWELL BATTERY");
+							batt.DisplayRenata(allbatt_arr, "RENATA BATTERY"); 
+							return;
+						// }
+					// }
+				}	
+				else{
+					cout << "Item not deleted.";
+					return;
+				}
+				cout << "Item with ID " << id << " not found.\n";
+			}
 		};
