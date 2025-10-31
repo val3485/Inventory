@@ -1,6 +1,6 @@
  #include <iostream>
  #include <vector>
- #include <string>
+ #include <string>	
  #include "batteries.h"
  #include "straps.h"
  #include "pos.h"
@@ -13,7 +13,7 @@ int main(){
 	int newQty, newPrice, id, dec;
 	BatteryCRUD crud(b);
 	Straps s; 
-	Pos myPOS(s); 
+	Pos myPOS(s,b); 
     
 	do{
     	cout << "\n\nPICK FROM THE FOLLOWING: \n";
