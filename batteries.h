@@ -5,6 +5,8 @@
 #include <limits>
 #include <algorithm>
 #include <cctype>
+#include <sstream>
+#include <climits>
 
 using namespace std;
 
@@ -117,7 +119,7 @@ class BatteryCRUD
 private:
 	Batteries &batt;
 	vector<Batteries::BattItems> &allbatt_arr;
-	// static int nextID;
+	static int nextID;
 
 public:
 	BatteryCRUD(Batteries &batts) : batt(batts), allbatt_arr(batts.allbatt_arr) {}
@@ -128,18 +130,17 @@ public:
 		batt.DisplayMaxwell(allbatt_arr, "MAXWELL BATTERY");
 		batt.DisplayRenata(allbatt_arr, "RENATA BATTERY");
 	}
+    
 	// EDIT
 	void editItems(int id, string newCateg, string newBrand, int newQty, int newPrice)
 	{
-
+        //lowercase the newCateg    
 		transform(newCateg.begin(), newCateg.end(), newCateg.begin(),
 				  [](unsigned char c)
 				  {
 					  return tolower(c);
 				  });
-
-		cout << newBrand;
-
+        //capitalized th first letter of newBrand
 		transform(newBrand.begin(), newBrand.end(), newBrand.begin(),
 				  [](unsigned char br)
 				  {
@@ -151,10 +152,7 @@ public:
 			newBrand[0] = toupper(newBrand[0]);
 		}
 
-		batt.allbatt_arr = allbatt_arr;
-		cout << newCateg << " " << newBrand;
-		// play with this
-		for (auto &b : allbatt_arr)
+		for (auto &b : allbatt_arr) //input one by one
 		{
 			if (b.id == id)
 			{
@@ -162,41 +160,66 @@ public:
 				b.brand = newBrand;
 				b.quantity = newQty;
 				b.price = newPrice;
-				cout << "Item updated successfully!\n";
+				cout << "\nItem updated successfully!\n";
 				return;
 			}
 		}
 
-		cout << "Battery with ID " << id << " not found.\n";
+		cout << "\nBattery with ID " << id << " not found.\n";
 	}
 
 	// ADD
-	void addItems(string categ, int id, string itemName, int quantity, int price)
+	void addItems(string categ, string itemName, int quantity, int price)
 	{
-		batt.allbatt_arr;
-		// id = nextID++;
-
-		Batteries::BattItems newBatt(id, categ, itemName, quantity, price);
-
+        //make categ all lowercase    
 		transform(categ.begin(), categ.end(), categ.begin(),
 				  [](unsigned char c)
 				  { return tolower(c); });
+        
+        //make itemName's first letter capital
+        transform(itemName.begin(), itemName.end(), itemName.begin(),
+				  [](unsigned char na)
+				  {
+					  return tolower(na);
+				  });
 
-		if (categ == "renata" || categ == "maxwell")
-		{
+	    	if (!itemName.empty())
+		    {
+		    	itemName[0] = toupper(itemName[0]);
+		    }          
+        
+        //sorting of items (by ascending ID)
+        sort(allbatt_arr.begin(), allbatt_arr.end(), [](auto &a, auto &b)
+        {
+            return a.id < b.id;
+        });
+        
+        //finding smallest unused ID
+        int newID = 1; 
+        for (const auto &b : allbatt_arr)
+        {
+            if(b.id == newID)
+                newID++;
+            else
+                break;    
+        }
+        
+        nextID = newID;
+        
+       Batteries::BattItems newBatt(nextID, categ, itemName, quantity, price);
+       
+	   if (categ == "renata" || categ == "maxwell")
+	   {
 			batt.allbatt_arr.push_back(newBatt);
-
-			cout << newBatt.brand << " " << newBatt.id;
-			batt.DisplayMaxwell(allbatt_arr, "MAXWELL BATTERY");
-			batt.DisplayRenata(allbatt_arr, "RENATA BATTERY");
-			cout << "Battery successfully added to " << categ << " list.\n";
+			displayItems();
+			cout << "\nBattery successfully added to " << categ << " list.\n";
 			return;
-		}
-		else
-		{
-			cout << "Brand Name not found :(\n";
+	   }
+	   else
+	   {
+			cout << "\nBrand Name not found :(\n";
 			return;
-		}
+	   }
 	}
 
 	// DELETE
@@ -204,21 +227,25 @@ public:
 	{
 		if (dec == 1)
 		{
-			batt.DisplayMaxwell(allbatt_arr, "MAXWELL BATTERY");
-			batt.DisplayRenata(allbatt_arr, "RENATA BATTERY");
-			allbatt_arr.erase(allbatt_arr.begin());
-			cout << "Item deleted successfully.\n";
-			cout << id;
-			batt.DisplayMaxwell(allbatt_arr, "MAXWELL BATTERY");
-			batt.DisplayRenata(allbatt_arr, "RENATA BATTERY");
+            bool found = false;
+            //finding the id in allbatt_arr that matches the inputed id (for deletion)
+            for(auto it = batt.allbatt_arr.begin(); it!= batt.allbatt_arr.end(); it++)
+            {
+                if(it->id == id)
+                {
+                    batt.allbatt_arr.erase(it);
+                    found = true;
+                    cout << "\nItem deleted successfully.\n";
+                    break;
+                }
+			}
+            
+            if(!found)
+                cout << "\nItem with ID  " << id << " not found :(\n";
+		    displayItems();
 			return;
 		}
-		else
-		{
-			cout << "Item not deleted.";
-			return;
-		}
-		cout << "Item with ID " << id << " not found.\n";
+		
 	}
 
 	// LEVEINSHTEIN DISTANCE (para sa search)
@@ -246,7 +273,7 @@ public:
 	// forda correct brand name
 	string correctItemName(string input)
 	{
-		vector<string> validBrands = {"Renata", "renata", "maxwell", "Maxwell"};
+		vector<string> validBrands = { "renata", "maxwell"};
 
 		// transform the input to lowercase
 		transform(input.begin(), input.end(), input.begin(),
@@ -261,7 +288,7 @@ public:
 			input[0] = toupper(input[0]);
 		}
 
-		return input;
+		//return input;
 
 		// store varibles
 		string bestMatch = input;
@@ -300,16 +327,16 @@ public:
 		for (const auto &batt : allbatt_arr)
 		{
 			string battNameLower = batt.brand; // brand includes the full name, e.g., "Renata 567"
-			string inputLower = correctBrand;
-
+            transform(number.begin(), number.end(), number.begin(), ::tolower);
 			transform(battNameLower.begin(), battNameLower.end(), battNameLower.begin(), ::tolower);
-			transform(inputLower.begin(), inputLower.end(), inputLower.begin(), ::tolower);
 
-			if (battNameLower.find(inputLower) != string::npos) // partial match
-			{
-				cout << batt.brand << endl;
-				found = true;
-			}
+			// match if brand or brand+number found
+            if ((!number.empty() && battNameLower.find(correctBrand + " " + number) != string::npos) ||
+                (number.empty() && battNameLower.find(correctBrand) != string::npos))
+            {
+                cout << batt.brand << endl;
+                found = true;
+            }
 		}
 
 		if (!found)

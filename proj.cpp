@@ -1,10 +1,13 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <limits>
 #include "batteries.h"
 #include "straps.h"
 #include "pos.h"
 using namespace std;
+
+int BatteryCRUD::nextID = 1;
 
 int main()
 {
@@ -101,21 +104,21 @@ int main()
 								break;
 							case 2:
 								cout << "\nInput brand name you want to add [Renata/Maxwell]: ";
-								cin >> brandName;
-								cout << "Input Item ID: ";
-								cin >> id;
+								cin >> brandName
 								cout << "Input new item name: ";
+								cin.ignore(numeric_limits<streamsize>::max(), '\n');
 								cin >> newItem;
 								cout << "Input new quantity: ";
-								cin.ignore(numeric_limits<streamsize>::max(), '\n');
 								cin >> newQty;
 								cout << "Input new price: ";
 								cin >> newPrice;
 
-								crud.addItems(brandName, id, newItem, newQty, newPrice);
+								crud.addItems(brandName, newItem, newQty, newPrice);
 
 								break;
 							case 3:
+								crud.displayItems();
+
 								cout << "Input ID you want to delete: ";
 								cin >> id;
 								cout << "Are you sure you want to delete item? [1-Yes/0-No]: ";
