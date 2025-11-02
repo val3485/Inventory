@@ -44,7 +44,7 @@ int main(){
 								cout << "Choose an option: ";
 								cin >> edit;
 							
-								switch (edit){
+								switch(edit){
 									case 1: 
                                     do{
 										cout << "\nSTRAPS\n";
@@ -86,9 +86,11 @@ int main(){
 												cout << "Input new price: ";
 												cin >> newPrice;
 
+												// crud.editItems(brandName, id, newBrand, newQty, newPrice);
 												crud.editItems(brandName, id, newBrand, newQty, newPrice);
 
                                             	break;
+
                                             case 2:
 												cout << "\nInput brand name you want to add [Renata/Maxwell]: ";
 												cin >> brandName;
@@ -103,17 +105,19 @@ int main(){
 												cin >> newPrice;
 
 												// crud.addItems(brandName, id, newBrand, newQty, newPrice);
-
                                             	break;
+
                                             case 3:
 												cout << "Input ID you want to delete: ";
 												cin >> id;
 												cout << "Are you sure you want to delete item? [1-Yes/0-No]: ";
 												cin >> dec;
 
+												// crud.deleteItems(brandName, id, dec);
 												crud.deleteItems(id, dec);
 												
                                             	break;
+
                                             case 4:
 												cout << "SEARCH";
                                             	break;
@@ -121,8 +125,7 @@ int main(){
                                     }while(bat != 0);   
                                         break;
 								}
-								break;
-
+								
 							case 2:
 								cout << "\nVIEW LIST OF MATERIALS: \n";
 								cout << "[1] STRAPS\n";
@@ -135,12 +138,13 @@ int main(){
 									case 1: 
 										do{
 											cout << "\nSTRAPS\n";
-											cout << "[1] WITH STITCH STRAP\n";
+											cout << "[1] STITCHED STRAP\n";
 											cout << "[2] NO STITCH STRAP\n";
 											cout << "[3] CASIO STRAP\n";
 											cout << "[4] DISPLAY ALL STRAPS\n";
 											cout << "[5] SEARCH NAME OF STRAP \n";
 											cout << "[0] back\n";
+											
 											cout << "Choose an option: ";
 											cin >> strp;
 
@@ -152,7 +156,7 @@ int main(){
 									case 2: 
 										do{
 											cout << "\nBATTERIES\n";
-											cout << "[1] MAXWELL\n";
+											cout << "[1] MAXELL\n";
 											cout << "[2] RENATA\n";
 											cout << "[3] DISPLAY ALL BATTERIES\n";
 											cout << "[4] SEARCH NAME OF BATTERY \n";
@@ -164,31 +168,27 @@ int main(){
 
 										}while(bat != 0);
 									    break;
+									
+									case 0:
+										// So it will not fall under default.
+										break; 
+
+									default:
+										cout<<"Invalid option :<\n";
+										break;
                                 }
 								break;
-								do {
-									cout << "\nVIEW LIST OF MATERIALS: \n";
-									cout << "[1] STRAPS\n";
-									cout << "[2] BATTERIES\n";
-									cout << "[0] back\n\n";
-									cout << "Choose an option: ";
-									cin >> mat;
+							
+							case 0:
+								// So it will not fall under default.
+								break; 	
 								
-									switch (mat){
-										case 1: 
-											cout << " STRAPS\n";
-											break;
-										case 2: 
-											cout << "BATTERIES\n";
-											break;
-									}
-								}while (mat != 0);
-							break;
+							default:
+								cout<<"Invalid option :<\n";
+								break;
 						}
-
 					}while(inv != 0 && mat != 0 && edit != 0);
-
-            	break;
+            		break;
            	 
             	case 2:
 					do{
@@ -208,8 +208,12 @@ int main(){
 					myPOS.input();
 					break;
 
+				default:
+					cout<<"Invalid option :<\n";
+					break;
         	}
-	}while (opt != 0);    
+	}while (opt != 0);   
+
 
 
 	return 0;
