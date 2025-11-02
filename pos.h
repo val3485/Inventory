@@ -107,7 +107,6 @@ class Pos{
             dates input_date;
             map<pair<int,int>, vector<costumer>> week;
             set<int> uni_days;
-            set<int> uni_month;
             vector <costumer> costumers;
             vector <costumer> all_costumers;
             vector <pair<int,int>> a_id;
@@ -188,17 +187,19 @@ class Pos{
                 }while(mobile_checker() == 1);
 
                 do{
-                    cout << "\nDATE\n[1] today\n[2] Different day\n[0] done\nPick: ";
+                    cout << "\nDATE\n[1] today\n[2] Different day\nPick: ";
                     cin>> d; 
                     add_date(d);
                 }while(stop != 0);
 
                 do{
-                    cout << "\n\nPick Items\n[1] Straps\n[2] Battery\n[0] Done"; 
+                    cout << "\n\nPick Items\n[1] Straps\n[2] Battery\n[0] done"; 
                     cout << "\nPick: "; 
                     cin>> pick;
+
                     POS_pick(pick);
-                }while(pick != 0);
+                    
+                }while(store_checker(costumers) != 0);
 
                 do{
                     cout << "\nInput Costumers Money: "; 
@@ -214,7 +215,17 @@ class Pos{
                 change();
                 all_costumers.push_back(c);
             }
-      
+            //cant detect
+            // int store_checker(vector<costumer>& c1){
+            //     for(const auto& c :  c1){
+            //         if(c.store.empty()  || c.store_b.empty() ){
+            //             cout << "empty";
+            //             return 1; 
+            //         }
+            //     }
+            //     cout << "not empty";
+            //     return 0; 
+            // }
 
             int total_price(){
                 int total_s = 0;
@@ -272,7 +283,7 @@ class Pos{
                 cout << "\nBATTERIES\n";
                 
                 if(c.store_b.empty()){
-                    cout << "No items selected"; 
+                    cout << "No items selected\n"; 
                 }else {
                     cout << left 
                     << setw(15) << "Brand"
@@ -284,10 +295,8 @@ class Pos{
                         << setw(10) << b.price << "\n";
                     }
                 }
-                cout << "Total: " << c.total ; 
-                cout << "Change: " << c.change; 
-                cout << "Money: " << c.cash; 
-                cout << "\n------------------------------------------------------------------------------";
+                cout << "------------------------------------------------------------------------------";
+                cout << "\nMoney: " << c.cash; 
 
             }
 
@@ -398,7 +407,7 @@ class Pos{
                         break; 
                     case 4: 
                         do{
-                            s.DisplayCasio(allstraps_arr, "CASIO STRAPS ADULT SIZE"); 
+                            s.DisplayCasioAdult(allstraps_arr, "CASIO STRAPS ADULT SIZE"); 
                            do{
                                id_checker();
                             }while(access > s.allstraps_arr.back().id);
@@ -429,7 +438,7 @@ class Pos{
             }
 
 
-            void access_id(int access,int& qty){
+            void access_id(int access,int& qty ){
                 a_id.emplace_back(access, qty);
             
 
@@ -484,7 +493,7 @@ class Pos{
                 switch(bats){
                     case 1: 
                         do{
-                            b.DisplayMaxwell(allbatt_arr, "MAXWELL BATTERY");
+                            b.DisplayMaxell(allbatt_arr, "MAXWELL BATTERY");
                             do{
                                id_checker();
                             }while(access > s.allstraps_arr.back().id);
@@ -599,7 +608,7 @@ class Pos{
                     case 2:
                         do {
                             cout << "\n\nBATTERIES";
-                            cout << "\n[1] MAXWELL BATTERY\n[2] RENATA BATTERY\n[0] back\n";
+                            cout << "\n[1] MAXELL BATTERY\n[2] RENATA BATTERY\n[0] back\n";
                             cout << "items: ";
                             cin >>  bats; 
                             POS_bats(bats);
@@ -622,7 +631,7 @@ class Pos{
 							cout << "\nView by\n" << "[1] Day\n[2] Week\n[0] back\n" <<"Enter Option: ";
 							insert_days(costumer_list, all_costumers);
                             cin >> sale;
-							POS_sales(sale, costumer_list, all_costumers, uni_days, uni_month, week);
+							POS_sales(sale, costumer_list, all_costumers, uni_days, week);
 						}while(sale != 0);
 		
 						break; 
@@ -743,33 +752,9 @@ class Pos{
                 return 4;           
             }
 
-            int POS_sales (  int& sale ,vector <costumer> costum, vector <costumer> costum2, set<int>uni, set<int>unim,   map <pair<int,int>,vector<costumer>> week){
+            int POS_sales (  int& sale ,vector <costumer> costum, vector <costumer> costum2, set<int>uni,  map <pair<int,int>,vector<costumer>> week){
 					switch(sale) {
 						case 1:
-							cout << "\nORDER BY DAY\n";
-                            
-                            for (int u : uni){
-                                cout << "\n\033[91mDATE " << u <<"\033[0m";  
-                                for (const auto& c : costum){
-                                    for(const auto& d : c.date){
-                                        if(d.day == u ){
-                                            c.display();
-                                        }
-                                    }
-                                } 
-                                for (const auto& c : costum2){
-                                    for(const auto& d : c.date){
-                                        if(d.day == u ){
-                                            c.display();
-                                        }
-                                    }
-                                } 
-                            }
-
-							break;
-
-						case 2:
-							cout << "\nOrder by Week: \n";
                             for(const auto& c : costum){
                                 for(const auto& d : c.date){
                                     int week_num = getWeek( d.day);
@@ -784,6 +769,44 @@ class Pos{
                                 }
                             }
 
+							cout << "\nORDER BY DAY\n";
+
+                            for (const auto& [key, c_week] : week) {
+                                int month_count = key.first; 
+                                cout << "\n\033[91mMONTH : " << month_count;
+                                
+                                for (int u : uni){
+                                    bool  mark_costumer = false; 
+                                    for (const auto& c : costum){
+
+                                        for(const auto& d : c.date){
+                                            if(d.day == u && d.month == month_count){
+                                                if(!mark_costumer){
+                                                    cout << "\n\033[91mDATE " << u <<"\033[0m";  
+                                                    mark_costumer = true;
+                                                }
+                                                c.display();
+                                            }
+                                        }
+                                    } 
+
+                                    for (const auto& c : costum2){
+                                        for(const auto& d : c.date){
+                                            if(d.day == u && d.month == month_count){
+                                                if(!mark_costumer){
+                                                    cout << "\n\033[91mDATE " << u <<"\033[0m";  
+                                                    mark_costumer = true;
+                                                }
+                                                c.display();
+                                            }
+                                        }
+                                    } 
+                                }
+                            }
+							break;
+
+						case 2:
+							cout << "\nOrder by Week: \n";
                             for (const auto& [key, c_week] : week) {
                                 int month_count = key.first; 
                                 int week_count = key.second; 

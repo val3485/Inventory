@@ -231,7 +231,7 @@ class Batteries{
 							allbatt_arr.erase(allbatt_arr.begin() );
 							cout << "Item deleted successfully.\n";
 							cout << id;
-							batt.DisplayMaxwell(allbatt_arr, "MAXWELL BATTERY");
+							batt.DisplayMaxell(allbatt_arr, "MAXWELL BATTERY");
 							batt.DisplayRenata(allbatt_arr, "RENATA BATTERY"); 
 							return;
 						// }
