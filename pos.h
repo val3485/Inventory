@@ -117,7 +117,6 @@ class Pos{
             costumer c; 
 
         public: 
-            //heuy
             Pos(Straps& straps , Batteries& bats) : s(straps),b(bats), allstraps_arr(straps.allstraps_arr), allbatt_arr(bats.allbatt_arr){}
 
             vector<costumer> costumer_list = {
