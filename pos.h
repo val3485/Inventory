@@ -69,7 +69,8 @@ private:
 
 public:
     Pos(Straps &straps, Batteries &bats) : s(straps), b(bats), allstraps_arr(straps.allstraps_arr), allbatt_arr(bats.allbatt_arr) {}
-
+    
+    //dummy data 
     vector<costumer> costumer_list = {
         {"Clare Lubiano", "0962 585 8585", 10000, 7300, 2700, {{2025, 11, 01}}, {
             {3, "stitched", "black w/ white", "Null", "Buffalo Calf", 1, "16-19", 850, ""},
@@ -103,7 +104,8 @@ public:
              {3, "renata", "Renata 600", 1, 500},
              {4, "renata", "Renata 700", 1, 500},
          }}};
-
+    
+    //main input for recipts
     void input()
     {
         cout << "\033[96mDOUBLE CHECK YOU CANNOT EDIT!!";
@@ -134,6 +136,7 @@ public:
 
             POS_pick(pick);
 
+            //checks if the costumer added any item
             if (store_checker(a_id, a_id_bat) == 1)
             {
                 pick = 1;
@@ -157,13 +160,14 @@ public:
         show_current();
         change();
         all_costumers.push_back(c);
+        //clears all costumer so no repeating data
         c.store.clear();
         c.store_b.clear();
     }
 
-    template <typename T>
-    void display(T &ac)
-    {
+    //format to display vectors feeded in the function
+    //template can take any data type 
+    template <typename T> void display(T &ac) {
 
         cout << "\n\nName: \033[96m" << left << setw(100) << ac.details << "\n";
         cout << "\033[0m09" << ac.mobile_num << "\n";
@@ -224,6 +228,7 @@ public:
         }
     }
 
+    //return data to help check if items already existed
     int store_checker(vector<pair<int, int>> &a_id, vector<pair<int, int>> &a_id_bat)
     {
         if (a_id.empty() && a_id_bat.empty())
@@ -234,6 +239,7 @@ public:
         return 0;
     }
 
+    //totals overall price for both stores
     int total_price()
     {
         int total_s = 0;
@@ -252,6 +258,7 @@ public:
         return costumers.back().total;
     }
 
+    //gives change 
     int change()
     {
         c.change = c.cash - total_price();
@@ -262,6 +269,7 @@ public:
         return 0;
     }
 
+    //shows current added for receipts
     void show_current()
     {
         cout << "\n\nName: " << c.details << "\n";
@@ -322,20 +330,25 @@ public:
         return;
     }
 
+    //adds date 
     int add_date(int d)
     {
         switch (d)
         {
         case 1:
         {
-
+            //get the current date
             time_t now = time(nullptr);
+
+            //passes it to a variable to be converted into a readable format 
             tm *localTime = localtime(&now);
 
+            // Store each date component in separate variables
             current.year = 1900 + localTime->tm_year;
             current.month = 1 + localTime->tm_mon;
             current.day = localTime->tm_mday;
 
+            //makes sure we dont reuse past data 
             c.date.clear();
             c.date.push_back(current);
             cout << "Date saved succesfully! :>";
@@ -344,8 +357,10 @@ public:
         }
 
         case 2:
+            //enter date manually 
             cout << "Enter date (YYYY MM DD): ";
             cin >> input_date.year >> input_date.month >> input_date.day;
+            //makes sure we dont reuse past data 
             c.date.clear();
             c.date.push_back(input_date);
             cout << "Date saved succesfully! :>";
@@ -361,6 +376,7 @@ public:
         return 0;
     }
 
+    //handles users input
     int pick_id()
     {
         cout << "\n[0] done\npick by id: ";
@@ -368,6 +384,8 @@ public:
         return 0;
     }
 
+    //switch for straps 
+    //shows all options for straps 
     int POS_straps(int straps)
     {
         switch (straps)
@@ -377,12 +395,12 @@ public:
             {
                 s.DisplayStitched(allstraps_arr, "WITH STITCH STRAPS");
                 pick_id();
-
+                //stops when user is done with picking items 
                 if (access == 0)
                     break;
 
-                do
-                {
+                
+                do{// makes sure user atleast get 1 quantity 
                     cout << "Quantity: ";
                     cin >> qty;
                     if (qty == 0)
@@ -390,6 +408,7 @@ public:
                         cout << "invalid :<\n";
                     }
                 } while (qty == 0);
+
                 access_id(access, qty);
             } while (access != 0);
             break;
@@ -399,14 +418,11 @@ public:
             {
                 s.DisplayNoStitched(allstraps_arr, "NO STITCH STRAPS");
                 pick_id();
-
-                
+                //stops when user is done with picking items 
                 if (access == 0)
                     break;
 
-                do
-                {
-
+                do{// makes sure user atleast get 1 quantity 
                     cout << "Quantity: ";
                     cin >> qty;
                     if (qty == 0)
@@ -424,13 +440,11 @@ public:
             {
                 s.DisplayCasioKids(allstraps_arr, "CASIO STRAPS KIDS SIZE W/ COVER");
                 pick_id();
-
+                //stops when user is done with picking items 
                 if (access == 0)
                     break;
-
-                do
-                {
-
+                    
+                do{// makes sure user atleast get 1 quantity 
                     cout << "Quantity: ";
                     cin >> qty;
                     if (qty == 0)
@@ -446,12 +460,11 @@ public:
             {
                 s.DisplayCasioAdult(allstraps_arr, "CASIO STRAPS ADULT SIZE");
                 pick_id();
-
+                //stops when user is done with picking items 
                 if (access == 0)
                     break;
 
-                do
-                {
+                do{// makes sure user atleast get 1 quantity 
                     cout << "Quantity: ";
                     cin >> qty;
                     if (qty == 0)
@@ -475,38 +488,51 @@ public:
         return 0;
     }
 
+    //stores all the users picked item 
     void access_id(int access, int &qty)
     {
+        //stores the id and quantity 
         a_id.emplace_back(access, qty);
+        //marker to keep track of existing items 
         bool found = false; 
 
+        //loops through all items
         for (auto &item : s.allstraps_arr){
-
+            //checks is input id is same as item id 
             if(access == item.id){
 
+                //stores the picked item 
                 c.store.emplace_back(s.allstraps_arr[access - 1]);
-                found = true;
+                found = true; //item exist
+
                 int last_id = a_id.back().first;
 
+                //deletes 0 
+                //0 is used to exit switch, it shouldn't be stored 
                 if (last_id == 0)
                 {
                     a_id.erase(
+                        //moves all numbers that needed to be deleted at the end
                         remove_if(a_id.begin(), a_id.end(),
                                 [](pair<int, int> &p)
                                 {
+                                    //condition to satisfy which number goes in the end
                                     return p.first == 0;
                                 }),
                         a_id.end());
+                        //deletes the items at the end of the vector
                 }
 
                 int current_qty = item.quantity;
 
+                //checks if theres is enough quantity in stock
                 while (qty > current_qty)
                 {
                     cout << "Not enough items :<\nInput quantity: ";
                     cin >> qty;
                 }
 
+                //updates items quantity 
                 c.store.back().quantity = qty;
                 item.quantity -= qty;
 
@@ -528,18 +554,18 @@ public:
                     << setw(10) << s.allstraps_arr[last_id - 1].size
                     << setw(10) << s.allstraps_arr[last_id - 1].price << "\n";
 
-            }else{
-                found = false; 
             }
         }
         
-        // if(!found){
-        //     cout << "Id not found :<";
-        // }
+        if(!found){
+            cout << "Id not found :<\n";
+        }
         
         return;   
     }
 
+    //switch for straps 
+    //shows all options for straps 
     int POS_bats(int bats)
     {
         switch (bats)
@@ -548,12 +574,13 @@ public:
             do
             {
                 b.DisplayMaxwell(allbatt_arr, "MAXWELL BATTERY");
+                //stops when user is done with picking items 
                 pick_id();
                 if (access == 0)
                     break;
 
                 do
-                {
+                {// makes sure user atleast get 1 quantity 
                     cout << "Quantity: ";
                     cin >> qty;
                     if (qty == 0)
@@ -570,12 +597,11 @@ public:
             {
                 b.DisplayRenata(allbatt_arr, "RENATA BATTERY");
                 pick_id();
-
+                //stops when user is done with picking items 
                 if (access == 0)
                     break;
 
-                do
-                {
+                do{// makes sure user atleast get 1 quantity 
                     cout << "Quantity: ";
                     cin >> qty;
                     if (qty == 0)
@@ -586,6 +612,7 @@ public:
                 access_id2(access, qty);
             } while (access != 0);
             break;
+
         default:
             if (bats != 0)
             {
@@ -595,17 +622,18 @@ public:
         return 0;
     }
 
+    //stores all the users picked item 
     void access_id2(int access, int &qty)
     {
         a_id_bat.emplace_back(access, qty);
         bool found = false;
 
         for (auto &item : b.allbatt_arr)
-        {
+        { 
             if (access == item.id)
             {
                 c.store_b.emplace_back(item);
-                found = true;
+                found = true; 
                 int last_id = a_id_bat.back().first;
 
                 if (last_id == 0)
@@ -643,20 +671,16 @@ public:
                      << setw(10) << item.price << "\n";
                 break;
             }
-            else
-            {
-                found = false;
-            }
         }
 
-        if (!found)
-        {
-            cout << "Id not found :<";
+        if (!found){
+            cout << "Id not found :<\n";
         }
 
         return;
     }
 
+    //checks if mobile number is valid 
     int mobile_checker()
     {
         if (counter(c.mobile_num) != 9 && counter(c.mobile_num) != 11)
@@ -667,6 +691,7 @@ public:
         return 0;
     }
 
+    //counts number of characters
     int counter(string mobile_num)
     {
         int count = 0;
@@ -677,6 +702,8 @@ public:
         return count;
     }
 
+    //switch for to pick what item to choose 
+    //(batteries or straps)
     void POS_pick(int pick)
     {
         switch (pick)
@@ -711,6 +738,7 @@ public:
         }
     }
 
+    // switch to check point os sale 
     int POS_switch(int pos, int sale)
     {
         switch (pos){
@@ -739,7 +767,7 @@ public:
             for (const auto &c : costumer_list)
             {
                 for (auto &d : c.date)
-                {
+                {   //filters the day and month 
                     if (d.day == srch_d && d.month == srch_m)
                     {
                         display(c);
@@ -750,7 +778,7 @@ public:
             for (const auto &c : all_costumers)
             {
                 for (auto &d : c.date)
-                {
+                {   //filters the day and month 
                     if (d.day == srch_d || d.month == srch_m)
                     {
                         display(c);
@@ -776,6 +804,8 @@ public:
         return 0;
     }
 
+    // function to display costumers 
+    //for vectors that is not contained in a loop 
     int display_receipts(vector<costumer> costum)
     {
         for (const auto &c : costum)
@@ -841,6 +871,7 @@ public:
         return 0;
     }
 
+    //adds day to be sorted in the set vector 
     int insert_days(vector<costumer> arr, vector<costumer> arr2)
     {
         for (const auto &c : arr)
@@ -860,6 +891,7 @@ public:
         return 0;
     }
 
+    //to determine the week 
     int getWeek(int day)
     {
         if (day >= 1 && day <= 7)
@@ -882,7 +914,7 @@ public:
             {
                 int month_count = key.first;
                 cout << "\n\033[91mMONTH : " << month_count;
-
+                
                 for (int u : uni)
                 {
                     bool mark_costumer = false;
