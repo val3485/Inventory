@@ -909,6 +909,82 @@ public:
 
     int POS_sales(int &sale, vector<costumer> &costum, vector<costumer> &costum2, set<int> &uni, map<pair<int, int>, vector<costumer>> &week)
     {
+        
+
+        switch (sale)
+        {
+        case 1:
+        //  stores month and week number 
+        for (const auto &c : costum)
+        {
+            for (const auto &d : c.date)
+            {
+                int week_num = getWeek(d.day);
+                week[{d.month, week_num}].push_back(c);
+            }
+        }
+
+        for (const auto &c : costum2)
+        {
+            for (const auto &d : c.date)
+            {
+                int week_num = getWeek(d.day);
+                week[{d.month, week_num}].push_back(c);
+            }
+        }
+            cout << "\nORDER BY DAY\n";
+
+            // Iterates through all weeks and displays customer data per month/day
+            for (const auto &[key, c_week] : week)
+            {
+                int month_count = key.first;
+                cout << "\n\033[91mMONTH : " << month_count;
+                
+                for (int u : uni)
+                {   //marks the date is not listed yet 
+                    bool mark_costumer = false;
+
+                    for (const auto &c : costum)
+                    {
+                        for (const auto &d : c.date)
+                        {   //checks if the date matches the categorizer for day
+                            //checks if the month matches the categorizer for month 
+                            if (d.day == u && d.month == month_count)
+                            {   //makes sure we only print the header once per day 
+                                if (!mark_costumer)
+                                {
+                                    cout << "\n\033[91mDATE " << u << "\033[0m";
+                                    //marks the data as listed 
+                                    mark_costumer = true;
+                                }
+                                display(c);
+                            }
+                        
+                        }
+
+                    }
+
+                    for (const auto &c : costum2)
+                    {
+              
+                        for (const auto &d : c.date)
+                        {
+                            if (d.day == u && d.month == month_count)
+                            {
+                                if (!mark_costumer)
+                                {
+                                    cout << "\n\033[91mDATE " << u << "\033[0m";
+                                    mark_costumer = true;
+                                }
+                                    display(c);
+                            }
+                        }
+                    }
+                }
+            }
+        break;
+
+        case 2:
         //stores month and week number 
         for (const auto &c : costum)
         {
@@ -927,62 +1003,6 @@ public:
                 week[{d.month, week_num}].push_back(c);
             }
         }
-
-        switch (sale)
-        {
-        case 1:
-            cout << "\nORDER BY DAY\n";
-
-            // Iterates through all weeks and displays customer data per month/day
-            for (const auto &[key, c_week] : week)
-            {
-                int month_count = key.first;
-                cout << "\n\033[91mMONTH : " << month_count;
-                
-                for (int u : uni)
-                {   //marks the date is not listed yet 
-                    bool mark_costumer = false;
-
-                    for (const auto &c : costum)
-                    {
-                            for (const auto &d : c.date)
-                            {   //checks if the date matches the categorizer for day
-                            {   //checks if the month matches the categorizer for month 
-                                if (d.day == u && d.month == month_count)
-                                {   //makes sure we only print the header once per day 
-                                    if (!mark_costumer)
-                                    {
-                                        cout << "\n\033[91mDATE " << u << "\033[0m";
-                                        //marks the data as listed 
-                                        mark_costumer = true;
-                                    }
-                                    display(c);
-                                }
-                            }
-                        }
-
-                        for (const auto &c : costum2)
-                        {
-                  
-                            for (const auto &d : c.date)
-                            {
-                                if (d.day == u && d.month == month_count)
-                                {
-                                    if (!mark_costumer)
-                                    {
-                                        cout << "\n\033[91mDATE " << u << "\033[0m";
-                                        mark_costumer = true;
-                                    }
-                                        display(c);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        break;
-
-        case 2:
             cout << "\nOrder by Week: \n";
 
             //iterates thorygh all week number and month 
@@ -992,9 +1012,19 @@ public:
                 int week_count = key.second;
                 cout << "\n\033[91mMonth " << month_count << "| Week " << week_count << "\033[0m\n";
 
+                vector<int> shown; 
+                // stores date of the costumers that already existed
+                //prevents duplicates
                 for (const auto &c : c_week)
                 {
-                    display(c);
+                    for(const auto &d : c.date){
+                        //checks date if it existed
+                        if(find(shown.begin(), shown.end(), d.day) == shown.end()){
+                            display(c);
+                            //adds new date 
+                            shown.push_back(d.day);
+                        }
+                    }
                 }
             }
 
