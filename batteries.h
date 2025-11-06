@@ -5,242 +5,343 @@
 #include <limits>
 #include <algorithm>
 #include <cctype>
+#include <sstream>
+#include <climits>
 
- using namespace std;
+using namespace std;
 
-class Batteries{
-		private:
-			string brand; 
-			
-		public: 
-			void setBrand(string b){
-				brand = b;
+class Batteries
+{
+private:
+	string brand;
+
+public:
+	void setBrand(string b)
+	{
+		brand = b;
+	}
+	string getBrand(string b)
+	{
+		return b;
+	}
+
+	struct BattItems
+	{
+		int id;
+		string categ;
+		string brand;
+		int quantity;
+		int price;
+
+		BattItems(int i, string ct, string b, int q, double p) // this is called a constructor, it reads(?) the data from the array in order.
+			: id(i), categ(ct), brand(b), quantity(q), price(p)
+		{
+		}
+	};
+
+	vector<BattItems> allbatt_arr = {
+		{1, "renata", "Renata 314", 10, 500},
+		{2, "renata", "Renata 510", 10, 500},
+		{3, "renata", "Renata 600", 10, 500},
+		{4, "renata", "Renata 700", 10, 500},
+
+		{5, "maxwell", "Maxwell 314", 10, 500},
+		{6, "maxwell", "Maxwell 510", 10, 500},
+		{7, "maxwell", "Maxwell 600", 10, 500},
+		{8, "maxwell", "Maxwell 700", 10, 500}};
+
+	int DisplayRenata(vector<BattItems> arr, string categ)
+	{
+		cout << "\n"
+			 << categ << " \n";
+		cout << left << setw(5) << "ID"
+			 << setw(15) << "Brand"
+			 << setw(10) << "Qty"
+			 << setw(10) << "Price" << "\n";
+
+		for (auto &i : arr)
+		{
+			if (i.categ == "renata")
+			{
+				cout << left << setw(5) << i.id
+					 << setw(15) << i.brand
+					 << setw(10) << i.quantity
+					 << setw(10) << i.price << "\n";
 			}
-			string getBrand (string b){
-				return b;
-        	}
-			
-			struct BattItems {
-				int id;
-				string categ;
-				string brand;
-				int quantity;
-				int price;
+		}
+		return 0;
+	}
 
-				BattItems(int i, string ct, string b, int q, double p) //this is called a constructor, it reads(?) the data from the array in order.
-				: id(i), categ(ct), brand(b), quantity(q), price(p) {}
-			};
-			
-			vector<BattItems> allbatt_arr = {
-				
-				{1, "maxell", "Maxell SR416SW", 10, 450},
-				{2, "maxell", "Maxell SR512SW", 10, 450},
-				{3, "maxell", "Maxell SR521SW", 10, 450},
-				{4, "maxell", "Maxell SR416SW", 10, 450},
-				{5, "maxell", "Maxell SR616SW", 10, 450},
-				{6, "maxell", "Maxell SR621SW", 10, 450},
-				{7, "maxell", "Maxell SR626SW", 10, 450},
-				{8, "maxell", "Maxell SR626SW", 10, 450},
-				{9, "maxell", "Maxell SR716SW", 10, 450},
-				{10, "maxell", "Maxell SR721SW", 10, 450},
-				{11, "maxell", "Maxell SR726SW", 10, 450},
-				{12, "maxell", "Maxell SR920SW", 10, 450},
-				{13, "maxell", "Maxell SR927SW", 10, 450},
-				{14, "maxell", "Maxell SR936SW", 10, 450},
-				{15, "maxell", "Maxell SR1120SW", 10, 450},
-				{16, "maxell", "Maxell SR1130SW", 10, 450},
-				{17, "maxell", "Maxell CR 1216", 10, 450},
-				{18, "maxell", "Maxell CR 1616", 10, 450},
-				{19, "maxell", "Maxell CR 1620", 10, 450},
-				{20, "maxell", "Maxell CR 1632", 10, 450},
-				{21, "maxell", "Maxell CR 2016", 10, 450},
-				{22, "maxell", "Maxell CR 2025", 10, 450},
-				{23, "maxell", "Maxell CR 2032", 10, 450},
-				{24, "maxell", "Maxell LR41", 10, 450},
-				{25, "maxell", "Maxell LR44", 10, 450},
-				{26, "maxell", "Maxell LR1130", 10, 450},
+	int DisplayMaxwell(vector<BattItems> arr, string categ)
+	{
+		cout << "\n"
+			 << categ << " \n";
+		cout << left << setw(5) << "ID"
+			 << setw(15) << "Brand"
+			 << setw(10) << "Qty"
+			 << setw(10) << "Price" << "\n";
 
-				{27, "renata", "Renata 315", 10, 550},
-				{28, "renata", "Renata 317", 10, 550},
-				{29, "renata", "Renata 321", 10, 550},
-				{30, "renata", "Renata 335", 10, 550},
-				{31, "renata", "Renata 337", 10, 550},
-				{32, "renata", "Renata 362", 10, 550},
-				{33, "renata", "Renata 364", 10, 550},
-				{34, "renata", "Renata 371", 10, 550},
-				{35, "renata", "Renata 377", 10, 550},
-				{36, "renata", "Renata 379", 10, 550},
-				{37, "renata", "Renata 390", 10, 550},
-				{38, "renata", "Renata 394", 10, 550},
-				{39, "renata", "Renata 395", 10, 550},
-				{40, "renata", "Renata 397", 10, 550},
-				{41, "renata", "Renata CR 1216", 10, 550},
-				{42, "renata", "Renata CR 1616", 10, 550},
-				{43, "renata", "Renata CR 1620", 10, 550},
-				{44, "renata", "Renata CR 1632", 10, 550},
-				{45, "renata", "Renata CR 2016", 10, 550},
-				{46, "renata", "Renata CR 2025", 10, 550},
-				{47, "renata", "Renata CR 2032", 10, 550},
-				{48, "renata", "Renata CR 2320", 10, 550},
-				{49, "renata", "Renata CR 2430", 10, 550},
-				{50, "renata", "Renata CR 2477", 10, 550},
-				{51, "renata", "Renata CR 2450", 10, 550}
-			};
-			
-		int DisplayMaxell(vector<BattItems> arr, string categ) {
-			cout << "\n" << categ << " \n";
-			cout << left << setw(5) << "ID"
-				<< setw(25) << "Brand"
-				<< setw(10) << "Qty"
-				<< setw(10) << "Price" << "\n";
-
-			for (auto &i : arr) {
-				if(i.categ == "maxell"){
-					cout << left << setw(5) << i.id
-						<< setw(25) << i.brand
-						<< setw(10) << i.quantity
-						<< setw(10) << i.price << "\n";
-				}
+		for (auto &i : arr)
+		{
+			if (i.categ == "maxwell")
+			{
+				cout << left << setw(5) << i.id
+					 << setw(15) << i.brand
+					 << setw(10) << i.quantity
+					 << setw(10) << i.price << "\n";
 			}
-			return 0;
+		}
+		return 0;
+	}
+
+	void switch_view(int bat)
+	{
+		switch (bat)
+		{
+		case 1:
+			DisplayMaxwell(allbatt_arr, "MAXWELL BATTERY");
+			break;
+
+		case 2:
+			DisplayRenata(allbatt_arr, "RENATA BATTERY");
+			break;
+
+		case 3:
+			DisplayMaxwell(allbatt_arr, "MAXWELL BATTERY");
+			DisplayRenata(allbatt_arr, "RENATA BATTERY");
+			break;
+		}
+	}
+};
+
+class BatteryCRUD
+{
+private:
+	Batteries &batt;
+	vector<Batteries::BattItems> &allbatt_arr;
+	static int nextID;
+
+public:
+	BatteryCRUD(Batteries &batts) : batt(batts), allbatt_arr(batts.allbatt_arr) {}
+
+	// DISPLAY
+	void displayItems()
+	{
+		batt.DisplayMaxwell(allbatt_arr, "MAXWELL BATTERY");
+		batt.DisplayRenata(allbatt_arr, "RENATA BATTERY");
+	}
+    
+	// EDIT
+	void editItems(int id, string newCateg, string newBrand, int newQty, int newPrice)
+	{
+        //lowercase the newCateg    
+		transform(newCateg.begin(), newCateg.end(), newCateg.begin(),
+				  [](unsigned char c)
+				  {
+					  return tolower(c);
+				  });
+        //capitalized th first letter of newBrand
+		transform(newBrand.begin(), newBrand.end(), newBrand.begin(),
+				  [](unsigned char br)
+				  {
+					  return tolower(br);
+				  });
+
+		if (!newBrand.empty())
+		{
+			newBrand[0] = toupper(newBrand[0]);
 		}
 
-		int DisplayRenata(vector<BattItems> arr, string categ) {
-			cout << "\n" << categ << " \n";
-			cout << left << setw(5) << "ID"
-				<< setw(25) << "Brand"
-				<< setw(10) << "Qty"
-				<< setw(10) << "Price" << "\n";
-
-			for (auto &i : arr) {
-				if(i.categ == "renata"){
-					cout << left << setw(5) << i.id
-						<< setw(25) << i.brand
-						<< setw(10) << i.quantity
-						<< setw(10) << i.price << "\n";
-				}
+		for (auto &b : allbatt_arr) //input one by one
+		{
+			if (b.id == id)
+			{
+				b.categ = newCateg;
+				b.brand = newBrand;
+				b.quantity = newQty;
+				b.price = newPrice;
+				cout << "\nItem updated successfully!\n";
+				return;
 			}
-			return 0;
 		}
-			
-		void switch_view(int bat){
-			switch(bat){
-				case 1:
-					DisplayMaxell(allbatt_arr, "MAXELL BATTERY");  
-					break;
 
-				case 2:  
-					DisplayRenata(allbatt_arr, "RENATA BATTERY");       
-					break;    
+		cout << "\nBattery with ID " << id << " not found.\n";
+	}
 
-				case 3:
-					DisplayMaxell(allbatt_arr, "MAXELL BATTERY");
-					DisplayRenata(allbatt_arr, "RENATA BATTERY"); 
-					break;   
+	// ADD
+	void addItems(string categ, string itemName, int quantity, int price)
+	{
+        //make categ all lowercase    
+		transform(categ.begin(), categ.end(), categ.begin(),
+				  [](unsigned char c)
+				  { return tolower(c); });
+        
+        //make itemName's first letter capital
+        transform(itemName.begin(), itemName.end(), itemName.begin(),
+				  [](unsigned char na)
+				  {
+					  return tolower(na);
+				  });
 
-				case 4: 
-					cout << "SEARCH\n";
-					break;
-				
-				case 0:
-					break;
-					
-				default:
-					cout << "Invalid option :<\n";
-					break;
+	    	if (!itemName.empty())
+		    {
+		    	itemName[0] = toupper(itemName[0]);
+		    }          
+        
+        //sorting of items (by ascending ID)
+        sort(allbatt_arr.begin(), allbatt_arr.end(), [](auto &a, auto &b)
+        {
+            return a.id < b.id;
+        });
+        
+        //finding smallest unused ID
+        int newID = 1; 
+        for (const auto &b : allbatt_arr)
+        {
+            if(b.id == newID)
+                newID++;
+            else
+                break;    
+        }
+        
+        nextID = newID;
+        
+       Batteries::BattItems newBatt(nextID, categ, itemName, quantity, price);
+       
+	   if (categ == "renata" || categ == "maxwell")
+	   {
+			batt.allbatt_arr.push_back(newBatt);
+			displayItems();
+			cout << "\nBattery successfully added to " << categ << " list.\n";
+			return;
+	   }
+	   else
+	   {
+			cout << "\nBrand Name not found :(\n";
+			return;
+	   }
+	}
 
-				}	
-			}	
-		};
-
-		class BatteryCRUD {
-			private:
-				Batteries& batt;
-				// int geh;
-				vector<Batteries::BattItems>& allbatt_arr;
-				// vector<Batteries::BattItems>& heuy;
-					
-			public:
-
-				BatteryCRUD(Batteries& batts) : batt(batts), allbatt_arr(batts.allbatt_arr){}
-
-				//EDIT
-			void editItems(string categ, int id, string newCateg, int newQty, int newPrice ) {
-				
-				transform(categ.begin(), categ.end(), categ.begin(), 
-					[](unsigned char c)
-					{
-						return tolower(c);
-					}
-				);
-
-				if(!categ.empty()){
-					categ[0] = toupper(categ[0]);
-				}
-
-				batt.allbatt_arr = allbatt_arr;
-				//play with this
-				for(auto &b : allbatt_arr) {
-					if(b.id == id) {
-						b.categ = newCateg;
-						b.quantity = newQty;
-						b.price = newPrice;
-						cout << "Item updated successfully!\n";
-						return;
-					}
-				}
-
-				cout << "Battery with ID " << id << " not found.\n";
+	// DELETE
+	void deleteItems(int id, int dec)
+	{
+		if (dec == 1)
+		{
+            bool found = false;
+            //finding the id in allbatt_arr that matches the inputed id (for deletion)
+            for(auto it = batt.allbatt_arr.begin(); it!= batt.allbatt_arr.end(); it++)
+            {
+                if(it->id == id)
+                {
+                    batt.allbatt_arr.erase(it);
+                    found = true;
+                    cout << "\nItem deleted successfully.\n";
+                    break;
+                }
 			}
+            
+            if(!found)
+                cout << "\nItem with ID  " << id << " not found :(\n";
+		    displayItems();
+			return;
+		}
+		
+	}
 
-			//ADD
-			// void addItems(string categ, int id, string brand, int quantity, int price) { 
-			// 	vector<Batteries::BattItems>& allbatt_arr;
-				
-			// 	Batteries::BattItems newBatt(id, categ, brand, quantity, price);
+	// LEVEINSHTEIN DISTANCE (para sa search)
+	int levenshteinDistance(const string &s1, const string &s2)
+	{
+		const size_t len1 = s1.size(), len2 = s2.size();
+		vector<vector<int>> dp(len1 + 1, vector<int>(len2 + 1));
 
-			// 	transform(categ.begin(), categ.end(), categ.begin(), 
-			// 		[](unsigned char c){return tolower(c);}
-			// 	);
+		for (size_t i = 0; i <= len1; ++i)
+			dp[i][0] = i;
+		for (size_t j = 0; j <= len2; ++j)
+			dp[0][j] = j;
 
-			// 	if(categ == "renata" || categ == "maxwell"){
-			// 		batt.allbatt_arr.push_back(newBatt);
+		for (size_t i = 1; i <= len1; ++i)
+			for (size_t j = 1; j <= len2; ++j)
+				dp[i][j] = min({
+					dp[i - 1][j] + 1,							// deletion
+					dp[i][j - 1] + 1,							// insertion
+					dp[i - 1][j - 1] + (s1[i - 1] != s2[j - 1]) // substitution
+				});
 
-			// 		cout << newBatt.brand << " " << newBatt.id;
-			// 		batt.DisplayMaxwell(allbatt_arr, "MAXWELL BATTERY");
-			// 		batt.DisplayRenata(allbatt_arr, "RENATA BATTERY");
-			// 		return;
-			// 	}	
-			// 	else{
-			// 		cout << "Brand Name not found :(\n";
-			// 		return;
-			// 	}
+		return dp[len1][len2];
+	}
 
-			// 	cout << "Battery successfully added to " << categ << " list.\n";
-			// }
+	// forda correct brand name
+	string correctItemName(string input)
+	{
+		vector<string> validBrands = { "renata", "maxwell"};
 
-			//DELETE
-			void deleteItems(int id, int dec) {
-				// batt.allbatt_arr
-				// allbatt_arr* hi = &heuy;
-				// batt.BattItems(int i) 
-				// : id(i){}
-				if(dec == 1 ){
-					// for(auto it = allbatt_arr.begin(); it != allbatt_arr.end(); it++) {
-						// if(it->id == id) {
-							allbatt_arr.erase(allbatt_arr.begin() );
-							cout << "Item deleted successfully.\n";
-							cout << id;
-							batt.DisplayMaxell(allbatt_arr, "MAXWELL BATTERY");
-							batt.DisplayRenata(allbatt_arr, "RENATA BATTERY"); 
-							return;
-						// }
-					// }
-				}	
-				else{
-					cout << "Item not deleted.";
-					return;
-				}
-				cout << "Item with ID " << id << " not found.\n";
+		// transform the input to lowercase
+		transform(input.begin(), input.end(), input.begin(),
+				  [](unsigned char i)
+				  {
+					  return tolower(i);
+				  });
+
+		// trnasform the first char to uppercase
+		if (!input.empty())
+		{
+			input[0] = toupper(input[0]);
+		}
+
+		//return input;
+
+		// store varibles
+		string bestMatch = input;
+		int bestScore = INT_MAX;
+
+		// ich-check sa validbrand kung ano ang best match
+		for (const string &brand : validBrands)
+		{
+			int dist = levenshteinDistance(input, brand);
+			if (dist < bestScore)
+			{
+				bestScore = dist;
+				bestMatch = brand;
 			}
-		};
+		}
+		if (bestScore <= 2) // only accepts 2 typos
+			return bestMatch;
+		else
+			return input; // too different, keep original
+	}
+
+	// SEARCH
+	void searchItems(string input)
+	{
+		string brandPart, number;
+
+		stringstream ss(input);
+		ss >> brandPart;
+		getline(ss, number);							// separates the brandPart from the number part
+		number.erase(0, number.find_first_not_of(" ")); // erases the excess space from the number part
+
+		// search the brand part
+		string correctBrand = correctItemName(brandPart);
+
+		bool found = false;
+		for (const auto &batt : allbatt_arr)
+		{
+			string battNameLower = batt.brand; // brand includes the full name, e.g., "Renata 567"
+            transform(number.begin(), number.end(), number.begin(), ::tolower);
+			transform(battNameLower.begin(), battNameLower.end(), battNameLower.begin(), ::tolower);
+
+			// match if brand or brand+number found
+            if ((!number.empty() && battNameLower.find(correctBrand + " " + number) != string::npos) ||
+                (number.empty() && battNameLower.find(correctBrand) != string::npos))
+            {
+                cout << batt.brand << endl;
+                found = true;
+            }
+		}
+
+		if (!found)
+		{
+			cout << "No items matches :<\n";
+		}
+	}
+};

@@ -10,7 +10,7 @@
                 "UNICODE",
                 "_UNICODE"
             ],
-            "compilerPath": "C:/TDM-64/bin/gcc"
+            "compilerPath": "C:/TDM-GCC-64/bin/gcc"
         }
     ],
     "version": 4

@@ -17,6 +17,7 @@ public:
         int month;
         int day;
     };
+
     struct costumer
     {
         string details;
@@ -71,17 +72,17 @@ public:
 
     vector<costumer> costumer_list = {
         {"Clare Lubiano", "0962 585 8585", 10000, 7300, 2700, {{2025, 11, 01}}, {
-                                                                                    {3, "stitched", "black w/ white", "Null", "Buffalo Calf", 1, "16-19", 850, ""},
-                                                                                    {4, "stitched", "brown light", "Null", "Buffalo Calf", 1, "16-19", 850, ""},
-                                                                                },
+            {3, "stitched", "black w/ white", "Null", "Buffalo Calf", 1, "16-19", 850, ""},
+            {4, "stitched", "brown light", "Null", "Buffalo Calf", 1, "16-19", 850, ""},
+            },
          {
              {3, "renata", "Renata 600", 1, 500},
              {4, "renata", "Renata 700", 1, 500},
          }},
         {"Sylvia Heart Sulla", "0962 656 8910", 10000, 7300, 2700, {{2025, 11, 01}}, {
-                                                                                         {3, "stitched", "black w/ white", "Null", "Buffalo Calf", 1, "16-19", 850, ""},
-                                                                                         {4, "stitched", "brown light", "Null", "Buffalo Calf", 1, "16-19", 850, ""},
-                                                                                     },
+                {3, "stitched", "black w/ white", "Null", "Buffalo Calf", 1, "16-19", 850, ""},
+                {4, "stitched", "brown light", "Null", "Buffalo Calf", 1, "16-19", 850, ""},
+            },
          {
              {3, "renata", "Renata 600", 1, 500},
              {4, "renata", "Renata 700", 1, 500},
@@ -95,9 +96,9 @@ public:
              {4, "renata", "Renata 700", 1, 500},
          }},
         {"Vinea Lei", "0962 645 7012", 10000, 7300, 2700, {{2025, 10, 27}}, {
-                                                                                {3, "stitched", "black w/ white", "Null", "Buffalo Calf", 1, "16-19", 850, ""},
-                                                                                {4, "stitched", "brown light", "Null", "Buffalo Calf", 1, "16-19", 850, ""},
-                                                                            },
+            {3, "stitched", "black w/ white", "Null", "Buffalo Calf", 1, "16-19", 850, ""},
+            {4, "stitched", "brown light", "Null", "Buffalo Calf", 1, "16-19", 850, ""},
+            },
          {
              {3, "renata", "Renata 600", 1, 500},
              {4, "renata", "Renata 700", 1, 500},
@@ -360,14 +361,10 @@ public:
         return 0;
     }
 
-    int id_checker()
+    int pick_id()
     {
         cout << "\n[0] done\npick by id: ";
         cin >> access;
-        if (access > s.allstraps_arr.back().id)
-        {
-            cout << "no existing ID :<";
-        }
         return 0;
     }
 
@@ -379,11 +376,7 @@ public:
             do
             {
                 s.DisplayStitched(allstraps_arr, "WITH STITCH STRAPS");
-                ;
-                do
-                {
-                    id_checker();
-                } while (access > s.allstraps_arr.back().id);
+                pick_id();
 
                 if (access == 0)
                     break;
@@ -405,10 +398,9 @@ public:
             do
             {
                 s.DisplayNoStitched(allstraps_arr, "NO STITCH STRAPS");
-                do
-                {
-                    id_checker();
-                } while (access > s.allstraps_arr.back().id);
+                pick_id();
+
+                
                 if (access == 0)
                     break;
 
@@ -431,10 +423,7 @@ public:
             do
             {
                 s.DisplayCasioKids(allstraps_arr, "CASIO STRAPS KIDS SIZE W/ COVER");
-                do
-                {
-                    id_checker();
-                } while (access > s.allstraps_arr.back().id);
+                pick_id();
 
                 if (access == 0)
                     break;
@@ -456,10 +445,8 @@ public:
             do
             {
                 s.DisplayCasioAdult(allstraps_arr, "CASIO STRAPS ADULT SIZE");
-                do
-                {
-                    id_checker();
-                } while (access > s.allstraps_arr.back().id);
+                pick_id();
+
                 if (access == 0)
                     break;
 
@@ -491,49 +478,66 @@ public:
     void access_id(int access, int &qty)
     {
         a_id.emplace_back(access, qty);
-        c.store.emplace_back(s.allstraps_arr[access - 1]);
+        bool found = false; 
 
-        int last_id = a_id.back().first;
+        for (auto &item : s.allstraps_arr){
 
-        if (last_id == 0)
-        {
-            a_id.erase(
-                remove_if(a_id.begin(), a_id.end(),
-                          [](pair<int, int> &p)
-                          {
-                              return p.first == 0;
-                          }),
-                a_id.end());
+            if(access == item.id){
+
+                c.store.emplace_back(s.allstraps_arr[access - 1]);
+                found = true;
+                int last_id = a_id.back().first;
+
+                if (last_id == 0)
+                {
+                    a_id.erase(
+                        remove_if(a_id.begin(), a_id.end(),
+                                [](pair<int, int> &p)
+                                {
+                                    return p.first == 0;
+                                }),
+                        a_id.end());
+                }
+
+                int current_qty = item.quantity;
+
+                while (qty > current_qty)
+                {
+                    cout << "Not enough items :<\nInput quantity: ";
+                    cin >> qty;
+                }
+
+                c.store.back().quantity = qty;
+                item.quantity -= qty;
+
+                cout << right << setw(10) << " ";
+                cout << left << setw(5) << "ID"
+                    << setw(20) << "Color"
+                    << setw(15) << "Brand"
+                    << setw(15) << "Leather Type"
+                    << setw(10) << "Qty"
+                    << setw(10) << "Size"
+                    << setw(10) << "Price" << "\n";
+
+                cout << right << setw(10) << " ";
+                cout << left << setw(5) << c.store.back().id
+                    << setw(20) << s.allstraps_arr[last_id - 1].color
+                    << setw(15) << s.allstraps_arr[last_id - 1].brand
+                    << setw(15) << s.allstraps_arr[last_id - 1].leather_type
+                    << setw(10) << c.store.back().quantity
+                    << setw(10) << s.allstraps_arr[last_id - 1].size
+                    << setw(10) << s.allstraps_arr[last_id - 1].price << "\n";
+
+            }else{
+                found = false; 
+            }
         }
-
-        int current_qty = s.allstraps_arr[access - 1].quantity;
-
-        while (qty > current_qty)
-        {
-            cout << "Not enough items :<\nInput quantity: ";
-            cin >> qty;
-        }
-
-        c.store.back().quantity = qty;
-        s.allstraps_arr[last_id - 1].quantity -= qty;
-
-        cout << right << setw(10) << " ";
-        cout << left << setw(5) << "ID"
-             << setw(20) << "Color"
-             << setw(15) << "Brand"
-             << setw(15) << "Leather Type"
-             << setw(10) << "Qty"
-             << setw(10) << "Size"
-             << setw(10) << "Price" << "\n";
-
-        cout << right << setw(10) << " ";
-        cout << left << setw(5) << c.store.back().id
-             << setw(20) << s.allstraps_arr[last_id - 1].color
-             << setw(15) << s.allstraps_arr[last_id - 1].brand
-             << setw(15) << s.allstraps_arr[last_id - 1].leather_type
-             << setw(10) << c.store.back().quantity
-             << setw(10) << s.allstraps_arr[last_id - 1].size
-             << setw(10) << s.allstraps_arr[last_id - 1].price << "\n";
+        
+        // if(!found){
+        //     cout << "Id not found :<";
+        // }
+        
+        return;   
     }
 
     int POS_bats(int bats)
@@ -543,12 +547,8 @@ public:
         case 1:
             do
             {
-                b.DisplayMaxell(allbatt_arr, "MAXWELL BATTERY");
-                do
-                {
-                    id_checker();
-                } while (access > s.allstraps_arr.back().id);
-
+                b.DisplayMaxwell(allbatt_arr, "MAXWELL BATTERY");
+                pick_id();
                 if (access == 0)
                     break;
 
@@ -569,10 +569,7 @@ public:
             do
             {
                 b.DisplayRenata(allbatt_arr, "RENATA BATTERY");
-                do
-                {
-                    id_checker();
-                } while (access > s.allstraps_arr.back().id);
+                pick_id();
 
                 if (access == 0)
                     break;
@@ -601,42 +598,62 @@ public:
     void access_id2(int access, int &qty)
     {
         a_id_bat.emplace_back(access, qty);
-        c.store_b.emplace_back(b.allbatt_arr[access - 1]);
+        bool found = false;
 
-        int last_id = a_id_bat.back().first;
-
-        if (last_id == 0)
+        for (auto &item : b.allbatt_arr)
         {
-            a_id_bat.erase(
-                remove_if(a_id.begin(), a_id.end(),
-                          [](pair<int, int> &p)
-                          {
-                              return p.first == 0;
-                          }),
-                a_id.end());
-        }
-        int current_qty = b.allbatt_arr[access - 1].quantity;
+            if (access == item.id)
+            {
+                c.store_b.emplace_back(item);
+                found = true;
+                int last_id = a_id_bat.back().first;
 
-        while (qty > current_qty)
+                if (last_id == 0)
+                {
+                    a_id_bat.erase(
+                        remove_if(a_id.begin(), a_id.end(),
+                                  [](pair<int, int> &p)
+                                  {
+                                      return p.first == 0;
+                                  }),
+                        a_id.end());
+                }
+
+                int current_qty = item.quantity;
+
+                while (qty > current_qty)
+                {
+                    cout << "Not enough items :<\nInput quantity: ";
+                    cin >> qty;
+                }
+
+                c.store_b.back().quantity = qty;
+                item.quantity -= qty;
+
+                cout << right << setw(5) << " ";
+                cout << left << setw(5) << "ID"
+                     << setw(15) << "Brand"
+                     << setw(10) << "Qty"
+                     << setw(10) << "Price" << "\n";
+
+                cout << right << setw(5) << " ";
+                cout << left << setw(5) << c.store_b.back().id
+                     << setw(15) << item.brand
+                     << setw(10) << c.store_b.back().quantity
+                     << setw(10) << item.price << "\n";
+                break;
+            }
+            else
+            {
+                found = false;
+            }
+        }
+
+        if (!found)
         {
-            cout << "Not enough items :<\nInput quantity: ";
-            cin >> qty;
+            cout << "Id not found :<";
         }
 
-        c.store_b.back().quantity = qty;
-        b.allbatt_arr[last_id - 1].quantity -= qty;
-
-        cout << right << setw(5) << " ";
-        cout << left << setw(5) << "ID"
-             << setw(15) << "Brand"
-             << setw(10) << "Qty"
-             << setw(10) << "Price" << "\n";
-
-        cout << right << setw(5) << " ";
-        cout << left << setw(5) << c.store_b.back().id
-             << setw(15) << b.allbatt_arr[last_id - 1].brand
-             << setw(10) << c.store_b.back().quantity
-             << setw(10) << b.allbatt_arr[last_id - 1].price << "\n";
         return;
     }
 
@@ -696,8 +713,7 @@ public:
 
     int POS_switch(int pos, int sale)
     {
-        switch (pos)
-        {
+        switch (pos){
         case 1:
             do
             {
@@ -931,7 +947,8 @@ public:
                 int month_count = key.first;
                 int week_count = key.second;
                 cout << "\n\033[91mMonth " << month_count << "| Week " << week_count << "\033[0m\n";
-                for (const auto &c : c_week){
+                for (const auto &c : c_week)
+                {
                     display(c);
                 }
             }
