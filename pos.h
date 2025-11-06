@@ -963,6 +963,7 @@ public:
 
                         for (const auto &c : costum2)
                         {
+                  
                             for (const auto &d : c.date)
                             {
                                 if (d.day == u && d.month == month_count)
@@ -972,7 +973,7 @@ public:
                                         cout << "\n\033[91mDATE " << u << "\033[0m";
                                         mark_costumer = true;
                                     }
-                                    display(c);
+                                        display(c);
                                 }
                             }
                         }
