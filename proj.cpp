@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -104,10 +105,10 @@ int main()
 								break;
 							case 2:
 								cout << "\nInput brand name you want to add [Renata/Maxwell]: ";
-								cin >> brandName
-								cout << "Input new item name: ";
+								cin >> brandName;
 								cin.ignore(numeric_limits<streamsize>::max(), '\n');
-								cin >> newItem;
+								cout << "Input new item name: ";
+							    getline(cin, newItem);
 								cout << "Input new quantity: ";
 								cin >> newQty;
 								cout << "Input new price: ";
@@ -180,7 +181,7 @@ int main()
 							cout << "Choose an option: ";
 							cin >> bat;
 
-							b.switch_view(bat);
+						    b.switch_view(bat);
 
 						} while (bat != 0);
 						break;
