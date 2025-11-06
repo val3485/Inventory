@@ -1,69 +1,40 @@
+ #ifndef STRAPS_H
+ #define STRAPS_H
+
  #include <iostream>
  #include <vector>
  #include <string>
  using namespace std;
-//  #ifndef STRAPS_H
-//  #define STRAPS_H
 
-class Straps{
-	private:
-		string color;
-		string brand;
-		int qty;
-		int size;
-		double price;
-		
-		public:
-		void setColor(string c){
-			color = c;
-		}
-		void setBrand(string brnd){
-			brand = brnd;
-		}
-		void setQty(int q){
-			qty = q;
-		}
-		void setSize(int s){
-			size = s;
-		}
-		void setPrice(double p){
-			price = p;
-		}
-		
-		string getColor (){
-			return color;
-		}
-		string getBrand (){
-			return brand;
-		}
-		int getQty (){
-			return qty;
-		}
-		int getSize (){
-			return size;
-		}
-		
-		double getPrice (){
-			return price;
-		}
+struct StrapItems 
+{
+	//struct is used as a container for related data
+	bool isActive = true;
+	int id;
+	string categ;
+	string color;
+	string brand;
+	string leather_type;
+	int quantity;
+	string size;
+	string kid_size;
+	double price;
+	string hole;
 
-		struct StrapItems { //struct is used as a container for related data
-			int id;
-			string categ;
-			string color;
-			string brand;
-			string leather_type;
-			int quantity;
-			string size;
-			string kid_size;
-			double price;
-			string hole;
-
-			StrapItems(int i, string ct, string c, string b, string lt, int q, string s, double p, string h) //this is called a constructor, it reads(?) the data from the array in order.
+	StrapItems(int i, string ct, string c, string b, string lt, int q, string s, double p, string h) //this is called a constructor, it reads(?) the data from the array in order.
 			: id(i), categ (ct), color(c), brand(b), leather_type(lt), quantity(q), size(s), price(p), hole(h) {}
-		};
-		
-		vector<StrapItems> allstraps_arr = { //vector is used make the array more efficient. you can modify it without manually entering the size 
+
+	void setActive(bool active)
+	{
+		isActive = active;
+	}
+
+	bool getActive()
+	{
+		return isActive;
+	}
+};
+		inline vector<StrapItems> allstraps_arr = { //vector is used make the array more efficient. you can modify it without manually entering the size 
 			{1, "stitched", "Black w/ black", "No type", "Buffalo Calf", 10, "16-24", 950, ""},
 			{2, "stitched", "Black w/ white", "No type", "Buffalo Calf", 10, "16-24", 950, ""},
 			{3, "stitched", "Brown dark", "No type", "Buffalo Calf", 10, "16-24", 950, ""},
@@ -146,246 +117,4 @@ class Straps{
 			
 		};
 
-		int DisplayStitched(vector<StrapItems> arr, string categ) {
-			cout << "\n " << categ << " \n";
-			cout << right << setw(10) << " ";
-			cout << left << setw(5) << "ID"
-				<< setw(25) << "Color"
-				<< setw(15) << "Brand"
-				<< setw(30) << "Leather/Non-Leather Type"
-				<< setw(10) << "Qty"
-				<< setw(10) << "Size"
-				<< setw(10) << "Price" << "\n";
-
-			for (auto &i : arr) {
-				if(i.categ == "stitched"){
-					cout << right << setw(10) << " ";
-					cout << left << setw(5) << i.id
-						<< setw(25) << i.color
-						<< setw(15) << i.brand
-						<< setw(30) << i.leather_type
-						<< setw(10) << i.quantity
-						<< setw(10) << i.size
-						<< setw(10) << i.price << "\n";
-				}
-			}
-			return 0;
-		}
-
-		int DisplayNoStitched(vector<StrapItems> arr, string categ) {
-			cout << "\n " << categ << " \n";
-			cout << right << setw(10) << " ";
-			cout << left << setw(5) << "ID"
-				<< setw(25) << "Color"
-				<< setw(15) << "Brand"
-				<< setw(30) << "Leather/Non-Leather Type"
-				<< setw(10) << "Qty"
-				<< setw(10) << "Size"
-				<< setw(10) << "Price" << "\n";
-
-			for (auto &i : arr) {
-				if(i.categ == "no stitch"){
-					cout << right << setw(10) << " ";
-					cout << left << setw(5) << i.id
-						<< setw(25) << i.color
-						<< setw(15) << i.brand
-						<< setw(30) << i.leather_type
-						<< setw(10) << i.quantity
-						<< setw(10) << i.size
-						<< setw(10) << i.price << "\n";
-				}
-			}
-			return 0;
-		}
-
-		int DisplayCasioAdult(vector<StrapItems> arr, string categ) {
-			cout << "\n " << categ << " \n";
-			cout << right << setw(10) << " ";
-			cout << left << setw(5) << "ID"
-				<< setw(20) << "Color"
-				<< setw(15) << "Brand"
-				<< setw(10) << "Qty"
-				<< setw(10) << "Size"
-				<< setw(10) << "Price" << "\n";
-
-			cout << "1 HOLE\n";
-			for (auto &i : arr) {
-				if(i.hole == "1 hole"){
-					if(i.categ == "casio"){
-					cout << right << setw(10) << " ";
-					cout << left << setw(5) << i.id
-						<< setw(20) << i.color
-						<< setw(15) << i.brand
-						<< setw(10) << i.quantity
-						<< setw(10) << i.size
-						<< setw(10) << i.price << "\n";
-					}
-				}
-			}
-
-			cout << "\n2 HOLE\n";
-			for (auto &i : arr) {
-				if(i.hole == "2 hole"){
-					if(i.categ == "casio"){
-					cout << right << setw(10) << " ";
-					cout << left << setw(5) << i.id
-						<< setw(20) << i.color
-						<< setw(15) << i.brand
-						<< setw(10) << i.quantity
-						<< setw(10) << i.size
-						<< setw(10) << i.price << "\n";
-					}
-				}
-			}
-			return 0;
-		}
-
-		int DisplayCasioKids(vector<StrapItems> arr, string categ) {
-			cout << "\n " << categ << " \n";
-			cout << right << setw(10) << " ";
-			cout << left << setw(5) << "ID"
-				<< setw(20) << "Color"
-				<< setw(15) << "Brand"
-				<< setw(10) << "Qty"
-				<< setw(10) << "Size"
-				<< setw(10) << "Price" << "\n";
-
-			cout << "1 HOLE\n";
-			for (auto &i : arr) {
-				if(i.hole == "1 hole"){
-					if(i.categ == "casio w/ cover"){
-					cout << right << setw(10) << " ";
-					cout << left << setw(5) << i.id
-						<< setw(20) << i.color
-						<< setw(15) << i.brand
-						<< setw(10) << i.quantity
-						<< setw(10) << i.size
-						<< setw(10) << i.price << "\n";
-					}
-				}
-			}
-
-			cout << "\n2 HOLE\n";
-			for (auto &i : arr) {
-				if(i.hole == "2 hole"){
-					if(i.categ == "casio w/ cover"){
-					cout << right << setw(10) << " ";
-					cout << left << setw(5) << i.id
-						<< setw(20) << i.color
-						<< setw(15) << i.brand
-						<< setw(10) << i.quantity
-						<< setw(10) << i.size
-						<< setw(10) << i.price << "\n";
-					}
-				}
-			}
-			return 0;
-		}
-
-		void switch_view(int strp){
-			int opt;
-			switch(strp){
-				case 1:
-					DisplayStitched(allstraps_arr, "STITCHED STRAPS");
-					break;
-
-				case 2:
-					DisplayNoStitched(allstraps_arr, "NO STITCH STRAPS");           
-					break;    
-
-				case 3:
-				do{
-					cout << "\nCHOOSE CASIO TYPE:\n";
-					cout << "[1] ADULT SIZE\n" ;
-					cout << "[2] KIDS SIZE\n" ;
-					cout << "[0] back\n" ;
-					cout << "Choose an option: " ;
-					cin >> opt;
-
-					switch(opt){
-						case 1:
-						DisplayCasioAdult(allstraps_arr, "CASIO STRAPS ADULT SIZE");
-							break;
-						
-						case 2:
-						DisplayCasioKids(allstraps_arr, "CASIO STRAPS KIDS SIZE W/ COVER");  
-							break;
-						
-						case 0:
-							break;
-
-						default:
-							cout<<"Invalid option :<\n";
-							break;	
-					}
-					
-				}while(opt != 0);
-					break;   
-				
-				case 4:
-				DisplayStitched(allstraps_arr, "STITCHED STRAPS");
-				DisplayNoStitched(allstraps_arr, "NO STITCH STRAPS");
-				DisplayCasioAdult(allstraps_arr, "CASIO STRAPS ADULT SIZE"); 
-				DisplayCasioKids(allstraps_arr, "CASIO STRAPS KIDS SIZE W/ COVER");
-					break;
-
-				case 5:
-					cout<<"Search Name\n";
-					break;
-
-				case 0:
-					// so that it will not fall under default
-					break;
-
-				default:
-					cout<<"Invalid option :<\n";
-					break;
-				
-			}	
-		}	
-
-		void switch_edit(int strp){  //go by id??
-			switch(strp){
-				case 1:
-					do{
-						cout << "\nADD ITEM\n";
-						cout << "[1] WITH STITCH STRAP\n";
-						cout << "[2] NO STITCH STRAP\n";
-						cout << "[3] CASIO STRAP\n";
-						cout << "[0] back\n";
-						cout << "Choose an option: ";
-						cin >> strp;
-
-					}while(strp != 0);
-					break;
-				case 2:
-					do{
-						cout << "\nEDIT ITEM\n";
-						cout << "[1] WITH STITCH STRAP\n";
-						cout << "[2] NO STITCH STRAP\n";
-						cout << "[3] CASIO STRAP\n";
-						cout << "[0] back\n";
-						cout << "Choose an option: ";
-						cin >> strp;	
-
-					}while(strp != 0);
-					break;
-				case 3:
-					do{
-						cout << "\nDELETE ITEM\n";
-						cout << "[1] WITH STITCH STRAP\n";
-						cout << "[2] NO STITCH STRAP\n";
-						cout << "[3] CASIO STRAP\n";
-						cout << "[4] SEARCH NAME OF STRAP \n";
-						cout << "[0] back\n";
-						cout << "Choose an option: ";
-						cin >> strp;
-						
-					}while(strp != 0);
-					break;
-				case 4:
-					break;
-			}
-		}
-};
-// #endif
+#endif
