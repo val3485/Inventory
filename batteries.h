@@ -161,6 +161,7 @@ public:
 				b.quantity = newQty;
 				b.price = newPrice;
 				cout << "\nItem updated successfully!\n";
+				displayItems();
 				return;
 			}
 		}
@@ -322,7 +323,12 @@ public:
 
 		// search the brand part
 		string correctBrand = correctItemName(brandPart);
-
+        
+        cout << left << setw(5) << "ID"
+                     << setw(15) << "BRAND"
+                     << setw(10) << "Qty"
+                     << setw(10) << "Price" << "\n";
+        
 		bool found = false;
 		for (const auto &batt : allbatt_arr)
 		{
@@ -334,7 +340,10 @@ public:
             if ((!number.empty() && battNameLower.find(correctBrand + " " + number) != string::npos) ||
                 (number.empty() && battNameLower.find(correctBrand) != string::npos))
             {
-                cout << batt.brand << endl;
+                cout << left << setw(5) << batt.id
+                     << setw(15) << batt.brand
+                     << setw(10) << batt.quantity
+                     << setw(10) << batt.price << "\n";
                 found = true;
             }
 		}
