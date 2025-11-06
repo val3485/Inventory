@@ -172,7 +172,7 @@ public:
 	// DISPLAY
 	void displayItems()
 	{
-		batt.DisplayMaxwell(allbatt_arr, "MAXWELL BATTERY");
+		batt.DisplayMaxell(allbatt_arr, "MAXWELL BATTERY");
 		batt.DisplayRenata(allbatt_arr, "RENATA BATTERY");
 	}
     

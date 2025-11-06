@@ -573,7 +573,7 @@ public:
         case 1:
             do
             {
-                b.DisplayMaxwell(allbatt_arr, "MAXWELL BATTERY");
+                b.DisplayMaxell(allbatt_arr, "MAXWELL BATTERY");
                 //stops when user is done with picking items 
                 pick_id();
                 if (access == 0)
