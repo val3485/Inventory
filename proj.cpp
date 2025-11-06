@@ -3,7 +3,7 @@
 #include <string>
 #include <limits>
 #include "batteries.h"
-#include "straps.h"
+#include "strapsCRUD.h"
 #include "pos.h"
 using namespace std;
 
@@ -17,6 +17,7 @@ int main()
 	int newQty, newPrice, id, dec;
 	BatteryCRUD crud(b);
 	Straps s;
+	StrapsCRUD sCRUD;
 	Pos myPOS(s,b);
 
 	cout << "\n\n\033[93m-------------------------------------------------------------";
@@ -62,23 +63,98 @@ int main()
 								cout << "Choose an option: ";
 								cin >> edit;
 		
-								switch (edit){
+								switch (edit)
+							{
+							case 1:
+								do
+								{
+									cout << "\nSTRAPS\n";
+									cout << "[1] ADD ITEM\n";
+									cout << "[2] EDIT ITEM\n";
+									cout << "[3] DELETE ITEM\n";
+									cout << "[4] DISPLAY ALL ITEMS\n";
+									cout << "[5] SEARCH NAME OF STRAP\n";
+									cout << "[0] back\n";
+									cout << "Choose an option: ";
+									cin >> strp;
+
+									switch (strp)
+									{
 									case 1:
-										do
-										{
-											cout << "\nSTRAPS\n";
-											cout << "[1] ADD ITEM\n";
-											cout << "[2] EDIT ITEM\n";
-											cout << "[3] DELETE ITEM\n";
-											cout << "[4] DISPLAY ALL ITEMS\n"; // i think this is not needed(?) since it will fall under view option
-											cout << "[5] SEARCH NAME OF STRAP \n";
-											cout << "[0] back\n";
-											cout << "Choose an option: ";
-											cin >> strp;
-		
-											s.switch_edit(strp);
-										} while (strp != 0);
+									{ // ADD
+										string categ, color, brand, leather_type, size, hole;
+										int quantity;
+										double price;
+
+										cout << "\nEnter category (stitched/no stitch/casio/casio w/ cover): ";
+										cin.ignore();
+										getline(cin, categ);
+										cout << "Enter color: ";
+										getline(cin, color);
+										cout << "Enter brand: ";
+										getline(cin, brand);
+										cout << "Enter leather type: ";
+										getline(cin, leather_type);
+										cout << "Enter quantity: ";
+										cin >> quantity;
+										cin.ignore();
+										cout << "Enter size: ";
+										getline(cin, size);
+										cout << "Enter price: ";
+										cin >> price;
+										cin.ignore();
+										cout << "Enter hole (e.g. 1 hole / 2 hole): ";
+										getline(cin, hole);
+
+										sCRUD.addItems(categ, color, brand, leather_type, quantity, size, price, hole);
 										break;
+									}
+
+									case 2:
+									{ // EDIT
+										int id;
+										cout << "\nEnter ID of strap to edit: ";
+										cin >> id;
+										sCRUD.editItem(id);
+										break;
+									}
+
+									case 3:
+									{ // DELETE
+										int id, dec;
+										cout << "\nEnter ID of strap to delete: ";
+										cin >> id;
+										cout << "Are you sure? [1-Yes / 0-No]: ";
+										cin >> dec;
+										sCRUD.deleteItem(id, dec);
+										break;
+									}
+
+									case 4:
+									{ // DISPLAY
+										sCRUD.viewItem(strp);
+										break;
+									}
+
+									case 5:
+									{ // SEARCH
+										string keyword;
+										cout << "Enter brand or color to search: ";
+										cin>>keyword;
+										sCRUD.searchItems(keyword);
+										break;
+									}
+
+									case 0:
+										break;
+
+									default:
+										cout << "Invalid option :<\n";
+										break;
+									}
+
+								} while (strp != 0);
+								break;
 		
 									case 2:
 										do

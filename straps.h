@@ -2,7 +2,7 @@
 #include <vector>
 #include <string>
 #include <iomanip>
-#include <algorithm> 
+#include <algorithm>
 using namespace std;
 
 class Straps
