@@ -751,6 +751,7 @@ public:
                      << "Enter Option: ";
                 insert_days(costumer_list, all_costumers);
                 cin >> sale;
+                 
                 POS_sales(sale, costumer_list, all_costumers, uni_days, week);
             } while (sale != 0);
 
@@ -771,6 +772,9 @@ public:
                     if (d.day == srch_d && d.month == srch_m)
                     {
                         display(c);
+                    }
+                    else{
+                        cout << "\nNo data found :< "; 
                     }
                 }
             }
@@ -891,7 +895,7 @@ public:
         return 0;
     }
 
-    //to determine the week 
+    //to determine the number of week in a month 
     int getWeek(int day)
     {
         if (day >= 1 && day <= 7)
@@ -905,80 +909,88 @@ public:
 
     int POS_sales(int &sale, vector<costumer> &costum, vector<costumer> &costum2, set<int> &uni, map<pair<int, int>, vector<costumer>> &week)
     {
+        //stores month and week number 
+        for (const auto &c : costum)
+        {
+            for (const auto &d : c.date)
+            {
+                int week_num = getWeek(d.day);
+                week[{d.month, week_num}].push_back(c);
+            }
+        }
+
+        for (const auto &c : costum2)
+        {
+            for (const auto &d : c.date)
+            {
+                int week_num = getWeek(d.day);
+                week[{d.month, week_num}].push_back(c);
+            }
+        }
+
         switch (sale)
         {
         case 1:
             cout << "\nORDER BY DAY\n";
 
+            // Iterates through all weeks and displays customer data per month/day
             for (const auto &[key, c_week] : week)
             {
                 int month_count = key.first;
                 cout << "\n\033[91mMONTH : " << month_count;
                 
                 for (int u : uni)
-                {
+                {   //marks the date is not listed yet 
                     bool mark_costumer = false;
 
                     for (const auto &c : costum)
                     {
-                        for (const auto &d : c.date)
-                        {
-                            if (d.day == u && d.month == month_count)
-                            {
-                                if (!mark_costumer)
-                                {
-                                    cout << "\n\033[91mDATE " << u << "\033[0m";
-                                    mark_costumer = true;
+                            for (const auto &d : c.date)
+                            {   //checks if the date matches the categorizer for day
+                            {   //checks if the month matches the categorizer for month 
+                                if (d.day == u && d.month == month_count)
+                                {   //makes sure we only print the header once per day 
+                                    if (!mark_costumer)
+                                    {
+                                        cout << "\n\033[91mDATE " << u << "\033[0m";
+                                        //marks the data as listed 
+                                        mark_costumer = true;
+                                    }
+                                    display(c);
                                 }
-                                display(c);
                             }
                         }
-                    }
 
-                    for (const auto &c : costum2)
-                    {
-                        for (const auto &d : c.date)
+                        for (const auto &c : costum2)
                         {
-                            if (d.day == u && d.month == month_count)
+                            for (const auto &d : c.date)
                             {
-                                if (!mark_costumer)
+                                if (d.day == u && d.month == month_count)
                                 {
-                                    cout << "\n\033[91mDATE " << u << "\033[0m";
-                                    mark_costumer = true;
+                                    if (!mark_costumer)
+                                    {
+                                        cout << "\n\033[91mDATE " << u << "\033[0m";
+                                        mark_costumer = true;
+                                    }
+                                    display(c);
                                 }
-                                display(c);
                             }
                         }
                     }
                 }
             }
-            break;
+        break;
 
         case 2:
             cout << "\nOrder by Week: \n";
-            for (const auto &c : costum)
-            {
-                for (const auto &d : c.date)
-                {
-                    int week_num = getWeek(d.day);
-                    week[{d.month, week_num}].push_back(c);
-                }
-            }
 
-            for (const auto &c : costum2)
-            {
-                for (const auto &d : c.date)
-                {
-                    int week_num = getWeek(d.day);
-                    week[{d.month, week_num}].push_back(c);
-                }
-            }
-
+            //iterates thorygh all week number and month 
             for (const auto &[key, c_week] : week)
             {
                 int month_count = key.first;
                 int week_count = key.second;
                 cout << "\n\033[91mMonth " << month_count << "| Week " << week_count << "\033[0m\n";
+
                 for (const auto &c : c_week)
                 {
                     display(c);
@@ -993,6 +1005,7 @@ public:
             {
                 cout << "invalid input :<";
             }
+            break;
         }
         return 0;
     };
