@@ -10,26 +10,15 @@
 
 using namespace std;
 
-class BatteryCRUD; 
+// class BatteryCRUD; 
 
 class Batteries
 {
 private:
 	string brand;
-	// BatteryCRUD *cb; 
+
 
 public:
-	// Batteries() : cb(nullptr) {}
-	// void setCRUD(BatteryCRUD *crud) { cb = crud; }
-
-	void setBrand(string b)
-	{
-		brand = b;
-	}
-	string getBrand(string b)
-	{
-		return b;
-	}
 
 	struct BattItems
 	{
@@ -135,40 +124,28 @@ public:
 			return 0;
 		}
 			
-		void switch_view(int bat, int strp){
-			switch(bat){
-				case 1:
-					DisplayMaxell(allbatt_arr, "MAXELL BATTERY");  
-					break;
 
-				case 2:  
-					DisplayRenata(allbatt_arr, "RENATA BATTERY");       
-					break;    
-
-				case 3:
-					DisplayMaxell(allbatt_arr, "MAXELL BATTERY");
-					DisplayRenata(allbatt_arr, "RENATA BATTERY"); 
-					break;   
-
-				case 4: {
-					// string input; 
-					// cout << "SEARCH\n";
-					// cout << "SEARCH ITEM: ";
-					// cin.ignore(numeric_limits<streamsize>::max(), '\n');
-					// getline(cin, input);
-					// cb->searchItems(input);
-					break;
-				}
-					
-				default:
-					if(strp != 0){
-						cout << "Invalid option :<\n";
-					}
-					break;
-
-				}	
-			}	
-		};
+    void switch_view(int bat, int strp) {
+        switch (bat) {
+            case 1:
+                DisplayMaxell(allbatt_arr, "MAXELL BATTERY");
+                break;
+            case 2:
+                DisplayRenata(allbatt_arr, "RENATA BATTERY");
+                break;
+            case 3:
+                DisplayMaxell(allbatt_arr, "MAXELL BATTERY");
+                DisplayRenata(allbatt_arr, "RENATA BATTERY");
+                break;
+				
+            default:
+                if (strp != 0)
+                    cout << "Invalid option :<\n";
+                break;
+        }
+    }
+};
+		
 
 class BatteryCRUD
 {
@@ -176,7 +153,6 @@ private:
 	// Batteries *b;
 	Batteries &batt;
 	vector<Batteries::BattItems> &allbatt_arr;
-	static int nextID;
 
 public:
 	// BatteryCRUD(Batteries *bRef) : b(bRef),allbatt_arr(bRef.allbatt_arr) {}
@@ -245,25 +221,9 @@ public:
 		    	itemName[0] = toupper(itemName[0]);
 		    }          
         
-        //sorting of items (by ascending ID)
-        sort(allbatt_arr.begin(), allbatt_arr.end(), [](auto &a, auto &b)
-        {
-            return a.id < b.id;
-        });
-        
-        //finding smallest unused ID
-        int newID = 1; 
-        for (const auto &b : allbatt_arr)
-        {
-            if(b.id == newID)
-                newID++;
-            else
-                break;    
-        }
-        
-        nextID = newID;
-        
-       Batteries::BattItems newBatt(nextID, categ, itemName, quantity, price);
+       int lastID = allbatt_arr.back().id + 1;
+
+       Batteries::BattItems newBatt(lastID, categ, itemName, quantity, price);
        
 	   if (categ == "renata" || categ == "maxwell")
 	   {
@@ -305,100 +265,4 @@ public:
 		
 	}
 
-	// LEVEINSHTEIN DISTANCE (para sa search)
-	int levenshteinDistance(const string &s1, const string &s2)
-	{
-		const size_t len1 = s1.size(), len2 = s2.size();
-		vector<vector<int>> dp(len1 + 1, vector<int>(len2 + 1));
-
-		for (size_t i = 0; i <= len1; ++i)
-			dp[i][0] = i;
-		for (size_t j = 0; j <= len2; ++j)
-			dp[0][j] = j;
-
-		for (size_t i = 1; i <= len1; ++i)
-			for (size_t j = 1; j <= len2; ++j)
-				dp[i][j] = min({
-					dp[i - 1][j] + 1,							// deletion
-					dp[i][j - 1] + 1,							// insertion
-					dp[i - 1][j - 1] + (s1[i - 1] != s2[j - 1]) // substitution
-				});
-
-		return dp[len1][len2];
-	}
-
-	// forda correct brand name
-	string correctItemName(string input)
-	{
-		vector<string> validBrands = { "renata", "maxwell"};
-
-		// transform the input to lowercase
-		transform(input.begin(), input.end(), input.begin(),
-				  [](unsigned char i)
-				  {
-					  return tolower(i);
-				  });
-
-		// trnasform the first char to uppercase
-		if (!input.empty())
-		{
-			input[0] = toupper(input[0]);
-		}
-
-		//return input;
-
-		// store varibles
-		string bestMatch = input;
-		int bestScore = INT_MAX;
-
-		// ich-check sa validbrand kung ano ang best match
-		for (const string &brand : validBrands)
-		{
-			int dist = levenshteinDistance(input, brand);
-			if (dist < bestScore)
-			{
-				bestScore = dist;
-				bestMatch = brand;
-			}
-		}
-		if (bestScore <= 2) // only accepts 2 typos
-			return bestMatch;
-		else
-			return input; // too different, keep original
-	}
-
-	// SEARCH
-	void searchItems(string input)
-	{
-		string brandPart, number;
-
-		stringstream ss(input);
-		ss >> brandPart;
-		getline(ss, number);							// separates the brandPart from the number part
-		number.erase(0, number.find_first_not_of(" ")); // erases the excess space from the number part
-
-		// search the brand part
-		string correctBrand = correctItemName(brandPart);
-
-		bool found = false;
-		for (const auto &batt : allbatt_arr)
-		{
-			string battNameLower = batt.brand; // brand includes the full name, e.g., "Renata 567"
-            transform(number.begin(), number.end(), number.begin(), ::tolower);
-			transform(battNameLower.begin(), battNameLower.end(), battNameLower.begin(), ::tolower);
-
-			// match if brand or brand+number found
-            if ((!number.empty() && battNameLower.find(correctBrand + " " + number) != string::npos) ||
-                (number.empty() && battNameLower.find(correctBrand) != string::npos))
-            {
-                cout << batt.brand << endl;
-                found = true;
-            }
-		}
-
-		if (!found)
-		{
-			cout << "No items matches :<\n";
-		}
-	}
 };

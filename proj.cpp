@@ -3,20 +3,20 @@
 #include <string>
 #include <limits>
 #include "batteries.h"
-#include "straps.h"
+#include "strapsCRUD.h"
 #include "pos.h"
 using namespace std;
 
-int BatteryCRUD::nextID = 1;
 
 int main()
 {
-	int opt, mat, inv, pos, sale = 0, edit, search, bat, strp;
+	int opt, mat, inv, pos, sale = 0, edit, bat, strp;
+	Straps s;
 	Batteries b;
 	BatteryCRUD crud(b);
 	string brandName, newItem, input;
 	int newQty, newPrice, id, dec;
-	Straps s;
+	StrapsCRUD sCRUD(s);
 	Pos myPOS(s,b);
 
 	cout << "\n\n\033[93m-------------------------------------------------------------";
@@ -62,23 +62,107 @@ int main()
 								cout << "Choose an option: ";
 								cin >> edit;
 		
-								switch (edit){
+								switch (edit)
+							{
+							case 1:
+								do
+								{
+									cout << "\nSTRAPS\n";
+									cout << "[1] ADD ITEM\n";
+									cout << "[2] EDIT ITEM\n";
+									cout << "[3] DELETE ITEM\n";
+									cout << "[4] DISPLAY ALL ITEMS\n";
+									cout << "[0] back\n";
+									cout << "Choose an option: ";
+									cin >> strp;
+
+									switch (strp)
+									{
 									case 1:
-										do
-										{
-											cout << "\nSTRAPS\n";
-											cout << "[1] ADD ITEM\n";
-											cout << "[2] EDIT ITEM\n";
-											cout << "[3] DELETE ITEM\n";
-											cout << "[4] DISPLAY ALL ITEMS\n"; // i think this is not needed(?) since it will fall under view option
-											cout << "[5] SEARCH NAME OF STRAP \n";
-											cout << "[0] back\n";
-											cout << "Choose an option: ";
-											cin >> strp;
-		
-											s.switch_edit(strp);
-										} while (strp != 0);
+									{ // ADD
+										string categ, color, brand, leather_type,  size,kid_size,  hole;
+										int  quantity;
+										double price;
+
+										cout << "\nEnter category (stitched | no stitch | casio | casio w/ cover): ";
+										cin.ignore();
+										getline(cin, categ);
+										cout << "Enter new color: ";
+										getline(cin, color);
+										cout << "Enter new brand: ";
+										getline(cin, brand);
+										cout << "Leather type? [1-YES/0-NO]: ";
+										getline(cin, leather_type);
+											if(leather_type == "1")
+											{
+												cout << "Enter new leather type: ";
+												getline(cin, leather_type);
+											}
+										cout << "Enter quantity: ";
+										cin >> quantity;
+										cout << "Enter size: ";
+										cin >> size;
+										cout << "Enter price: ";
+										cin >> price;
+										cout << "Enter hole (e.g. 1 | 2): ";
+										cin >> hole;
+
+										sCRUD.addItems(id, categ, color, brand, leather_type, quantity, size, price, hole);
 										break;
+									}
+
+									case 2:
+									{ // EDIT
+										sCRUD.dispItem();
+										int id, newPrice, newQty;
+										string newColor, newSize, newName;
+						
+										cout << "\nEnter ID of strap to edit: ";
+										cin >> id;
+										cin.ignore();
+										 cout << "New name: ";
+                        getline(cin, newName);
+                        cout << "New Color: ";
+                        cin >> newColor;
+                        cout << "New quantity: ";
+                        cin >> newQty;
+                        cout << "New size: ";
+                        cin >> newSize;
+                        cout << "New price: ";
+                        cin >> newPrice;
+										sCRUD.editItem(id,newName, newColor, newQty,newSize, newPrice);
+										break;
+									}
+
+									case 3:
+									{ 
+										sCRUD.dispItem();
+
+										int id, dec;
+										cout << "\nEnter ID of strap to delete: ";
+										cin >> id;
+										cout << "Are you sure? [1-Yes / 0-No]: ";
+										cin >> dec;
+										sCRUD.deleteItem(id, dec);
+										break;
+									}
+
+									case 4:
+									{ // DISPLAY
+										sCRUD.dispItem();
+										break;
+									}
+
+									case 0:
+										break;
+
+									default:
+										cout << "Invalid option :<\n";
+										break;
+									}
+
+								} while (strp != 0);
+								break;
 		
 									case 2:
 										do
@@ -87,7 +171,6 @@ int main()
 											cout << "[1] EDIT\n";
 											cout << "[2] ADD\n";
 											cout << "[3] DELETE\n";
-											cout << "[4] SEARCH NAME OF BATTERY \n";
 											cout << "[0] back\n";
 											cout << "Choose an option: ";
 											cin >> bat;
@@ -137,13 +220,11 @@ int main()
 													crud.deleteItems(id, dec);
 		
 													break;
-												case 4:
-													cout << "SEARCH ITEM: ";
-													cin.ignore(numeric_limits<streamsize>::max(), '\n');
-													getline(cin, input);
-		
-													crud.searchItems(input);
+
+												case 0:
 													break;
+												default:
+													cout << "Invalid input :<";
 											}
 										} while (bat != 0);
 										break;
@@ -172,7 +253,7 @@ int main()
 										cout << "[2] NO STITCH STRAP\n";
 										cout << "[3] CASIO STRAP\n";
 										cout << "[4] DISPLAY ALL STRAPS\n";
-										cout << "[5] SEARCH NAME OF STRAP \n";
+
 										cout << "[0] back\n";
 										cout << "Choose an option: ";
 										cin >> strp;
@@ -189,7 +270,6 @@ int main()
 										cout << "[1] MAXELL\n";
 										cout << "[2] RENATA\n";
 										cout << "[3] DISPLAY ALL BATTERIES\n";
-										cout << "[4] SEARCH NAME OF BATTERY \n";
 										cout << "[0] back\n";
 										cout << "Choose an option: ";
 										cin >> bat;
