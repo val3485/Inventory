@@ -134,41 +134,98 @@ public:
 			}
 			return 0;
 		}
-			
-		void switch_view(int bat, int strp){
-			switch(bat){
-				case 1:
-					DisplayMaxell(allbatt_arr, "MAXELL BATTERY");  
-					break;
+		
+		// Utility functions
+    int levenshteinDistance(const string& s1, const string& s2) {
+        const size_t len1 = s1.size(), len2 = s2.size();
+        vector<vector<int>> dp(len1 + 1, vector<int>(len2 + 1));
 
-				case 2:  
-					DisplayRenata(allbatt_arr, "RENATA BATTERY");       
-					break;    
+        for (size_t i = 0; i <= len1; ++i) dp[i][0] = i;
+        for (size_t j = 0; j <= len2; ++j) dp[0][j] = j;
 
-				case 3:
-					DisplayMaxell(allbatt_arr, "MAXELL BATTERY");
-					DisplayRenata(allbatt_arr, "RENATA BATTERY"); 
-					break;   
+        for (size_t i = 1; i <= len1; ++i)
+            for (size_t j = 1; j <= len2; ++j)
+                dp[i][j] = min({
+                    dp[i - 1][j] + 1,
+                    dp[i][j - 1] + 1,
+                    dp[i - 1][j - 1] + (s1[i - 1] != s2[j - 1])
+                });
 
-				case 4: {
-					// string input; 
-					// cout << "SEARCH\n";
-					// cout << "SEARCH ITEM: ";
-					// cin.ignore(numeric_limits<streamsize>::max(), '\n');
-					// getline(cin, input);
-					// cb->searchItems(input);
-					break;
-				}
-					
-				default:
-					if(strp != 0){
-						cout << "Invalid option :<\n";
-					}
-					break;
+        return dp[len1][len2];
+    }
 
-				}	
-			}	
-		};
+    string correctItemName(string input) {
+        vector<string> validBrands = {"renata", "maxell"};
+        transform(input.begin(), input.end(), input.begin(), ::tolower);
+
+        string bestMatch = input;
+        int bestScore = INT_MAX;
+
+        for (const string& brand : validBrands) {
+            int dist = levenshteinDistance(input, brand);
+            if (dist < bestScore) {
+                bestScore = dist;
+                bestMatch = brand;
+            }
+        }
+
+        return (bestScore <= 2) ? bestMatch : input;
+    }
+
+    void searchItems(string input) {
+        string brandPart, number;
+        stringstream ss(input);
+        ss >> brandPart;
+        getline(ss, number);
+        number.erase(0, number.find_first_not_of(" "));
+
+        string correctBrand = correctItemName(brandPart);
+
+        bool found = false;
+        for (const auto& batt : allbatt_arr) {
+            string battNameLower = batt.brand;
+            transform(battNameLower.begin(), battNameLower.end(), battNameLower.begin(), ::tolower);
+            transform(number.begin(), number.end(), number.begin(), ::tolower);
+
+            if ((!number.empty() && battNameLower.find(correctBrand + " " + number) != string::npos) ||
+                (number.empty() && battNameLower.find(correctBrand) != string::npos)) {
+                cout << batt.brand << endl;
+                found = true;
+            }
+        }
+
+        if (!found) cout << "No items match :<\n";
+    }
+
+    void switch_view(int bat, int strp) {
+        switch (bat) {
+            case 1:
+                DisplayMaxell(allbatt_arr, "MAXELL BATTERY");
+                break;
+            case 2:
+                DisplayRenata(allbatt_arr, "RENATA BATTERY");
+                break;
+            case 3:
+                DisplayMaxell(allbatt_arr, "MAXELL BATTERY");
+                DisplayRenata(allbatt_arr, "RENATA BATTERY");
+                break;
+            case 4: {
+                string input;
+                cout << "SEARCH ITEM: ";
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                getline(cin, input);
+                searchItems(input);
+                break;
+            }
+            default:
+                if (strp != 0)
+                    cout << "Invalid option :<\n";
+                break;
+        }
+    }
+};
+
+		
 
 class BatteryCRUD
 {
