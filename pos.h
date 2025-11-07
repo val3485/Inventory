@@ -73,32 +73,32 @@ public:
     //dummy data 
     vector<costumer> costumer_list = {
         {"Clare Lubiano", "0962 585 8585", 10000, 7300, 2700, {{2025, 11, 01}}, {
-            {3, "stitched", "black w/ white", "Null", "Buffalo Calf", 1, "16-19", 850, ""},
-            {4, "stitched", "brown light", "Null", "Buffalo Calf", 1, "16-19", 850, ""},
+            {3, "stitched", "black w/ white", "no type", "Buffalo Calf", 1, "16-19", 850, ""},
+            {4, "stitched", "brown light", "No type", "Buffalo Calf", 1, "16-19", 850, ""},
             },
          {
              {3, "renata", "Renata 600", 1, 500},
              {4, "renata", "Renata 700", 1, 500},
          }},
         {"Sylvia Heart Sulla", "0962 656 8910", 10000, 7300, 2700, {{2025, 11, 01}}, {
-                {3, "stitched", "black w/ white", "Null", "Buffalo Calf", 1, "16-19", 850, ""},
-                {4, "stitched", "brown light", "Null", "Buffalo Calf", 1, "16-19", 850, ""},
+                {3, "stitched", "black w/ white", "No type", "Buffalo Calf", 1, "16-19", 850, ""},
+                {4, "stitched", "brown light", "No type", "Buffalo Calf", 1, "16-19", 850, ""},
             },
          {
              {3, "renata", "Renata 600", 1, 500},
              {4, "renata", "Renata 700", 1, 500},
          }},
-        {"Chybes Shantee Naje", "0962 114 5862", 10000, 7300, 2700, {{2025, 10, 29}}, {
-                                                                                          {3, "stitched", "black w/ white", "Null", "Buffalo Calf", 1, "16-19", 850, ""},
-                                                                                          {4, "stitched", "brown light", "Null", "Buffalo Calf", 1, "16-19", 850, ""},
-                                                                                      },
+        {"Chybs Shantee Naje", "0962 114 5862", 10000, 7300, 2700, {{2025, 10, 29}}, {
+            {3, "stitched", "black w/ white", "No type", "Buffalo Calf", 1, "16-19", 850, ""},
+            {4, "stitched", "brown light", "No type", "Buffalo Calf", 1, "16-19", 850, ""},
+            },
          {
              {3, "renata", "Renata 600", 1, 500},
              {4, "renata", "Renata 700", 1, 500},
          }},
         {"Vinea Lei", "0962 645 7012", 10000, 7300, 2700, {{2025, 10, 27}}, {
-            {3, "stitched", "black w/ white", "Null", "Buffalo Calf", 1, "16-19", 850, ""},
-            {4, "stitched", "brown light", "Null", "Buffalo Calf", 1, "16-19", 850, ""},
+            {3, "stitched", "black w/ white", "No type", "Buffalo Calf", 1, "16-19", 850, ""},
+            {4, "stitched", "brown light", "No type", "Buffalo Calf", 1, "16-19", 850, ""},
             },
          {
              {3, "renata", "Renata 600", 1, 500},
@@ -217,12 +217,12 @@ public:
         {
             cout << left
                  << setw(15) << "Brand"
-                 << setw(10) << "Qty"
+                 << setw(15) << "Qty"
                  << setw(10) << "Price" << "\n";
             for (const auto &b : ac.store_b)
             {
                 cout << setw(15) << b.brand
-                     << setw(10) << b.quantity
+                     << setw(15) << b.quantity
                      << setw(10) << b.price << "\n";
             }
         }
@@ -661,13 +661,13 @@ public:
                 cout << right << setw(5) << " ";
                 cout << left << setw(5) << "ID"
                      << setw(15) << "Brand"
-                     << setw(10) << "Qty"
+                     << setw(15) << "Qty"
                      << setw(10) << "Price" << "\n";
 
                 cout << right << setw(5) << " ";
                 cout << left << setw(5) << c.store_b.back().id
                      << setw(15) << item.brand
-                     << setw(10) << c.store_b.back().quantity
+                     << setw(15) << c.store_b.back().quantity
                      << setw(10) << item.price << "\n";
                 break;
             }
@@ -757,13 +757,14 @@ public:
 
             break;
 
-        case 2:
+        case 2:{
             pos = 0;
             cout << "\nSEARCH DATE OF SALES";
             cout << "\nSearch Day: ";
             cin >> srch_d;
             cout << "\nSearch Month: ";
             cin >> srch_m;
+            bool found = false; 
 
             for (const auto &c : costumer_list)
             {
@@ -772,10 +773,9 @@ public:
                     if (d.day == srch_d && d.month == srch_m)
                     {
                         display(c);
-                    }
-                    else{
-                        cout << "\nNo data found :< "; 
-                    }
+                        
+                    }       
+                    
                 }
             }
 
@@ -786,11 +786,18 @@ public:
                     if (d.day == srch_d || d.month == srch_m)
                     {
                         display(c);
+                        found = true; 
                     }
                 }
             }
 
+            if(!found){
+                 cout << "\nNo data found :< "; 
+            }
+
+
             break;
+        }
 
         case 3:
             pos = 0;

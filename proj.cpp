@@ -13,9 +13,9 @@ int main()
 {
 	int opt, mat, inv, pos, sale = 0, edit, search, bat, strp;
 	Batteries b;
+	BatteryCRUD crud(b);
 	string brandName, newItem, input;
 	int newQty, newPrice, id, dec;
-	BatteryCRUD crud(b);
 	Straps s;
 	Pos myPOS(s,b);
 
@@ -23,7 +23,7 @@ int main()
 	cout <<R"(
    .---.                .---.      
   / 12  \              (  o  )
- |9  o  3| Minute Key   `-|-'3
+ |9  o  3| Minute Key   `-|-'
   \_ 6 _/                |=>
    `---'                 |=>    )";
 	cout << "\n-------------------------------------------------------------\033[0m ";
@@ -99,7 +99,7 @@ int main()
 		
 													cout << "Input Item ID you want to edit: ";
 													cin >> id;
-													cout << "Input new brand name [Renata/Maxwell]: ";
+													cout << "Input new brand name [Renata/Maxell]: ";
 													cin >> brandName;
 													cin.ignore(numeric_limits<streamsize>::max(), '\n');
 													cout << "Input new item name: ";
@@ -113,7 +113,7 @@ int main()
 		
 													break;
 												case 2:
-													cout << "\nInput brand name you want to add [Renata/Maxwell]: ";
+													cout << "\nInput brand name you want to add [Renata/Maxell]: ";
 													cin >> brandName;
 													cout << "Input new item name: ";
 													cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -186,7 +186,7 @@ int main()
 									do
 									{
 										cout << "\nBATTERIES\n";
-										cout << "[1] MAXWELL\n";
+										cout << "[1] MAXELL\n";
 										cout << "[2] RENATA\n";
 										cout << "[3] DISPLAY ALL BATTERIES\n";
 										cout << "[4] SEARCH NAME OF BATTERY \n";
@@ -194,7 +194,7 @@ int main()
 										cout << "Choose an option: ";
 										cin >> bat;
 
-										b.switch_view(bat);
+										b.switch_view(bat,strp);
 
 									} while (bat != 0);
 									break;
@@ -225,6 +225,11 @@ int main()
 			case 3:
 				myPOS.input();
 				break;
+
+			default:
+				if(opt != 0){
+					cout << "Invalid option :<";
+				}
 		}
 	} while (opt != 0);
 

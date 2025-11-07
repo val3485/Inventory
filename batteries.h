@@ -10,12 +10,18 @@
 
 using namespace std;
 
+class BatteryCRUD; 
+
 class Batteries
 {
 private:
 	string brand;
+	// BatteryCRUD *cb; 
 
 public:
+	// Batteries() : cb(nullptr) {}
+	// void setCRUD(BatteryCRUD *crud) { cb = crud; }
+
 	void setBrand(string b)
 	{
 		brand = b;
@@ -129,7 +135,7 @@ public:
 			return 0;
 		}
 			
-		void switch_view(int bat){
+		void switch_view(int bat, int strp){
 			switch(bat){
 				case 1:
 					DisplayMaxell(allbatt_arr, "MAXELL BATTERY");  
@@ -144,15 +150,20 @@ public:
 					DisplayRenata(allbatt_arr, "RENATA BATTERY"); 
 					break;   
 
-				case 4: 
-					cout << "SEARCH\n";
+				case 4: {
+					// string input; 
+					// cout << "SEARCH\n";
+					// cout << "SEARCH ITEM: ";
+					// cin.ignore(numeric_limits<streamsize>::max(), '\n');
+					// getline(cin, input);
+					// cb->searchItems(input);
 					break;
-				
-				case 0:
-					break;
+				}
 					
 				default:
-					cout << "Invalid option :<\n";
+					if(strp != 0){
+						cout << "Invalid option :<\n";
+					}
 					break;
 
 				}	
@@ -162,13 +173,14 @@ public:
 class BatteryCRUD
 {
 private:
+	// Batteries *b;
 	Batteries &batt;
 	vector<Batteries::BattItems> &allbatt_arr;
 	static int nextID;
 
 public:
+	// BatteryCRUD(Batteries *bRef) : b(bRef),allbatt_arr(bRef.allbatt_arr) {}
 	BatteryCRUD(Batteries &batts) : batt(batts), allbatt_arr(batts.allbatt_arr) {}
-
 	// DISPLAY
 	void displayItems()
 	{
