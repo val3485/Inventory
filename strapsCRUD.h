@@ -207,25 +207,15 @@ public:
         {
             if (i.id == id)
             {
-            //    cout << "New name: ";
-            //             getline(cin, newName);
-            //             cout << "New Color: ";
-            //             cin >> newColor;
-            //             cout << "New quantity: ";
-            //             cin >> newQty;
-            //             cout << "New size: ";
-            //             cin >> newSize;
-            //             cout << "New price: ";
-            //             cin >> newPrice;
 
-                        i.brand = newName;
-                        i.quantity = newQty;
-                        i.price = newPrice;
-                        i.size = newSize;
-                        i.color = newColor;
-                        found = true;
-                        cout << "\nItem updated successfully!\n";
-                        break; 
+                i.brand = newName;
+                i.quantity = newQty;
+                i.price = newPrice;
+                i.size = newSize;
+                i.color = newColor;
+                found = true;
+                cout << "\nItem updated successfully!\n";
+                break; 
             }
 
             
@@ -235,152 +225,6 @@ public:
                 cout << "Item not found or id does not exist in that category!\n";
                 // break;
     }
-    //     do
-    //     {
-    //         cout << "\nEDIT ITEM\n";
-    //         cout << "[1] WITH STITCH STRAP\n";
-    //         cout << "[2] NO STITCH STRAP\n";
-    //         cout << "[3] CASIO STRAP\n";
-    //         cout << "[0] BACK\n";
-    //         cout << "Choose an option: ";
-    //         cin >> strp;
-
-    //         string nameToEdit;
-    //         string newName, newColor, newleather_Type;
-    //         int newQty, newSize, newHole;
-    //         double newPrice;
-    //         bool found = false;
-
-    //         switch (strp)
-    //         {
-    //         case 1:
-    //         {
-    //             cout << "Enter name of brand to edit (WITH STITCHED): ";
-    //             cin.ignore();
-    //             getline(cin, nameToEdit);
-
-    //             for (auto &i : s.allstraps_arr)
-    //             {
-    //                 // if (i.categ == "WITH STITCH STRAPS" && i.brand == nameToEdit)
-    //                 if (i.id ==  id)
-    //                 {
-    //                     cout << "New name: ";
-    //                     getline(cin, newName);
-    //                     cout << "New Color: ";
-    //                     cin >> newColor;
-    //                     cout << "New quantity: ";
-    //                     cin >> newQty;
-    //                     cout << "New size: ";
-    //                     cin >> newSize;
-    //                     cout << "New price: ";
-    //                     cin >> newPrice;
-
-    //                     i.brand = newName;
-    //                     i.quantity = newQty;
-    //                     i.price = newPrice;
-    //                     i.size = newSize;
-    //                     i.color = newColor;
-    //                     found = true;
-    //                     cout << "\nItem updated successfully!\n";
-    //                     break;
-    //                 }
-    //             }
-    //             if (!found)
-    //                 cout << "Item not found or id does not exist in that category!\n";
-    //             break;
-    //         }
-
-    //         case 2:
-    //         {
-    //             cout << "Enter name of brand to edit (NO STITCH): ";
-    //             cin.ignore();
-    //             getline(cin, nameToEdit);
-
-    //             for (auto &i : s.allstraps_arr)
-    //             {
-    //                 if (i.categ == "NO STITCH STRAPS" && i.brand == nameToEdit)
-    //                 {
-    //                     cout << "New name: ";
-    //                     getline(cin, newName);
-    //                     cout << "New Color: ";
-    //                     cin >> newColor;
-    //                     cout << "New quantity: ";
-    //                     cin >> newQty;
-    //                     cout << "New size: ";
-    //                     cin >> newSize;
-    //                     cout << "New price: ";
-    //                     cin >> newPrice;
-
-    //                     i.brand = newName;
-    //                     i.quantity = newQty;
-    //                     i.price = newPrice;
-    //                     i.size = newSize;
-    //                     i.color = newColor;
-    //                     found = true;
-    //                     cout << "\nItem updated successfully!\n";
-    //                     break;
-    //                 }
-    //             }
-    //             if (!found)
-    //                 cout << "Item not found or id does not exist in that category!\n";
-    //             break;
-    //         }
-
-    //         case 3:
-    //         {
-    //             int choice;
-    //             cout << "\nCHOOSE CASIO TYPE:\n";
-    //             cout << "[1] KIDS SIZE\n";
-    //             cout << "[2] ADULT SIZE\n";
-    //             cout << "[0] BACK\n";
-    //             cout << "Choose an option: ";
-    //             cin >> choice;
-
-    //             if (choice == 1)
-    //                 nameToEdit = "CASIO STRAPS KIDS SIZE W/ COVER";
-    //             else if (choice == 2)
-    //                 nameToEdit = "CASIO STRAPS ADULT SIZE";
-    //             else
-    //                 break;
-
-    //             cin.ignore();
-    //             string strapName;
-    //             cout << "Enter name of brand to edit (" << nameToEdit << "): ";
-    //             getline(cin, strapName);
-
-    //             for (auto &i : s.allstraps_arr)
-    //             {
-    //                 if (i.categ == nameToEdit && i.brand == strapName)
-    //                 {
-    //                     cout << "New name: ";
-    //                     getline(cin, newName);
-    //                     cout << "New Color: ";
-    //                     cin >> newColor;
-    //                     cout << "New quantity: ";
-    //                     cin >> newQty;
-    //                     cout << "New size: ";
-    //                     cin >> newSize;
-    //                     cout << "New price: ";
-    //                     cin >> newPrice;
-
-    //                     i.brand = newName;
-    //                     i.quantity = newQty;
-    //                     i.price = newPrice;
-    //                     i.size = newSize;
-    //                     i.color = newColor;
-    //                     found = true;
-    //                     cout << "\nItem updated successfully!\n";
-    //                     break;
-    //                 }
-    //             }
-    //             if (!found)
-    //                 cout << "Item not found or id does not exist in that category!\n";
-    //             break;
-    //         }
-    //         }
-
-    //     } while (strp != 0);
-    // }
 
     int DisplayStitched(string &categ)
     {
