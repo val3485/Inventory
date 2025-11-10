@@ -1,9 +1,8 @@
- #include <iostream>
+#include <iostream>
  #include <vector>
  #include <string>
+ #include <iomanip>
  using namespace std;
-//  #ifndef STRAPS_H
-//  #define STRAPS_H
 
 class Straps{
 	private:
@@ -304,11 +303,11 @@ class Straps{
 
 					switch(opt){
 						case 1:
-						DisplayCasioAdult(allstraps_arr, "CASIO STRAPS ADULT SIZE");
+							DisplayCasioAdult(allstraps_arr, "CASIO STRAPS ADULT SIZE");
 							break;
 						
 						case 2:
-						DisplayCasioKids(allstraps_arr, "CASIO STRAPS KIDS SIZE W/ COVER");  
+							DisplayCasioKids(allstraps_arr, "CASIO STRAPS KIDS SIZE W/ COVER");  
 							break;
 						
 						case 0:
@@ -323,10 +322,10 @@ class Straps{
 					break;   
 				
 				case 4:
-				DisplayStitched(allstraps_arr, "STITCHED STRAPS");
-				DisplayNoStitched(allstraps_arr, "NO STITCH STRAPS");
-				DisplayCasioAdult(allstraps_arr, "CASIO STRAPS ADULT SIZE"); 
-				DisplayCasioKids(allstraps_arr, "CASIO STRAPS KIDS SIZE W/ COVER");
+					DisplayStitched(allstraps_arr, "STITCHED STRAPS");
+					DisplayNoStitched(allstraps_arr, "NO STITCH STRAPS");
+					DisplayCasioAdult(allstraps_arr, "CASIO STRAPS ADULT SIZE"); 
+					DisplayCasioKids(allstraps_arr, "CASIO STRAPS KIDS SIZE W/ COVER");
 					break;
 
 				case 5:
@@ -388,4 +387,3 @@ class Straps{
 			}
 		}
 };
-// #endif
