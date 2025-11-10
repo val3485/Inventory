@@ -50,8 +50,8 @@ int main()
 					cout << "Choose an option: ";
 					cin >> inv;
 
-						switch (inv)
-						{
+					switch (inv)
+					{
 						case 1:
 							do{
 
@@ -63,106 +63,106 @@ int main()
 								cin >> edit;
 		
 								switch (edit)
-							{
-							case 1:
-								do
 								{
-									cout << "\nSTRAPS\n";
-									cout << "[1] ADD ITEM\n";
-									cout << "[2] EDIT ITEM\n";
-									cout << "[3] DELETE ITEM\n";
-									cout << "[4] DISPLAY ALL ITEMS\n";
-									cout << "[0] back\n";
-									cout << "Choose an option: ";
-									cin >> strp;
-
-									switch (strp)
-									{
 									case 1:
-									{ // ADD
-										string categ, color, brand, leather_type,  size,kid_size,  hole;
-										int  quantity;
-										double price;
+										do
+										{
+											cout << "\nSTRAPS\n";
+											cout << "[1] ADD ITEM\n";
+											cout << "[2] EDIT ITEM\n";
+											cout << "[3] DELETE ITEM\n";
+											cout << "[4] DISPLAY ALL ITEMS\n";
+											cout << "[0] back\n";
+											cout << "Choose an option: ";
+											cin >> strp;
 
-										cout << "\nEnter category (stitched | no stitch | casio | casio w/ cover): ";
-										cin.ignore();
-										getline(cin, categ);
-										cout << "Enter new color: ";
-										getline(cin, color);
-										cout << "Enter new brand: ";
-										getline(cin, brand);
-										cout << "Leather type? [1-YES/0-NO]: ";
-										getline(cin, leather_type);
-											if(leather_type == "1")
+											switch (strp)
 											{
-												cout << "Enter new leather type: ";
-												getline(cin, leather_type);
+												case 1:
+												{ // ADD
+													string categ, color, brand, leather_type,  size,kid_size,  hole;
+													int  quantity;
+													double price;
+
+													cout << "\nEnter category (stitched | no stitch | casio | casio w/ cover): ";
+													cin.ignore();
+													getline(cin, categ);
+													cout << "Enter new color: ";
+													getline(cin, color);
+													cout << "Enter new brand: ";
+													getline(cin, brand);
+													cout << "Leather type? [1-YES/0-NO]: ";
+													getline(cin, leather_type);
+														if(leather_type == "1")
+														{
+															cout << "Enter new leather type: ";
+															getline(cin, leather_type);
+														}
+													cout << "Enter quantity: ";
+													cin >> quantity;
+													cout << "Enter size: ";
+													cin >> size;
+													cout << "Enter price: ";
+													cin >> price;
+													cout << "Enter hole (e.g. 1 | 2): ";
+													cin >> hole;
+
+													sCRUD.addItems(id, categ, color, brand, leather_type, quantity, size, price, hole);
+													break;
+												}
+
+												case 2:
+												{ // EDIT
+													sCRUD.dispItem();
+													int id, newPrice, newQty;
+													string newColor, newSize, newName;
+									
+													cout << "\nEnter ID of strap to edit: ";
+													cin >> id;
+													cin.ignore();
+													cout << "New name: ";
+													getline(cin, newName);
+													cout << "New Color: ";
+													cin >> newColor;
+													cout << "New quantity: ";
+													cin >> newQty;
+													cout << "New size: ";
+													cin >> newSize;
+													cout << "New price: ";
+													cin >> newPrice;
+													sCRUD.editItem(id,newName, newColor, newQty,newSize, newPrice);
+													break;
+												}
+
+												case 3:
+												{ 
+													sCRUD.dispItem();
+
+													int id, dec;
+													cout << "\nEnter ID of strap to delete: ";
+													cin >> id;
+													cout << "Are you sure? [1-Yes / 0-No]: ";
+													cin >> dec;
+													sCRUD.deleteItem(id, dec);
+													break;
+												}
+
+												case 4:
+												// DISPLAY
+													sCRUD.dispItem();
+													break;
+												
+
+												case 0:
+													break;
+
+												default:
+													cout << "Invalid option :<\n";
+													break;
 											}
-										cout << "Enter quantity: ";
-										cin >> quantity;
-										cout << "Enter size: ";
-										cin >> size;
-										cout << "Enter price: ";
-										cin >> price;
-										cout << "Enter hole (e.g. 1 | 2): ";
-										cin >> hole;
 
-										sCRUD.addItems(id, categ, color, brand, leather_type, quantity, size, price, hole);
-										break;
-									}
-
-									case 2:
-									{ // EDIT
-										sCRUD.dispItem();
-										int id, newPrice, newQty;
-										string newColor, newSize, newName;
-						
-										cout << "\nEnter ID of strap to edit: ";
-										cin >> id;
-										cin.ignore();
-										 cout << "New name: ";
-                        getline(cin, newName);
-                        cout << "New Color: ";
-                        cin >> newColor;
-                        cout << "New quantity: ";
-                        cin >> newQty;
-                        cout << "New size: ";
-                        cin >> newSize;
-                        cout << "New price: ";
-                        cin >> newPrice;
-										sCRUD.editItem(id,newName, newColor, newQty,newSize, newPrice);
-										break;
-									}
-
-									case 3:
-									{ 
-										sCRUD.dispItem();
-
-										int id, dec;
-										cout << "\nEnter ID of strap to delete: ";
-										cin >> id;
-										cout << "Are you sure? [1-Yes / 0-No]: ";
-										cin >> dec;
-										sCRUD.deleteItem(id, dec);
-										break;
-									}
-
-									case 4:
-									{ // DISPLAY
-										sCRUD.dispItem();
-										break;
-									}
-
-									case 0:
-										break;
-
-									default:
-										cout << "Invalid option :<\n";
-										break;
-									}
-
-								} while (strp != 0);
-								break;
+										} while (strp != 0);
+									break;
 		
 									case 2:
 										do
@@ -281,7 +281,7 @@ int main()
 								}
 							}while(mat != 0); 
 							break;
-						}
+					}
 
 				} while (inv != 0 );
 
@@ -314,4 +314,5 @@ int main()
 	} while (opt != 0);
 
 	return 0;
+
 }
