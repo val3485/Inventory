@@ -829,7 +829,7 @@ public:
             }
 
             if(!found){
-                 cout << "\nNo data found :< "; 
+                 cout << "\nNo data found :< \n"; 
             }
 
 
@@ -1053,13 +1053,15 @@ public:
             int week_count = key.second;
             cout << "\n\033[91mMonth " << month_count << "| Week " << week_count << "\033[0m\n";
 
-            vector<int> shown;
+            set<int> shown;
             // stores date of the costumers that already existed
             // prevents duplicates
+
             for (const auto &c : c_week){
-              if(find(shown.begin(),shown.end(), c.id) ==  shown.end()){
+              if(shown.find(c.id) == shown.end()){
+                //not found 
                 display(c);
-                shown.push_back(c.id);
+                shown.insert(c.id);
               }
                 
             }

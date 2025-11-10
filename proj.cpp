@@ -299,7 +299,7 @@ int main()
 					cin >> pos;
 
 					myPOS.POS_switch(pos, sale);
-				} while (pos != 0 && sale != 0);
+				} while (pos != 0 );
 				break;
 
 			case 3:
