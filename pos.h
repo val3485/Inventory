@@ -242,14 +242,14 @@ public:
   }
 
   // totals overall price for both stores
-  int total_price()
+  float total_price()
   {
-    int total_s = 0;
+    float total_s = 0;
     for (const auto &s : c.store)
     {
       total_s += s.price * s.quantity;
     }
-    int total_b = 0;
+    float total_b = 0;
     for (const auto &b : c.store_b)
     {
       total_b += b.price * b.quantity;
