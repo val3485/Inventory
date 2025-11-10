@@ -359,6 +359,7 @@ int main()
 														cout << "[1] MAXELL\n";
 														cout << "[2] RENATA\n";
 														cout << "[3] DISPLAY ALL BATTERIES\n";
+														cout << "[4] CHECK STOCK LEVELS\n";
 														cout << "[0] back\n";
 														cout << "Choose an option: ";
 														cin >> bat;

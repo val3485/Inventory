@@ -20,72 +20,73 @@ private:
 
 public:
 
-	struct BattItems
-	{
+	struct BattItems{
 		int id;
 		string categ;
 		string brand;
 		int quantity;
+		int reorder_point; //to trigger alert
 		float price;
 
-				BattItems(int i, string ct, string b, int q, float p) //this is called a constructor, it reads(?) the data from the array in order.
-				: id(i), categ (ct), brand(b), quantity(q), price(p) {}
+				BattItems() = default;
+				BattItems(int i, string ct, string b, int q, int rp, float p) //this is called a constructor, it reads(?) the data from the array in order.
+				: id(i), categ (ct), brand(b), quantity(q), reorder_point(rp), price(p) {}
 			};
 			
 			vector<BattItems> allbatt_arr = {
 				
-				{1, "maxell", "Maxell SR416SW", 10, 450},
-				{2, "maxell", "Maxell SR512SW", 10, 450},
-				{3, "maxell", "Maxell SR521SW", 10, 450},
-				{4, "maxell", "Maxell SR416SW", 10, 450},
-				{5, "maxell", "Maxell SR616SW", 10, 450},
-				{6, "maxell", "Maxell SR621SW", 10, 450},
-				{7, "maxell", "Maxell SR626SW", 10, 450},
-				{8, "maxell", "Maxell SR626SW", 10, 450},
-				{9, "maxell", "Maxell SR716SW", 10, 450},
-				{10, "maxell", "Maxell SR721SW", 10, 450},
-				{11, "maxell", "Maxell SR726SW", 10, 450},
-				{12, "maxell", "Maxell SR920SW", 10, 450},
-				{13, "maxell", "Maxell SR927SW", 10, 450},
-				{14, "maxell", "Maxell SR936SW", 10, 450},
-				{15, "maxell", "Maxell SR1120SW", 10, 450},
-				{16, "maxell", "Maxell SR1130SW", 10, 450},
-				{17, "maxell", "Maxell CR 1216", 10, 450},
-				{18, "maxell", "Maxell CR 1616", 10, 450},
-				{19, "maxell", "Maxell CR 1620", 10, 450},
-				{20, "maxell", "Maxell CR 1632", 10, 450},
-				{21, "maxell", "Maxell CR 2016", 10, 450},
-				{22, "maxell", "Maxell CR 2025", 10, 450},
-				{23, "maxell", "Maxell CR 2032", 10, 450},
-				{24, "maxell", "Maxell LR41", 10, 450},
-				{25, "maxell", "Maxell LR44", 10, 450},
-				{26, "maxell", "Maxell LR1130", 10, 450},
+				{1, "maxell", "Maxell SR416SW", 10, 5, 450},
+				{2, "maxell", "Maxell SR512SW", 10, 5, 450},
+				{3, "maxell", "Maxell SR521SW", 10, 5, 450},
+				{4, "maxell", "Maxell SR416SW", 10, 5, 450},
+				{5, "maxell", "Maxell SR616SW", 10, 5, 450},
+				{6, "maxell", "Maxell SR621SW", 10, 5, 450},
+				{7, "maxell", "Maxell SR626SW", 10, 5, 450},
+				{8, "maxell", "Maxell SR626SW", 10, 5, 450},
+				{9, "maxell", "Maxell SR716SW", 10, 5, 450},
+				{10, "maxell", "Maxell SR721SW", 10, 5, 450},
+				{11, "maxell", "Maxell SR726SW", 10, 5, 450},
+				{12, "maxell", "Maxell SR920SW", 10, 5, 450},
+				{13, "maxell", "Maxell SR927SW", 10, 5, 450},
+				{14, "maxell", "Maxell SR936SW", 10, 5, 450},
+				{15, "maxell", "Maxell SR1120SW", 10, 5, 450},
+				{16, "maxell", "Maxell SR1130SW", 10, 5, 450},
+				{17, "maxell", "Maxell CR 1216", 10, 5, 450},
+				{18, "maxell", "Maxell CR 1616", 10, 5, 450},
+				{19, "maxell", "Maxell CR 1620", 10, 5, 450},
+				{20, "maxell", "Maxell CR 1632", 10, 5, 450},
+				{21, "maxell", "Maxell CR 2016", 10, 5, 450},
+				{22, "maxell", "Maxell CR 2025", 10, 5, 450},
+				{23, "maxell", "Maxell CR 2032", 10, 5, 450},
+				{24, "maxell", "Maxell LR41", 10, 5, 450},
+				{25, "maxell", "Maxell LR44", 10, 5, 450},
+				{26, "maxell", "Maxell LR1130", 10, 5, 450},
 
-				{27, "renata", "Renata 315", 10, 550},
-				{28, "renata", "Renata 317", 10, 550},
-				{29, "renata", "Renata 321", 10, 550},
-				{30, "renata", "Renata 335", 10, 550},
-				{31, "renata", "Renata 337", 10, 550},
-				{32, "renata", "Renata 362", 10, 550},
-				{33, "renata", "Renata 364", 10, 550},
-				{34, "renata", "Renata 371", 10, 550},
-				{35, "renata", "Renata 377", 10, 550},
-				{36, "renata", "Renata 379", 10, 550},
-				{37, "renata", "Renata 390", 10, 550},
-				{38, "renata", "Renata 394", 10, 550},
-				{39, "renata", "Renata 395", 10, 550},
-				{40, "renata", "Renata 397", 10, 550},
-				{41, "renata", "Renata CR 1216", 10, 550},
-				{42, "renata", "Renata CR 1616", 10, 550},
-				{43, "renata", "Renata CR 1620", 10, 550},
-				{44, "renata", "Renata CR 1632", 10, 550},
-				{45, "renata", "Renata CR 2016", 10, 550},
-				{46, "renata", "Renata CR 2025", 10, 550},
-				{47, "renata", "Renata CR 2032", 10, 550},
-				{48, "renata", "Renata CR 2320", 10, 550},
-				{49, "renata", "Renata CR 2430", 10, 550},
-				{50, "renata", "Renata CR 2477", 10, 550},
-				{51, "renata", "Renata CR 2450", 10, 550}
+				{27, "renata", "Renata 315", 10, 5, 550},
+				{28, "renata", "Renata 317", 10, 5, 550},
+				{29, "renata", "Renata 321", 10, 5, 550},
+				{30, "renata", "Renata 335", 10, 5, 550},
+				{31, "renata", "Renata 337", 10, 5, 550},
+				{32, "renata", "Renata 362", 10, 5, 550},
+				{33, "renata", "Renata 364", 10, 5, 550},
+				{34, "renata", "Renata 371", 10, 5, 550},
+				{35, "renata", "Renata 377", 10, 5, 550},
+				{36, "renata", "Renata 379", 10, 5, 550},
+				{37, "renata", "Renata 390", 10, 5, 550},
+				{38, "renata", "Renata 394", 10, 5, 550},
+				{39, "renata", "Renata 395", 10, 5, 550},
+				{40, "renata", "Renata 397", 10, 5, 550},
+				{41, "renata", "Renata CR 1216", 10, 5, 550},
+				{42, "renata", "Renata CR 1616", 10, 5, 550},
+				{43, "renata", "Renata CR 1620", 10, 5, 550},
+				{44, "renata", "Renata CR 1632", 10, 5, 550},
+				{45, "renata", "Renata CR 2016", 10, 5, 550},
+				{46, "renata", "Renata CR 2025", 10, 5, 550},
+				{47, "renata", "Renata CR 2032", 10, 5, 550},
+				{48, "renata", "Renata CR 2320", 10, 5, 550},
+				{49, "renata", "Renata CR 2430", 10, 5, 550},
+				{50, "renata", "Renata CR 2477", 10, 5, 550},
+				{51, "renata", "Renata CR 2450", 10, 5, 550}
 			};
 			
 		int DisplayMaxell(vector<BattItems> arr, string categ) {
@@ -123,7 +124,25 @@ public:
 			}
 			return 0;
 		}
-			
+		
+		void Stock_levels(vector<BattItems> arr){
+			cout << "----INVENTORY LEVELS----\n";
+			bool low_stock = false;
+			for(auto&i : arr){
+				if(i.quantity <= i.reorder_point){
+					cout << "[ALERT] " << i.brand 
+					<< "is low on stock! Current quantity: " 
+					<< i.quantity << ". Reorder point: "
+					<< i.reorder_point << ". \n";
+					low_stock = true;
+				}
+			}
+
+			if(!low_stock){
+				cout << "All products are at sufficient stock levels.\n";
+			}
+		}
+
 
     void switch_view(int bat, int strp) {
         switch (bat) {
@@ -137,7 +156,10 @@ public:
                 DisplayMaxell(allbatt_arr, "MAXELL BATTERY");
                 DisplayRenata(allbatt_arr, "RENATA BATTERY");
                 break;
-				
+			case 4:
+				Stock_levels(allbatt_arr);  
+				break;
+	
             default:
                 if (strp != 0)
                     cout << "Invalid option :<\n";
@@ -217,7 +239,7 @@ public:
         
        int lastID = allbatt_arr.back().id + 1;
 
-       Batteries::BattItems newBatt(lastID, categ, itemName, quantity, price);
+       Batteries::BattItems newBatt(lastID, categ, itemName, quantity, 5, price);
        
 	   if (categ == "renata" || categ == "maxwell")
 	   {
