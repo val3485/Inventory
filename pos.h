@@ -47,7 +47,6 @@ public:
   };
 
 private:
-  int stop = 1;
   Straps &s;
   Batteries &b;
   int pick;
@@ -339,7 +338,7 @@ public:
       cout << left
            << setw(20) << "Color"
            << setw(15) << "Brand"
-           << setw(15) << "Leather Type"
+           << setw(20) << "Leather Type"
            << setw(10) << "Qty"
            << setw(10) << "Size"
            << setw(10) << "Price" << "\n";
@@ -348,7 +347,7 @@ public:
         cout << left << setw(5)
              << setw(20) << s.color
              << setw(15) << s.brand
-             << setw(15) << s.leather_type
+             << setw(20) << s.leather_type
              << setw(10) << s.quantity
              << setw(10) << s.size
              << setw(10) << s.price << "\n";
