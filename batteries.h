@@ -365,9 +365,5 @@ public:
 			cout << "No items matches :<\n";
 		}
 	}
-<<<<<<< HEAD
 
 };
-=======
-};
->>>>>>> 42c01e909977cd98b996d98008e56283c6967c40
