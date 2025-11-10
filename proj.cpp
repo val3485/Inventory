@@ -209,6 +209,9 @@ int main()
 																		{
 																			cout << "Invalid input :<";
 																		}
+
+																		if(strp == 0)
+																			break;
 																	}
 											
 																} while (strp != 0);
@@ -252,6 +255,7 @@ int main()
 																					cin >> newPrice;
 										
 																					crud.editItems(id, newItem, newQty, newPrice);
+																				
 										
 																				break;
 																				case 2:
@@ -278,6 +282,7 @@ int main()
 											
 																					crud.deleteItems(id, dec);
 
+																				break;
 																				case 4:
 																					
 																					cout << "Enter brand name to search: ";
@@ -292,12 +297,15 @@ int main()
 																				break;
 																				default:
 																					cout << "Invalid input :<";
+																					break;
 																			}
 																		}
 																		else
 																		{
 																			cout << "Invalid input :<";
 																		}
+																		if (bat == 0)
+																			break;
 																	}
 																}while (bat != 0);
 																break;
@@ -307,8 +315,12 @@ int main()
 													{
 														cout << "Invalid input :<";
 													}
+
+													if(edit == 0)
+														break;
 												}
 											}while(edit != 0);
+											break;
 												
 										case 2:
 											do{
@@ -364,6 +376,9 @@ int main()
 								{
 									cout << "Invalid input :<";
 								}
+
+								if (inv == 0)
+									break;
 							}
 
 						} while (inv != 0 );
@@ -393,14 +408,21 @@ int main()
 						if(opt != 0){
 							cout << "Invalid option :<";
 						}
+						break;
 				}
 			}
 			else
 			{
 				cout << "Invalid input :<";
 			}
+
+			if (opt == 0)
+			{
+				break;
+			}
 		}
 	} while (opt != 0);
 
 	return 0;
+
 }

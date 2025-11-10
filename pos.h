@@ -8,8 +8,8 @@
 #include <cmath>
 #include <ctime>
 using namespace std;
-class Pos
-{
+
+class Pos{
 public:
   struct dates
   {
@@ -20,31 +20,33 @@ public:
 
   struct costumer
   {
+    int id; 
     string details;
     string mobile_num;
-    int cash;
-    int change;
-    int total;
+    double cash;
+    double change;
+    double total;
+    double tax; 
     vector<dates> date;
     vector<Straps ::StrapItems> store;
     vector<Batteries ::BattItems> store_b;
-    Pos *ref;
-    costumer() : details(""), mobile_num(""), cash(0), change(0), total(0) {}
-    costumer(string d, string m) : details(d), mobile_num(m), cash(0), change(0), total(0) {}
+    costumer() : id(), details(""), mobile_num(""), cash(0), change(0), total(0),tax(0) {}
+    costumer(string d, string m) : id(0), details(d), mobile_num(m), cash(0), change(0), total(0), tax(0) {}
     costumer(
+        int id, 
         string n,
         string mobile,
         int c,
         int chng,
         int t,
+        int tx,
         vector<dates> d,
         vector<Straps ::StrapItems> s,
         vector<Batteries ::BattItems> sb)
-        : details(n), mobile_num(mobile), cash(c), change(chng), total(t), date(d), store(s), store_b(sb) {}
+        : id(id), details(n), mobile_num(mobile), cash(c), change(chng), total(t),tax(tx), date(d), store(s), store_b(sb) {}
   };
 
 private:
-  int stop = 1;
   Straps &s;
   Batteries &b;
   int pick;
@@ -69,45 +71,78 @@ private:
 
 public:
     Pos(Straps &straps, Batteries &bats) : s(straps), b(bats), allstraps_arr(straps.allstraps_arr), allbatt_arr(bats.allbatt_arr) {}
-    
+  
+    set<string> num_valid = {
+      "00","01","02","03","04","05",
+      "06","07","08","09",
+      "10","11","12","13","14","15","16","17","18","19",
+      "20","21","28","29",
+      "30","38","39",
+      "46","47","48","49",
+      "50","51","52","53",
+      "61","62","63",
+      "70","75","77","78","79",
+      "81","89",
+      "91","92","93","94","95","96","97","98","99"
+    };
+
     //dummy data 
+    //specified constructor calling instead of aggregate 
     vector<costumer> costumer_list = {
-        {"Clare Lubiano", "0962 585 8585", 10000, 7300, 2700, {{2025, 11, 01}}, {
+      costumer (
+          1,"Clare Lubiano", "0962 585 8585", 10000, 7300, 2700, 3024, 
+          vector<dates> {{2025, 11, 01}}, 
+          vector<Straps ::StrapItems>{
             {3, "stitched", "black w/ white", "no type", "Buffalo Calf", 1, "16-19", 850, ""},
-            {4, "stitched", "brown light", "No type", "Buffalo Calf", 1, "16-19", 850, ""},
+            {4, "stitched", "brown light", "No type", "Buffalo Calf", 1, "16-19", 850, ""}
             },
-         {
+          vector<Batteries ::BattItems>{
              {3, "renata", "Renata 600", 1, 500},
-             {4, "renata", "Renata 700", 1, 500},
-         }},
-        {"Sylvia Heart Sulla", "0962 656 8910", 10000, 7300, 2700, {{2025, 11, 01}}, {
-                {3, "stitched", "black w/ white", "No type", "Buffalo Calf", 1, "16-19", 850, ""},
-                {4, "stitched", "brown light", "No type", "Buffalo Calf", 1, "16-19", 850, ""},
+             {4, "renata", "Renata 700", 1, 500}
+          }
+      ),
+
+    costumer(
+          2,"Sylvia Heart Sulla", "0962 656 8910", 10000, 6650, 3350, 3752, 
+          vector<dates> {{2025, 11, 01}}, 
+          vector<Straps ::StrapItems>{
+          {23, "no stitch", "Black", "Alpha", "No type", 10, "16-24", 1500, ""},
+          {4, "stitched", "brown light", "No type", "Buffalo Calf", 1, "16-19", 850, ""}
             },
-         {
+          vector<Batteries ::BattItems>{
              {3, "renata", "Renata 600", 1, 500},
-             {4, "renata", "Renata 700", 1, 500},
-         }},
-        {"Chybs Shantee Naje", "0962 114 5862", 10000, 7300, 2700, {{2025, 10, 29}}, {
+             {4, "renata", "Renata 700", 1, 500}
+          }
+      ),
+
+      costumer(
+         3, "Chybs Shantee Naje", "0962 114 5862", 10000, 8650, 1350, 1512 , 
+          vector<dates> {{2025, 10, 29}}, 
+          vector<Straps ::StrapItems>{
+            {3, "stitched", "black w/ white", "no type", "Buffalo Calf", 1, "16-19", 850, ""}
+            },
+          vector<Batteries ::BattItems>{
+             {3, "renata", "Renata 600", 1, 500}
+          }
+      ),
+      
+      costumer(
+         4,"Vinea Lei", "0962 645 7012", 10000, 7300, 2700, 3024 ,
+          vector<dates> {{2025, 10, 27}}, 
+          vector<Straps ::StrapItems>{
             {3, "stitched", "black w/ white", "No type", "Buffalo Calf", 1, "16-19", 850, ""},
-            {4, "stitched", "brown light", "No type", "Buffalo Calf", 1, "16-19", 850, ""},
+            {4, "stitched", "brown light", "No type", "Buffalo Calf", 1, "16-19", 850, ""}
             },
-         {
-             {3, "renata", "Renata 600", 1, 500},
-             {4, "renata", "Renata 700", 1, 500},
-         }},
-        {"Vinea Lei", "0962 645 7012", 10000, 7300, 2700, {{2025, 10, 27}}, {
-            {3, "stitched", "black w/ white", "No type", "Buffalo Calf", 1, "16-19", 850, ""},
-            {4, "stitched", "brown light", "No type", "Buffalo Calf", 1, "16-19", 850, ""},
-            },
-         {
-             {3, "renata", "Renata 600", 1, 500},
-             {4, "renata", "Renata 700", 1, 500},
-         }}};
+          vector<Batteries ::BattItems>{
+             {3, "renata", "Renata 600", 2, 500}
+          }
+      )
+  };
     
     //main input for recipts
     void input()
     {
+        id_maker();
         cout << "\033[96mDOUBLE CHECK YOU CANNOT EDIT!!";
         cout << "\n\033[0mCostumers name: ";
         cin.ignore();
@@ -121,12 +156,7 @@ public:
       costumers.push_back(c);
     } while (mobile_checker() == 1);
 
-    do
-    {
-      cout << "\nDATE\n[1] today\n[2] Different day\nPick: ";
-      cin >> d;
-      add_date(d);
-    } while (stop != 0);
+    add_date();
 
     do
     {
@@ -147,15 +177,16 @@ public:
     do
     {
       cout << "\nTotal: " << total_price();
+      cout << "\nWith Tax: " << c.tax;
       cout << "\n___________________________";
       cout << "\nInput Costumers Money: ";
       cin >> c.cash;
-      if (c.cash < total_price())
+      if (c.cash < c.tax)
       {
         cout << "\nInsufficient Cash :<";
       }
       costumers.push_back(c);
-    } while (c.cash < total_price());
+    } while (c.cash < c.tax);
 
     show_current();
     change();
@@ -165,12 +196,25 @@ public:
     c.store_b.clear();
   }
 
+  int id_maker(){
+    int new_id = 1; 
+
+    if(!all_costumers.empty()){
+      new_id = all_costumers.back().id + 1;
+    }else if (!costumer_list.empty()){
+      new_id = costumer_list.back().id + 1;
+    }
+
+    c.id = new_id; 
+    costumers.push_back(c); 
+    return new_id; 
+  }
+
   // format to display vectors feeded in the function
   // template can take any data type
   template <typename T>
   void display(T &ac)
   {
-
     cout << "\n\nName: \033[96m" << left << setw(100) << ac.details << "\n";
     cout << "\033[0m09" << ac.mobile_num << "\n";
 
@@ -181,6 +225,7 @@ public:
     cout << "\nTotal: " << ac.total;
     cout << " | Change: " << ac.change;
     cout << " | Money: " << ac.cash;
+    cout << " | With Tax: " << ac.cash;
 
     cout << "\n------------------------------------------------------------------------------";
     cout << "\nSTRAPS\n";
@@ -256,6 +301,7 @@ public:
     }
 
     c.total = total_b + total_s;
+    c.tax = c.total*1.12; 
     costumers.push_back(c);
     return costumers.back().total;
   }
@@ -263,7 +309,7 @@ public:
   // gives change
   int change()
   {
-    c.change = c.cash - total_price();
+    c.change = c.cash - c.tax;
     costumers.push_back(c);
 
     cout << "\nTotal amount: " << total_price();
@@ -292,7 +338,7 @@ public:
       cout << left
            << setw(20) << "Color"
            << setw(15) << "Brand"
-           << setw(15) << "Leather Type"
+           << setw(20) << "Leather Type"
            << setw(10) << "Qty"
            << setw(10) << "Size"
            << setw(10) << "Price" << "\n";
@@ -301,7 +347,7 @@ public:
         cout << left << setw(5)
              << setw(20) << s.color
              << setw(15) << s.brand
-             << setw(15) << s.leather_type
+             << setw(20) << s.leather_type
              << setw(10) << s.quantity
              << setw(10) << s.size
              << setw(10) << s.price << "\n";
@@ -329,16 +375,13 @@ public:
     }
     cout << "------------------------------------------------------------------------------";
     cout << "\nMoney: " << c.cash;
+    cout << "\nWith Tax: " << c.tax;
     return;
   }
 
   // adds date
-  int add_date(int d)
+  int add_date()
   {
-    switch (d)
-    {
-    case 1:
-    {
       // get the current date
       time_t now = time(nullptr);
 
@@ -352,29 +395,8 @@ public:
 
       // makes sure we dont reuse past data
       c.date.clear();
-      c.date.push_back(current);
-      cout << "Date saved succesfully! :>";
-      stop = 0;
-      break;
-    }
-
-    case 2:
-      // enter date manually
-      cout << "Enter date (YYYY MM DD): ";
-      cin >> input_date.year >> input_date.month >> input_date.day;
-      // makes sure we dont reuse past data
-      c.date.clear();
-      c.date.push_back(input_date);
-      cout << "Date saved succesfully! :>";
-      stop = 0;
-      break;
-
-    default:
-      if (d != 0)
-      {
-        cout << "invalid input :<";
-      }
-    }
+      c.date.push_back(current);\
+      
     return 0;
   }
 
@@ -692,7 +714,11 @@ public:
   // checks if mobile number is valid
   int mobile_checker()
   {
-    if (counter(c.mobile_num) != 9 && counter(c.mobile_num) != 11)
+    string num = c.mobile_num;
+    string extract = num.substr(0,2); 
+    int found = (num_valid.find(extract) != num_valid.end()) ?  1 : 0;
+
+    if (counter(c.mobile_num) != 9 && counter(c.mobile_num) != 11 || found == 0)
     {
       cout << "invalid number :<";
       return 1;
@@ -802,7 +828,7 @@ public:
             }
 
             if(!found){
-                 cout << "\nNo data found :< "; 
+                 cout << "\nNo data found :< \n"; 
             }
 
 
@@ -831,7 +857,6 @@ public:
   {
     for (const auto &c : costum)
     {
-
       cout << "\n\nName: \033[96m" << left << setw(100) << c.details << "\n";
       cout << "\033[0m09" << c.mobile_num << "\n";
       for (const auto &d : c.date)
@@ -841,6 +866,7 @@ public:
       cout << "\nTotal: " << c.total;
       cout << " | Change: " << c.change;
       cout << " | Money: " << c.cash;
+      cout << " | With tax: " << c.tax;
 
       cout << "\n------------------------------------------------------------------------------";
       cout << "\nSTRAPS\n";
@@ -929,131 +955,129 @@ public:
 
     switch (sale)
     {
-    case 1:
-      //  stores month and week number
-      for (const auto &c : costum)
-      {
-        for (const auto &d : c.date)
-        {
-          int week_num = getWeek(d.day);
-          week[{d.month, week_num}].push_back(c);
-        }
-      }
-
-      for (const auto &c : costum2)
-      {
-        for (const auto &d : c.date)
-        {
-          int week_num = getWeek(d.day);
-          week[{d.month, week_num}].push_back(c);
-        }
-      }
-      cout << "\nORDER BY DAY\n";
-
-      // Iterates through all weeks and displays customer data per month/day
-      for (const auto &[key, c_week] : week)
-      {
-        int month_count = key.first;
-        cout << "\n\033[91mMONTH : " << month_count;
-
-        for (int u : uni)
-        { // marks the date is not listed yet
-          bool mark_costumer = false;
-
+        case 1:
+          //  stores month and week number
           for (const auto &c : costum)
           {
             for (const auto &d : c.date)
-            { // checks if the date matches the categorizer for day
-              // checks if the month matches the categorizer for month
-              if (d.day == u && d.month == month_count)
-              { // makes sure we only print the header once per day
-                if (!mark_costumer)
-                {
-                  cout << "\n\033[91mDATE " << u << "\033[0m";
-                  // marks the data as listed
-                  mark_costumer = true;
-                }
-                display(c);
-              }
+            {
+              int week_num = getWeek(d.day);
+              week[{d.month, week_num}].push_back(c);
             }
           }
 
           for (const auto &c : costum2)
           {
-
             for (const auto &d : c.date)
             {
-              if (d.day == u && d.month == month_count)
+              int week_num = getWeek(d.day);
+              week[{d.month, week_num}].push_back(c);
+            }
+          }
+          cout << "\nORDER BY DAY\n";
+
+          // Iterates through all weeks and displays customer data per month/day
+          for (const auto &[key, c_week] : week)
+          {
+            int month_count = key.first;
+            cout << "\n\033[91mMONTH : " << month_count;
+
+            for (int u : uni)
+            { // marks the date is not listed yet
+              bool mark_costumer = false;
+
+              for (const auto &c : costum)
               {
-                if (!mark_costumer)
-                {
-                  cout << "\n\033[91mDATE " << u << "\033[0m";
-                  mark_costumer = true;
+                for (const auto &d : c.date)
+                { // checks if the date matches the categorizer for day
+                  // checks if the month matches the categorizer for month
+                  if (d.day == u && d.month == month_count)
+                  { // makes sure we only print the header once per day
+                    if (!mark_costumer)
+                    {
+                      cout << "\n\033[91mDATE " << u << "\033[0m";
+                      // marks the data as listed
+                      mark_costumer = true;
+                    }
+                    display(c);
+                  }
                 }
-                display(c);
+              }
+
+              for (const auto &c : costum2)
+              {
+
+                for (const auto &d : c.date)
+                {
+                  if (d.day == u && d.month == month_count)
+                  {
+                    if (!mark_costumer)
+                    {
+                      cout << "\n\033[91mDATE " << u << "\033[0m";
+                      mark_costumer = true;
+                    }
+                    display(c);
+                  }
+                }
               }
             }
           }
-        }
-      }
-      break;
+          break;
 
-    case 2:
-      // stores month and week number
-      for (const auto &c : costum)
-      {
-        for (const auto &d : c.date)
-        {
-          int week_num = getWeek(d.day);
-          week[{d.month, week_num}].push_back(c);
-        }
-      }
-
-      for (const auto &c : costum2)
-      {
-        for (const auto &d : c.date)
-        {
-          int week_num = getWeek(d.day);
-          week[{d.month, week_num}].push_back(c);
-        }
-      }
-      cout << "\nOrder by Week: \n";
-
-      // iterates thorygh all week number and month
-      for (const auto &[key, c_week] : week)
-      {
-        int month_count = key.first;
-        int week_count = key.second;
-        cout << "\n\033[91mMonth " << month_count << "| Week " << week_count << "\033[0m\n";
-
-        vector<int> shown;
-        // stores date of the costumers that already existed
-        // prevents duplicates
-        for (const auto &c : c_week)
-        {
-          for (const auto &d : c.date)
+        case 2: {
+          // stores month and week number
+          for (const auto &c : costum)
           {
-            // checks date if it existed
-            if (find(shown.begin(), shown.end(), d.day) == shown.end())
+            for (const auto &d : c.date)
             {
-              display(c);
-              // adds new date
-              shown.push_back(d.day);
+              int week_num = getWeek(d.day);
+              week[{d.month, week_num}].push_back(c);
             }
           }
+
+          for (const auto &c : costum2)
+          {
+            for (const auto &d : c.date)
+            {
+              int week_num = getWeek(d.day);
+              week[{d.month, week_num}].push_back(c);
+            }
+          }
+          
+          cout << "\nOrder by Week: \n";
+
+          // iterates thorygh all week number and month
+          for (const auto &[key, c_week] : week){
+            int month_count = key.first;
+            int week_count = key.second;
+            cout << "\n\033[91mMonth " << month_count << "| Week " << week_count << "\033[0m\n";
+
+            set<int> shown;
+            // stores date of the costumers that already existed
+            // prevents duplicates
+
+            for (const auto &c : c_week){
+              if(shown.find(c.id) == shown.end()){
+                //not found 
+                display(c);
+                shown.insert(c.id);
+              }
+                
+            }
+
+            cout << "\n\n";
+          }
+        
+          break;
         }
-      }
 
-      cout << "\n\n";
-      break;
-
-    default:
-      if (sale != 0)
-      {
-        cout << "invalid input :<";
-      }
-      break;
-    }
-    return 0;
+        default:
+          if (sale != 0){
+            cout << "invalid input :<";
+          }
+          break;
+       
+        // return 0;
+    };
   };
 };
