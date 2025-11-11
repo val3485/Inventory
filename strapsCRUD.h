@@ -1,3 +1,4 @@
+
 #include <vector>
 #include "straps.h"
 #include <algorithm> // required for transform / sort
@@ -420,6 +421,7 @@ public:
              << setw(10) << s.hole
              << "\n";
     }
+
     // LEVEINSHTEIN DISTANCE (para sa search)
 int levenshteinDistance(const string &s1, const string &s2)
 {
