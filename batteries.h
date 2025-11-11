@@ -26,9 +26,9 @@ public:
 		string categ;
 		string brand;
 		int quantity;
-		int price;
+		float price;
 
-				BattItems(int i, string ct, string b, int q, double p) //this is called a constructor, it reads(?) the data from the array in order.
+				BattItems(int i, string ct, string b, int q, float p) //this is called a constructor, it reads(?) the data from the array in order.
 				: id(i), categ (ct), brand(b), quantity(q), price(p) {}
 			};
 			
@@ -165,14 +165,8 @@ public:
 	}
     
 	// EDIT
-	void editItems(int id, string newCateg, string newBrand, int newQty, int newPrice)
+	void editItems(int id, string newBrand, int newQty, float newPrice)
 	{
-        //lowercase the newCateg    
-		transform(newCateg.begin(), newCateg.end(), newCateg.begin(),
-				  [](unsigned char c)
-				  {
-					  return tolower(c);
-				  });
         //capitalized th first letter of newBrand
 		transform(newBrand.begin(), newBrand.end(), newBrand.begin(),
 				  [](unsigned char br)
@@ -189,11 +183,11 @@ public:
 		{
 			if (b.id == id)
 			{
-				b.categ = newCateg;
 				b.brand = newBrand;
 				b.quantity = newQty;
 				b.price = newPrice;
 				cout << "\nItem updated successfully!\n";
+				displayItems();
 				return;
 			}
 		}
@@ -202,7 +196,7 @@ public:
 	}
 
 	// ADD
-	void addItems(string categ, string itemName, int quantity, int price)
+	void addItems(string categ, string itemName, int quantity, float price)
 	{
         //make categ all lowercase    
 		transform(categ.begin(), categ.end(), categ.begin(),
@@ -263,6 +257,113 @@ public:
 			return;
 		}
 		
+	}
+
+	// LEVEINSHTEIN DISTANCE (para sa search)
+	int levenshteinDistance(const string &s1, const string &s2)
+	{
+		const size_t len1 = s1.size(), len2 = s2.size();
+		vector<vector<int>> dp(len1 + 1, vector<int>(len2 + 1));
+
+		for (size_t i = 0; i <= len1; ++i)
+			dp[i][0] = i;
+		for (size_t j = 0; j <= len2; ++j)
+			dp[0][j] = j;
+
+		for (size_t i = 1; i <= len1; ++i)
+			for (size_t j = 1; j <= len2; ++j)
+				dp[i][j] = min({
+					dp[i - 1][j] + 1,							// deletion
+					dp[i][j - 1] + 1,							// insertion
+					dp[i - 1][j - 1] + (s1[i - 1] != s2[j - 1]) // substitution
+				});
+
+		return dp[len1][len2];
+	}
+
+	// forda correct brand name
+	string correctItemName(string input)
+	{
+		vector<string> validBrands = { "renata", "maxell"};
+
+		// transform the input to lowercase
+		transform(input.begin(), input.end(), input.begin(),
+				  [](unsigned char i)
+				  {
+					  return tolower(i);
+				  });
+
+		// // trnasform the first char to uppercase
+		// if (!input.empty())
+		// {
+		// 	input[0] = toupper(input[0]);
+		// }
+
+		//return input;
+
+		// store varibles
+		string bestMatch = input;
+		int bestScore = INT_MAX;
+
+		// ich-check sa validbrand kung ano ang best match
+		for (const string &brand : validBrands)
+		{
+			int dist = levenshteinDistance(input, brand);
+			if (dist < bestScore)
+			{
+				bestScore = dist;
+				bestMatch = brand;
+			}
+		}
+		if (bestScore <= 2) // only accepts 2 typos
+			return bestMatch;
+		else
+			return input; // too different, keep original
+	}
+
+	// SEARCH
+	void searchItems(string input)
+	{
+		string brandPart, number;
+
+		stringstream ss(input);
+		ss >> brandPart;
+		getline(ss, number);							// separates the brandPart from the number part
+		number.erase(0, number.find_first_not_of(" ")); // erases the excess space from the number part
+
+		// search the brand part
+		string correctBrand = correctItemName(brandPart);
+        
+        cout << left << setw(5) << "ID"
+                     << setw(15) << "BRAND"
+                     << setw(10) << "Qty"
+                     << setw(10) << "Price" << "\n";
+        
+		bool found = false;
+		for (const auto &batt : allbatt_arr)
+		{
+			string battNameLower = batt.brand; // brand includes the full name, e.g., "Renata 567"
+            transform(number.begin(), number.end(), number.begin(), ::tolower);
+			transform(battNameLower.begin(), battNameLower.end(), battNameLower.begin(), ::tolower);
+			transform(correctBrand.begin(), correctBrand.end(), correctBrand.begin(), ::tolower);	
+			
+			// match if brand or brand+number found
+            if ((!number.empty() && battNameLower.find(correctBrand + " " + number) != string::npos) ||
+                (number.empty() && battNameLower.find(correctBrand) != string::npos))
+            {
+                cout << left << setw(5) << batt.id
+                     << setw(15) << batt.brand
+                     << setw(10) << batt.quantity
+                     << setw(10) << batt.price << "\n";
+                found = true;
+            }
+		}
+		
+
+		if (!found)
+		{
+			cout << "No items matches :<\n";
+		}
 	}
 
 };
