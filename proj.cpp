@@ -108,6 +108,7 @@ int main()
 																		cout << "[2] EDIT ITEM\n";
 																		cout << "[3] DELETE ITEM\n";
 																		cout << "[4] DISPLAY ALL ITEMS\n";
+																		cout << "[5] SEARCH\n";
 																		cout << "[0] back\n";
 																		cout << "Choose an option: ";
 																		cin >> strp;
@@ -117,7 +118,7 @@ int main()
 																			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 																			cout << "Invalid input. Please enter a number.\n";
 																		}
-																		else if(strp >= 0 && strp <= 4)
+																		else if(strp >= 0 && strp <= 5) // ✅ FIXED HERE
 																		{
 																			switch (strp)
 																			{
@@ -197,6 +198,17 @@ int main()
 																					break;
 																				}
 
+																				case 5:
+																				{
+																					cin.ignore(numeric_limits<streamsize>::max(), '\n');
+																					string searchTerm;
+																					cout << "\nEnter strap brand name to search(No type, Alpha, Casio): ";
+																					getline(cin, searchTerm);
+
+																					sCRUD.searchItems(searchTerm);
+																					break;
+																				}
+
 																				case 0:
 																					break;
 
@@ -253,11 +265,9 @@ int main()
 																					cin >> newQty;
 																					cout << "Input new price: ";
 																					cin >> newPrice;
-										
+										 
 																					crud.editItems(id, newItem, newQty, newPrice);
-																				
-										
-																				break;
+																					break;
 																				case 2:
 																					cout << "\nInput brand name you want to add [Renata/Maxell]: ";
 																					cin >> brandName;
@@ -268,30 +278,26 @@ int main()
 																					cin >> newQty;
 																					cout << "Input new price: ";
 																					cin >> newPrice;
-										
+										 
 																					crud.addItems(brandName, newItem, newQty, newPrice);
-										
-																				break;
+																					break;
 																				case 3:
 																					crud.displayItems();
-										
+										 
 																					cout << "Input ID you want to delete: ";
 																					cin >> id;
 																					cout << "Are you sure you want to delete item? [1-Yes/0-No]: ";
 																					cin >> dec;
-											
+											 
 																					crud.deleteItems(id, dec);
-
-																				break;
+																					break;
 																				case 4:
-																					
 																					cout << "Enter brand name to search: ";
 																					cin.ignore(numeric_limits<streamsize>::max(), '\n');
 																					getline(cin, searchTerm);
-										
+										 
 																					crud.searchItems(searchTerm);
-										
-																				break;
+																					break;
 
 																				case 0:
 																				break;
@@ -342,7 +348,6 @@ int main()
 														cout << "[2] NO STITCH STRAP\n";
 														cout << "[3] CASIO STRAP\n";
 														cout << "[4] DISPLAY ALL STRAPS\n";
-
 														cout << "[0] back\n";
 														cout << "Choose an option: ";
 														cin >> strp;
