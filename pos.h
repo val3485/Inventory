@@ -139,7 +139,7 @@ public:
       )
   };
     
-    //main input for recipts
+     //main input for recipts
     void input()
     {
         id_maker();

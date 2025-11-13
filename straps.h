@@ -308,121 +308,71 @@ public:
 				}
 			}
 			if(!low_stock){
-				cout << "All batteries are at sufficient stock levels.\n";
+				cout << "All straps are at sufficient stock levels.\n";
 			}
 		}
 
-	void switch_view(int strp)
-	{
+	void switch_view(int strp){
 		int opt;
-		switch (strp)
-		{
-		case 1:
-			DisplayStitched(allstraps_arr, "STITCHED STRAPS");
-			break;
+		switch (strp){
+			case 1:
+				DisplayStitched(allstraps_arr, "STITCHED STRAPS");
+				break;
 
-		case 2:
-			DisplayNoStitched(allstraps_arr, "NO STITCH STRAPS");
-			break;
+			case 2:
+				DisplayNoStitched(allstraps_arr, "NO STITCH STRAPS");
+				break;
 
-		case 3:
-			do
-			{
-				cout << "\nCHOOSE CASIO TYPE:\n";
-				cout << "[1] ADULT SIZE\n";
-				cout << "[2] KIDS SIZE\n";
-				cout << "[0] back\n";
-				cout << "Choose an option: ";
-				cin >> opt;
+			case 3:
+				do{
+					cout << "\nCHOOSE CASIO TYPE:\n";
+					cout << "[1] ADULT SIZE\n";
+					cout << "[2] KIDS SIZE\n";
+					cout << "[0] back\n";
+					cout << "Choose an option: ";
+					cin >> opt;
 
-				switch (opt)
-				{
-				case 1:
-					DisplayCasioAdult(allstraps_arr, "CASIO STRAPS ADULT SIZE");
-					break;
+					switch (opt){
+						case 1:
+							DisplayCasioAdult(allstraps_arr, "CASIO STRAPS ADULT SIZE");
+							break;
 
-				case 2:
-					DisplayCasioKids(allstraps_arr, "CASIO STRAPS KIDS SIZE W/ COVER");
-					break;
+						case 2:
+							DisplayCasioKids(allstraps_arr, "CASIO STRAPS KIDS SIZE W/ COVER");
+							DisplayNoStitched(allstraps_arr, "NO STITCH STRAPS"); 
+							break; 
+						
+						case 3:
+							// needed for case 4 and 5 to not break.
+							break;
+						
+						case 0:
+							break;
+						
+						default:
+							cout << "Invalid option :<\n";
+							break;
+					}
+				} while (opt != 0);
+				break;
 
-				case 0:
-					break;
+			case 4:
+				DisplayStitched(allstraps_arr, "STITCHED STRAPS");
+				DisplayNoStitched(allstraps_arr, "NO STITCH STRAPS");
+				DisplayCasioAdult(allstraps_arr, "CASIO STRAPS ADULT SIZE");
+				DisplayCasioKids(allstraps_arr, "CASIO STRAPS KIDS SIZE W/ COVER");
+				break;
 
-				default:
-					cout << "Invalid option :<\n";
-					break;
-				}
+			case 5:
+				Inventory_levels(allstraps_arr, "[ALERT] LOW ON STOCK!");
+				break;
 
-			} while (opt != 0);
-			break;
+			case 0:
+				break;
 
-		case 4:
-			DisplayStitched(allstraps_arr, "STITCHED STRAPS");
-			DisplayNoStitched(allstraps_arr, "NO STITCH STRAPS");
-			DisplayCasioAdult(allstraps_arr, "CASIO STRAPS ADULT SIZE");
-			DisplayCasioKids(allstraps_arr, "CASIO STRAPS KIDS SIZE W/ COVER");
-			break;
-
-		case 5:
-			Inventory_levels(allstraps_arr, "[ALERT] LOW ON STOCK!");
-			break;
-
-		case 0:
-			// so that it will not fall under default
-			break;
-
-		default:
-			cout << "Invalid option :<\n";
-			break;
-		}
-	}
-
-	void switch_edit(int strp)
-	{ // go by id??
-		switch (strp)
-		{
-		case 1:
-			do
-			{
-				cout << "\nADD ITEM\n";
-				cout << "[1] WITH STITCH STRAP\n";
-				cout << "[2] NO STITCH STRAP\n";
-				cout << "[3] CASIO STRAP\n";
-				cout << "[0] back\n";
-				cout << "Choose an option: ";
-				cin >> strp;
-
-			} while (strp != 0);
-			break;
-		case 2:
-			do
-			{
-				cout << "\nEDIT ITEM\n";
-				cout << "[1] WITH STITCH STRAP\n";
-				cout << "[2] NO STITCH STRAP\n";
-				cout << "[3] CASIO STRAP\n";
-				cout << "[0] back\n";
-				cout << "Choose an option: ";
-				cin >> strp;
-
-			} while (strp != 0);
-			break;
-		case 3:
-			do
-			{
-				cout << "\nDELETE ITEM\n";
-				cout << "[1] WITH STITCH STRAP\n";
-				cout << "[2] NO STITCH STRAP\n";
-				cout << "[3] CASIO STRAP\n";
-				cout << "[4] SEARCH NAME OF STRAP \n";
-				cout << "[0] back\n";
-				cout << "Choose an option: ";
-				cin >> strp;
-
-			} while (strp != 0);
-			break;
-		case 4:
-			break;
+			default:
+				cout << "Invalid option :<\n";
+				break;
 		}
 	}
 };

@@ -27,130 +27,129 @@ public:
 		int quantity;
 		int reorder_point; //to trigger alert
 		float price;
-
-				
-				BattItems(int i, string ct, string b, int q, int rp, float p) //this is called a constructor, it reads(?) the data from the array in order.
-				: id(i), categ (ct), brand(b), quantity(q), reorder_point(rp), price(p) {}
-			};
-			
-			vector<BattItems> allbatt_arr = {
-				
-				{1, "maxell", "Maxell SR416SW", 10, 8, 450},
-				{2, "maxell", "Maxell SR512SW", 10, 8, 450},
-				{3, "maxell", "Maxell SR521SW", 10, 8, 450},
-				{4, "maxell", "Maxell SR416SW", 10, 8, 450},
-				{5, "maxell", "Maxell SR616SW", 10, 8, 450},
-				{6, "maxell", "Maxell SR621SW", 30, 15, 450},
-				{7, "maxell", "Maxell SR626SW", 30, 15, 450},
-				{8, "maxell", "Maxell SR626SW", 30, 15, 450},
-				{9, "maxell", "Maxell SR716SW", 10, 8, 450},
-				{10, "maxell", "Maxell SR721SW", 10, 8, 450},
-				{11, "maxell", "Maxell SR726SW", 10, 8, 450},
-				{12, "maxell", "Maxell SR920SW", 10, 8, 450},
-				{13, "maxell", "Maxell SR927SW", 10, 8, 450},
-				{14, "maxell", "Maxell SR936SW", 10, 8, 450},
-				{15, "maxell", "Maxell SR1120SW", 10, 8, 450},
-				{16, "maxell", "Maxell SR1130SW", 10, 8, 450},
-				{17, "maxell", "Maxell CR 1216", 10, 8, 450},
-				{18, "maxell", "Maxell CR 1616", 10, 8, 450},
-				{19, "maxell", "Maxell CR 1620", 10, 8, 450},
-				{20, "maxell", "Maxell CR 1632", 10, 8, 450},
-				{21, "maxell", "Maxell CR 2016", 10, 8, 450},
-				{22, "maxell", "Maxell CR 2025", 10, 8, 450},
-				{23, "maxell", "Maxell CR 2032", 10, 8, 450},
-				{24, "maxell", "Maxell LR41", 10, 8, 450},
-				{25, "maxell", "Maxell LR44", 10, 8, 450},
-				{26, "maxell", "Maxell LR1130", 10, 8, 450},
-
-				{27, "renata", "Renata 315", 10, 8, 550},
-				{28, "renata", "Renata 317", 10, 8, 550},
-				{29, "renata", "Renata 321", 10, 8, 550},
-				{30, "renata", "Renata 335", 10, 8, 550},
-				{31, "renata", "Renata 337", 10, 8, 550},
-				{32, "renata", "Renata 362", 10, 8, 550},
-				{33, "renata", "Renata 364", 20, 15, 550},
-				{34, "renata", "Renata 371", 10, 8, 550},
-				{35, "renata", "Renata 377", 20, 15, 550},
-				{36, "renata", "Renata 379", 10, 8, 550},
-				{37, "renata", "Renata 390", 10, 8, 550},
-				{38, "renata", "Renata 394", 10, 8, 550},
-				{39, "renata", "Renata 395", 10, 8, 550},
-				{40, "renata", "Renata 397", 10, 8, 550},
-				{41, "renata", "Renata CR 1216", 10, 8, 550},
-				{42, "renata", "Renata CR 1616", 10, 8, 550},
-				{43, "renata", "Renata CR 1620", 10, 8, 550},
-				{44, "renata", "Renata CR 1632", 10, 8, 550},
-				{45, "renata", "Renata CR 2016", 10, 8, 550},
-				{46, "renata", "Renata CR 2025", 10, 8, 550},
-				{47, "renata", "Renata CR 2032", 10, 8, 550},
-				{48, "renata", "Renata CR 2320", 10, 8, 550},
-				{49, "renata", "Renata CR 2430", 10, 8, 550},
-				{50, "renata", "Renata CR 2477", 2, 8, 550},
-				{51, "renata", "Renata CR 2450", 2, 8, 550}
-			};
-			
-		int DisplayMaxell(vector<BattItems> arr, string categ) {
-			cout << "\n" << categ << " \n";
-			cout << left << setw(5) << "ID"
-				<< setw(25) << "Brand"
-				<< setw(10) << "Qty"
-				<< setw(10) << "Price" << "\n";
-
-			for (auto &i : arr) {
-				if(i.categ == "maxell"){
-					cout << left << setw(5) << i.id
-						<< setw(25) << i.brand
-						<< setw(10) << i.quantity
-						<< setw(10) << i.price << "\n";
-				}
-			}
-			return 0;
-		}
-
-		int DisplayRenata(vector<BattItems> arr, string categ) {
-			cout << "\n" << categ << " \n";
-			cout << left << setw(5) << "ID"
-				<< setw(25) << "Brand"
-				<< setw(10) << "Qty"
-				<< setw(10) << "Price" << "\n";
-
-			for (auto &i : arr) {
-				if(i.categ == "renata"){
-					cout << left << setw(5) << i.id
-						<< setw(25) << i.brand
-						<< setw(10) << i.quantity
-						<< setw(10) << i.price << "\n";
-				}
-			}
-			return 0;
-		}
 		
-		void Inventory_levels(vector<BattItems> arr, string categ){
-			cout << right << setw(100) << "----INVENTORY LEVELS----\n";
-			bool low_stock = false;
-			cout << " ";
-			cout << left << setw(5) << "ID"
-			<< setw(15) << "Brand"
+		BattItems(int i, string ct, string b, int q, int rp, float p) //this is called a constructor, it reads(?) the data from the array in order.
+		: id(i), categ (ct), brand(b), quantity(q), reorder_point(rp), price(p) {}
+	};
+			
+	vector<BattItems> allbatt_arr = {
+		{1, "maxell", "Maxell SR416SW", 10, 8, 450},
+		{2, "maxell", "Maxell SR512SW", 10, 8, 450},
+		{3, "maxell", "Maxell SR521SW", 10, 8, 450},
+		{4, "maxell", "Maxell SR416SW", 10, 8, 450},
+		{5, "maxell", "Maxell SR616SW", 10, 8, 450},
+		{6, "maxell", "Maxell SR621SW", 30, 15, 450},
+		{7, "maxell", "Maxell SR626SW", 30, 15, 450},
+		{8, "maxell", "Maxell SR626SW", 30, 15, 450},
+		{9, "maxell", "Maxell SR716SW", 10, 8, 450},
+		{10, "maxell", "Maxell SR721SW", 10, 8, 450},
+		{11, "maxell", "Maxell SR726SW", 10, 8, 450},
+		{12, "maxell", "Maxell SR920SW", 10, 8, 450},
+		{13, "maxell", "Maxell SR927SW", 10, 8, 450},
+		{14, "maxell", "Maxell SR936SW", 10, 8, 450},
+		{15, "maxell", "Maxell SR1120SW", 10, 8, 450},
+		{16, "maxell", "Maxell SR1130SW", 10, 8, 450},
+		{17, "maxell", "Maxell CR 1216", 10, 8, 450},
+		{18, "maxell", "Maxell CR 1616", 10, 8, 450},
+		{19, "maxell", "Maxell CR 1620", 10, 8, 450},
+		{20, "maxell", "Maxell CR 1632", 10, 8, 450},
+		{21, "maxell", "Maxell CR 2016", 10, 8, 450},
+		{22, "maxell", "Maxell CR 2025", 10, 8, 450},
+		{23, "maxell", "Maxell CR 2032", 10, 8, 450},
+		{24, "maxell", "Maxell LR41", 10, 8, 450},
+		{25, "maxell", "Maxell LR44", 10, 8, 450},
+		{26, "maxell", "Maxell LR1130", 10, 8, 450},
+
+		{27, "renata", "Renata 315", 10, 8, 550},
+		{28, "renata", "Renata 317", 10, 8, 550},
+		{29, "renata", "Renata 321", 10, 8, 550},
+		{30, "renata", "Renata 335", 10, 8, 550},
+		{31, "renata", "Renata 337", 10, 8, 550},
+		{32, "renata", "Renata 362", 10, 8, 550},
+		{33, "renata", "Renata 364", 20, 15, 550},
+		{34, "renata", "Renata 371", 10, 8, 550},
+		{35, "renata", "Renata 377", 20, 15, 550},
+		{36, "renata", "Renata 379", 10, 8, 550},
+		{37, "renata", "Renata 390", 10, 8, 550},
+		{38, "renata", "Renata 394", 10, 8, 550},
+		{39, "renata", "Renata 395", 10, 8, 550},
+		{40, "renata", "Renata 397", 10, 8, 550},
+		{41, "renata", "Renata CR 1216", 10, 8, 550},
+		{42, "renata", "Renata CR 1616", 10, 8, 550},
+		{43, "renata", "Renata CR 1620", 10, 8, 550},
+		{44, "renata", "Renata CR 1632", 10, 8, 550},
+		{45, "renata", "Renata CR 2016", 10, 8, 550},
+		{46, "renata", "Renata CR 2025", 10, 8, 550},
+		{47, "renata", "Renata CR 2032", 10, 8, 550},
+		{48, "renata", "Renata CR 2320", 10, 8, 550},
+		{49, "renata", "Renata CR 2430", 10, 8, 550},
+		{50, "renata", "Renata CR 2477", 2, 8, 550},
+		{51, "renata", "Renata CR 2450", 2, 8, 550}
+	};
+	
+	int DisplayMaxell(vector<BattItems> arr, string categ) {
+		cout << "\n" << categ << " \n";
+		cout << left << setw(5) << "ID"
+			<< setw(25) << "Brand"
+			<< setw(10) << "Qty"
 			<< setw(10) << "Price" << "\n";
 
-			for(auto&i : arr){
-				if(i.quantity <= i.reorder_point){
-					cout << " ";
-					cout << "\n " << categ << " \n";
-					cout << " ";
-					cout << left << setw(5) << i.id
-						<< setw(15) << i.brand
-						<< setw(10) << i.price << "\n"
-						<<" Current quantity: " << i.quantity << ". \n" 
-						<<" Reorder point: " << i.reorder_point << ". \n\n\n";
-					low_stock = true;
-				}
-			}
-
-			if(!low_stock){
-				cout << "All batteries are at sufficient stock levels.\n";
+		for (auto &i : arr) {
+			if(i.categ == "maxell"){
+				cout << left << setw(5) << i.id
+					<< setw(25) << i.brand
+					<< setw(10) << i.quantity
+					<< setw(10) << i.price << "\n";
 			}
 		}
+		return 0;
+	}
+
+	int DisplayRenata(vector<BattItems> arr, string categ) {
+		cout << "\n" << categ << " \n";
+		cout << left << setw(5) << "ID"
+			<< setw(25) << "Brand"
+			<< setw(10) << "Qty"
+			<< setw(10) << "Price" << "\n";
+
+		for (auto &i : arr) {
+			if(i.categ == "renata"){
+				cout << left << setw(5) << i.id
+					<< setw(25) << i.brand
+					<< setw(10) << i.quantity
+					<< setw(10) << i.price << "\n";
+			}
+		}
+		return 0;
+	}
+		
+	void Inventory_levels(vector<BattItems> arr, string categ){
+		cout << right << setw(100) << "----INVENTORY LEVELS----\n";
+		bool low_stock = false;
+		cout << " ";
+		cout << left << setw(5) << "ID"
+		<< setw(15) << "Brand"
+		<< setw(10) << "Price" << "\n";
+
+		for(auto&i : arr){
+			if(i.quantity <= i.reorder_point){
+				cout << " ";
+				cout << "\n " << categ << " \n";
+				cout << " ";
+				cout << left << setw(5) << i.id
+					<< setw(15) << i.brand
+					<< setw(10) << i.price << "\n"
+					<<" Current quantity: " << i.quantity << ". \n" 
+					<<" Reorder point: " << i.reorder_point << ". \n\n\n";
+				low_stock = true;
+			}
+		}
+		if(!low_stock){
+			cout << "All batteries are at sufficient stock levels.\n";
+		}
+	}
+	
+
 
 
     void switch_view(int bat, int strp) {
@@ -399,5 +398,4 @@ public:
 			cout << "No items matches :<\n";
 		}
 	}
-
 };

@@ -348,8 +348,7 @@ int main()
 												cout << "Choose an option: ";
 												cin >> mat;
 
-												switch (mat)
-												{
+												switch (mat){
 												case 1:
 													do
 													{
