@@ -176,8 +176,8 @@ public:
 
     do
     {
-      cout << "\nTotal: " << total_price();
-      cout << "\nWith Tax: " << c.tax;
+      cout << "\nSubtotal: " << total_price();
+      cout << "\nTotal: " << c.tax;
       cout << "\n___________________________";
       cout << "\nInput Costumers Money: ";
       cin >> c.cash;
@@ -222,10 +222,10 @@ public:
     {
       cout << d.month << "/" << d.day << "/" << d.year << "\n";
     }
-    cout << "\nTotal: " << ac.total;
+    cout << "\nSubtotal: " << ac.total;
     cout << " | Change: " << ac.change;
     cout << " | Money: " << ac.cash;
-    cout << " | With Tax: " << ac.cash;
+    cout << " | Total: " << ac.cash;
 
     cout << "\n------------------------------------------------------------------------------";
     cout << "\nSTRAPS\n";
@@ -375,7 +375,7 @@ public:
     }
     cout << "------------------------------------------------------------------------------";
     cout << "\nMoney: " << c.cash;
-    cout << "\nWith Tax: " << c.tax;
+    cout << "\nTotal: " << c.tax;
     return;
   }
 
@@ -809,7 +809,7 @@ public:
                     if (d.day == srch_d && d.month == srch_m)
                     {
                         display(c);
-                        
+                        found = true; 
                     }       
                     
                 }
@@ -826,9 +826,9 @@ public:
                     }
                 }
             }
-
+                
             if(!found){
-                 cout << "\nNo data found :< \n"; 
+                  cout << "\nNo data found :< \n"; 
             }
 
 
@@ -863,10 +863,10 @@ public:
       {
         cout << d.month << "/" << d.day << "/" << d.year << "\n";
       }
-      cout << "\nTotal: " << c.total;
+      cout << "\nSubtotal: " << c.total;
       cout << " | Change: " << c.change;
       cout << " | Money: " << c.cash;
-      cout << " | With tax: " << c.tax;
+      cout << " | Total: " << c.tax;
 
       cout << "\n------------------------------------------------------------------------------";
       cout << "\nSTRAPS\n";
