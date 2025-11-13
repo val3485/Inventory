@@ -1,3 +1,4 @@
+
 #include <vector>
 #include "straps.h"
 #include <algorithm> // required for transform / sort
@@ -420,4 +421,144 @@ public:
              << setw(10) << s.hole
              << "\n";
     }
+
+    // LEVEINSHTEIN DISTANCE (para sa search)
+int levenshteinDistance(const string &s1, const string &s2)
+{
+    const size_t len1 = s1.size(), len2 = s2.size();
+    vector<vector<int>> dp(len1 + 1, vector<int>(len2 + 1));
+
+    for (size_t i = 0; i <= len1; ++i)
+        dp[i][0] = i;
+    for (size_t j = 0; j <= len2; ++j)
+        dp[0][j] = j;
+
+    for (size_t i = 1; i <= len1; ++i)
+        for (size_t j = 1; j <= len2; ++j)
+            dp[i][j] = min({
+                dp[i - 1][j] + 1,                            // deletion
+                dp[i][j - 1] + 1,                            // insertion
+                dp[i - 1][j - 1] + (s1[i - 1] != s2[j - 1]) // substitution
+            });
+
+    return dp[len1][len2];
+}
+
+// forda correct brand name (uses available brands in allstraps_arr)
+string correctItemName(string input)
+{
+    // build list of unique brands from current straps data
+    vector<string> validBrands;
+    for (const auto &it : allstraps_arr)
+    {
+        string b = it.brand;
+        // normalize to lowercase for comparison/storage
+        transform(b.begin(), b.end(), b.begin(), [](unsigned char c) { return tolower(c); });
+        if (find(validBrands.begin(), validBrands.end(), b) == validBrands.end())
+            validBrands.push_back(b);
+    }
+
+    // normalize input to lowercase
+    transform(input.begin(), input.end(), input.begin(), [](unsigned char c) { return tolower(c); });
+
+    string bestMatch = input;
+    int bestScore = INT_MAX;
+
+    for (const string &brand : validBrands)
+    {
+        int dist = levenshteinDistance(input, brand);
+        if (dist < bestScore)
+        {
+            bestScore = dist;
+            bestMatch = brand;
+        }
+    }
+
+    if (bestScore <= 2) // allow up to 2 typos like battery version
+        return bestMatch;
+    else
+        return input; // too different -> keep original
+}
+
+// SEARCH
+void searchItems(string input)
+{
+    string brandPart, number;
+
+    stringstream ss(input);
+    ss >> brandPart;
+    getline(ss, number);                           // separates the brandPart from the number part (if any)
+    number.erase(0, number.find_first_not_of(" ")); // trim leading spaces from number part
+
+    // get corrected brand using available strap brands
+    string correctBrand = correctItemName(brandPart);
+
+    cout << left << setw(5) << "ID"
+         << setw(20) << "BRAND"
+         << setw(15) << "COLOR"
+         << setw(8)  << "QTY"
+         << setw(8)  << "SIZE"
+         << setw(10) << "PRICE" << "\n";
+
+    bool found = false;
+    for (const auto &strap : allstraps_arr)
+    {
+        string strapBrandLower = strap.brand; // e.g., "Casio"
+        string searchNumberLower = number;
+        transform(strapBrandLower.begin(), strapBrandLower.end(), strapBrandLower.begin(), ::tolower);
+        transform(searchNumberLower.begin(), searchNumberLower.end(), searchNumberLower.begin(), ::tolower);
+        transform(correctBrand.begin(), correctBrand.end(), correctBrand.begin(), ::tolower);
+
+        // match if brand or brand + number found (similar logic to battery)
+        if ((!searchNumberLower.empty() && strapBrandLower.find(correctBrand + " " + searchNumberLower) != string::npos) ||
+            (searchNumberLower.empty() && strapBrandLower.find(correctBrand) != string::npos))
+        {
+            cout << left << setw(5)  << strap.id
+                 << setw(20) << strap.brand
+                 << setw(15) << strap.color
+                 << setw(8)  << strap.quantity
+                 << setw(8)  << strap.size
+                 << setw(10) << strap.price << "\n";
+            found = true;
+        }
+    }
+
+    if (!found)
+    {
+        // try to suggest close matches based on levenshtein distance
+        vector<pair<int, string>> suggestions;
+        string inputLower = input;
+        transform(inputLower.begin(), inputLower.end(), inputLower.begin(), ::tolower);
+
+        // gather unique brand names again for suggestions
+        vector<string> uniqueBrands;
+        for (const auto &it : allstraps_arr)
+        {
+            string b = it.brand;
+            transform(b.begin(), b.end(), b.begin(), ::tolower);
+            if (find(uniqueBrands.begin(), uniqueBrands.end(), b) == uniqueBrands.end())
+                uniqueBrands.push_back(b);
+        }
+
+        for (const auto &b : uniqueBrands)
+        {
+            int dist = levenshteinDistance(inputLower, b);
+            if (dist <= 2)
+                suggestions.push_back({dist, b});
+        }
+
+        if (!suggestions.empty())
+        {
+            sort(suggestions.begin(), suggestions.end());
+            cout << "\nDid you mean:\n";
+            for (const auto &s : suggestions)
+                cout << " - " << s.second << "\n";
+        }
+        else
+        {
+            cout << "No items matches :<\n";
+        }
+    }
+}
+
 };

@@ -25,12 +25,19 @@ public:
 		string categ;
 		string brand;
 		int quantity;
+<<<<<<< HEAD
 		int reorder_point; //to trigger alert
 		float price;
 
 				BattItems() = default;
 				BattItems(int i, string ct, string b, int q, int rp, float p) //this is called a constructor, it reads(?) the data from the array in order.
 				: id(i), categ (ct), brand(b), quantity(q), reorder_point(rp), price(p) {}
+=======
+		float price;
+
+				BattItems(int i, string ct, string b, int q, float p) //this is called a constructor, it reads(?) the data from the array in order.
+				: id(i), categ (ct), brand(b), quantity(q), price(p) {}
+>>>>>>> ffebe97aa7275e987eef451527f93541a62542d3
 			};
 			
 			vector<BattItems> allbatt_arr = {
@@ -391,4 +398,8 @@ public:
 		}
 	}
 
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> ffebe97aa7275e987eef451527f93541a62542d3
