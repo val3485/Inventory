@@ -31,6 +31,8 @@ public:
 		string hole;
 		int reorder_point;
 
+		StrapItems(int i, string ct, const string c, const string b, const string lt, int q, int rp, const string s, float p, const string h)
+			: id(i), categ(ct), color(c), brand(b), leather_type(lt), quantity(q), reorder_point(rp), size(s), price(p), hole(h) {}
 		StrapItems(int i, string ct, const string c, const string b, const string lt, int q, int rp, const string s, int p, const string h)
 			: isActive(true), id(i), categ(ct), color(c), brand(b), leather_type(lt), quantity(q), reorder_point(rp), size(s), kid_size(""), price(p), hole(h) {}
 
