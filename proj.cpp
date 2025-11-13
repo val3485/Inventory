@@ -342,7 +342,7 @@ int main()
 														cout << "[2] NO STITCH STRAP\n";
 														cout << "[3] CASIO STRAP\n";
 														cout << "[4] DISPLAY ALL STRAPS\n";
-
+														cout << "[5] CHECK INVENTORY LEVELS\n";
 														cout << "[0] back\n";
 														cout << "Choose an option: ";
 														cin >> strp;
@@ -359,7 +359,7 @@ int main()
 														cout << "[1] MAXELL\n";
 														cout << "[2] RENATA\n";
 														cout << "[3] DISPLAY ALL BATTERIES\n";
-														cout << "[4] CHECK STOCK LEVELS\n";
+														cout << "[4] CHECK INVENTORY LEVELS\n";
 														cout << "[0] back\n";
 														cout << "Choose an option: ";
 														cin >> bat;

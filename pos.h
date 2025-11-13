@@ -93,12 +93,12 @@ public:
           1,"Clare Lubiano", "0962 585 8585", 10000, 7300, 2700, 3024, 
           vector<dates> {{2025, 11, 01}}, 
           vector<Straps ::StrapItems>{
-            {3, "stitched", "black w/ white", "no type", "Buffalo Calf", 1, "16-19", 850, ""},
+            {3, "stitched", "black w/ white", "No type", "Buffalo Calf", 1, "16-19", 850, ""},
             {4, "stitched", "brown light", "No type", "Buffalo Calf", 1, "16-19", 850, ""}
             },
           vector<Batteries ::BattItems>{
-             {3, "renata", "Renata 600", 1, 500},
-             {4, "renata", "Renata 700", 1, 500}
+             {3, "renata", "Renata 600", 1, 5, 500},
+             {4, "renata", "Renata 700", 1, 5, 500}
           }
       ),
 
@@ -110,8 +110,8 @@ public:
           {4, "stitched", "brown light", "No type", "Buffalo Calf", 1, "16-19", 850, ""}
             },
           vector<Batteries ::BattItems>{
-             {3, "renata", "Renata 600", 1, 500},
-             {4, "renata", "Renata 700", 1, 500}
+             {3, "renata", "Renata 600", 1, 5, 500},
+             {4, "renata", "Renata 700", 1, 5, 500}
           }
       ),
 
@@ -119,10 +119,10 @@ public:
          3, "Chybs Shantee Naje", "0962 114 5862", 10000, 8650, 1350, 1512 , 
           vector<dates> {{2025, 10, 29}}, 
           vector<Straps ::StrapItems>{
-            {3, "stitched", "black w/ white", "no type", "Buffalo Calf", 1, "16-19", 850, ""}
+            {3, "stitched", "black w/ white", "No type", "Buffalo Calf", 1, "16-19", 850, ""}
             },
           vector<Batteries ::BattItems>{
-             {3, "renata", "Renata 600", 1, 500}
+             {3, "renata", "Renata 600", 1, 5, 500}
           }
       ),
       
@@ -134,7 +134,7 @@ public:
             {4, "stitched", "brown light", "No type", "Buffalo Calf", 1, "16-19", 850, ""}
             },
           vector<Batteries ::BattItems>{
-             {3, "renata", "Renata 600", 2, 500}
+             {3, "renata", "Renata 600", 2, 5, 500}
           }
       )
   };
