@@ -19,7 +19,7 @@ public:
     string category;
     //  Straps::StrapItems newStrap(nextID, categ, color, brand, leather_type, quantity, size, price, hole);
 
-    void addItems(int nextID ,string categ, string color, string brand, string leather_type, int quantity, string size,  int price, string hole)
+    void addItems(int nextID ,string categ, string color, string brand, string leather_type, int quantity, int reorder_point, string size,  int price, string hole)
     {
         // make categ lowercase
         transform(categ.begin(), categ.end(), categ.begin(),
@@ -78,7 +78,7 @@ public:
         
         // create new strap
         int last_id =   allstraps_arr.back().id  + 1;
-        Straps::StrapItems newStrap(last_id, categ, color, brand, leather_type, quantity, size, price, hole);
+        Straps::StrapItems newStrap(last_id, categ, color, brand, leather_type, quantity, reorder_point, size, price, hole);
         // only allow valid categories (you can modify this list)
         if (categ == "stitched" || categ == "no stitch" || categ == "casio" || categ == "casio w/ cover")
         {

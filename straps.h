@@ -31,6 +31,7 @@ public:
 		string hole;
 		int reorder_point;
 
+
 		StrapItems(int i, string ct, const string c, const string b, const string lt, int q, int rp, const string s, int p, const string h)
 			: isActive(true), id(i), categ(ct), color(c), brand(b), leather_type(lt), quantity(q), reorder_point(rp), size(s), kid_size(""), price(p), hole(h) {}
 
@@ -122,8 +123,8 @@ public:
 		{69, "casio w/ cover", "Black", "Casio", "No type", 10, 7, "Large", 1500, "2 hole"},
 		{70, "casio w/ cover", "Blue dark", "Casio", "No type", 8, 4, "Large", 1500, "2 hole"},
 		{71, "casio w/ cover", "Orange", "Casio", "No type", 8, 4, "Large", 1500, "2 hole"},
-		{72, "casio w/ cover", "Red", "Casio", "No type", 8, 4, "Large", 1500, "2 hole"},
-		{73, "casio w/ cover", "White", "Casio", "No type", 5, 7, "Large", 1500, "2 hole"}};
+		{72, "casio w/ cover", "Red", "Casio", "No type", 3, 4, "Large", 1500, "2 hole"},
+		{73, "casio w/ cover", "White", "Casio", "No type", 3, 7, "Large", 1500, "2 hole"}};
 
 	int DisplayStitched(vector<StrapItems> arr, string categ)
 	{
@@ -281,19 +282,31 @@ public:
 		return 0;
 	}
 
-	void Inventory_levels(vector<StrapItems> arr){
-			cout << "----INVENTORY LEVELS----\n";
+	void Inventory_levels(vector<StrapItems> arr, string categ){
+			cout << right << setw(100) << "----INVENTORY LEVELS----\n";
 			bool low_stock = false;
+			cout << " ";
+			cout << left << setw(5) << "ID"
+			<< setw(25) << "Color"
+			<< setw(15) << "Brand"
+			<< setw(30) << "Leather/Non-Leather"
+			<< setw(10) << "Price" << "\n";
+				
 			for(auto&i : arr){
 				if(i.quantity <= i.reorder_point){
-					cout << "[ALERT] " << i.brand 
-					<< " is low on stock!\n" <<" Current quantity: " 
-					<< i.quantity << ".\n" <<" Reorder point: "
-					<< i.reorder_point << ". \n\n";
+					cout << " ";
+					cout << "\n " << categ << " \n";
+					cout << " ";
+					cout << left << setw(5) << i.id
+						<< setw(25) << i.color
+						<< setw(15) << i.brand
+						<< setw(30) << i.leather_type
+						<< setw(10) << i.price << "\n"
+						<<" Current quantity: " << i.quantity << ". \n" 
+						<<" Reorder point: " << i.reorder_point << ". \n\n\n";
 					low_stock = true;
 				}
 			}
-
 			if(!low_stock){
 				cout << "All batteries are at sufficient stock levels.\n";
 			}
@@ -351,7 +364,7 @@ public:
 			break;
 
 		case 5:
-			Inventory_levels(allstraps_arr);
+			Inventory_levels(allstraps_arr, "[ALERT] LOW ON STOCK!");
 			break;
 
 		case 0:

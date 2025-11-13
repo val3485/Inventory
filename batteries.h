@@ -25,19 +25,12 @@ public:
 		string categ;
 		string brand;
 		int quantity;
-<<<<<<< HEAD
 		int reorder_point; //to trigger alert
 		float price;
 
-				BattItems() = default;
+				
 				BattItems(int i, string ct, string b, int q, int rp, float p) //this is called a constructor, it reads(?) the data from the array in order.
 				: id(i), categ (ct), brand(b), quantity(q), reorder_point(rp), price(p) {}
-=======
-		float price;
-
-				BattItems(int i, string ct, string b, int q, float p) //this is called a constructor, it reads(?) the data from the array in order.
-				: id(i), categ (ct), brand(b), quantity(q), price(p) {}
->>>>>>> ffebe97aa7275e987eef451527f93541a62542d3
 			};
 			
 			vector<BattItems> allbatt_arr = {
@@ -92,8 +85,8 @@ public:
 				{47, "renata", "Renata CR 2032", 10, 8, 550},
 				{48, "renata", "Renata CR 2320", 10, 8, 550},
 				{49, "renata", "Renata CR 2430", 10, 8, 550},
-				{50, "renata", "Renata CR 2477", 10, 8, 550},
-				{51, "renata", "Renata CR 2450", 10, 8, 550}
+				{50, "renata", "Renata CR 2477", 2, 8, 550},
+				{51, "renata", "Renata CR 2450", 2, 8, 550}
 			};
 			
 		int DisplayMaxell(vector<BattItems> arr, string categ) {
@@ -132,15 +125,24 @@ public:
 			return 0;
 		}
 		
-		void Inventory_levels(vector<BattItems> arr){
-			cout << "----INVENTORY LEVELS----\n";
+		void Inventory_levels(vector<BattItems> arr, string categ){
+			cout << right << setw(100) << "----INVENTORY LEVELS----\n";
 			bool low_stock = false;
+			cout << " ";
+			cout << left << setw(5) << "ID"
+			<< setw(15) << "Brand"
+			<< setw(10) << "Price" << "\n";
+
 			for(auto&i : arr){
 				if(i.quantity <= i.reorder_point){
-					cout << "[ALERT] " << i.brand 
-					<< " is low on stock!\n" <<" Current quantity: " 
-					<< i.quantity << ".\n" <<" Reorder point: "
-					<< i.reorder_point << ". \n\n";
+					cout << " ";
+					cout << "\n " << categ << " \n";
+					cout << " ";
+					cout << left << setw(5) << i.id
+						<< setw(15) << i.brand
+						<< setw(10) << i.price << "\n"
+						<<" Current quantity: " << i.quantity << ". \n" 
+						<<" Reorder point: " << i.reorder_point << ". \n\n\n";
 					low_stock = true;
 				}
 			}
@@ -164,7 +166,7 @@ public:
                 DisplayRenata(allbatt_arr, "RENATA BATTERY");
                 break;
 			case 4:
-				Inventory_levels(allbatt_arr);  
+				Inventory_levels(allbatt_arr, "[ALERT] LOW ON STOCK!");  
 				break;
 
 			case 0:
@@ -398,8 +400,4 @@ public:
 		}
 	}
 
-<<<<<<< HEAD
 };
-=======
-};
->>>>>>> ffebe97aa7275e987eef451527f93541a62542d3
