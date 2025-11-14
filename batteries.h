@@ -124,14 +124,19 @@ public:
 	}
 		
 	void Inventory_levels(vector<BattItems> arr, string categ){
-		cout << right << setw(100) << "----INVENTORY LEVELS----\n";
+
 		bool low_stock = false;
-		cout << " ";
-		cout << left << setw(5) << "ID"
-		<< setw(15) << "Brand"
-		<< setw(10) << "Price" << "\n";
-		
-		for(auto&i : arr){
+
+		if(!low_stock){
+			cout << "\nAll batteries are at sufficient stock levels.\n";
+		} else {
+			cout << right << setw(100) << "----INVENTORY LEVELS----\n";
+			cout << " ";
+			cout << left << setw(5) << "ID"
+			<< setw(15) << "Brand"
+			<< setw(10) << "Price" << "\n";
+
+			for(auto&i : arr){
 			if(i.quantity <= i.reorder_point){
 				cout << " ";
 				cout << "\n " << categ << " \n";
@@ -144,8 +149,6 @@ public:
 				low_stock = true;
 			}
 		}
-		if(!low_stock){
-			cout << "All batteries are at sufficient stock levels.\n";
 		}
 	}
 	
