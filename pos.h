@@ -75,13 +75,13 @@ public:
     set<string> num_valid = {
       "900","901","902","903","904","905",
       "906","907","908","909",
-      "817",
+      "817","813",
       "910","911","912","913","914","915","916","917","918","919",
       "920","921","928","926","929",
       "930","938","939",
       "946","947","948","949",
       "950","951","952","953",
-      "961","962","963",
+      "961","962","963","965","966","967","976","968","969",
       "970","975","977","978","979",
       "981","989",
       "991","992","993","994","995","996","997","998","999"
@@ -146,7 +146,6 @@ public:
         id_maker();
         cout << "\033[96mDOUBLE CHECK YOU CANNOT EDIT!!";
         cout << "\n\033[0mCostumers name: ";
-        cin.ignore();
         getline(cin, c.details);
         costumers.push_back(c);
 
@@ -219,7 +218,7 @@ public:
   void display(T &ac)
   {
     cout << "\n\nName: \033[96m" << left << setw(100) << ac.details << "\n";
-    cout << "\033[0m09" << ac.mobile_num << "\n";
+    cout << "\033[0m0" << ac.mobile_num << "\n";
 
     for (const auto &d : ac.date)
     {
@@ -324,7 +323,7 @@ public:
   void show_current()
   {
     cout << "\n\nName: " << c.details << "\n";
-    cout << "09" << c.mobile_num << "\n";
+    cout << "0" << c.mobile_num << "\n";
     for (const auto &d : c.date)
     {
       cout << d.month << "/" << d.day << "/" << d.year << "\n";

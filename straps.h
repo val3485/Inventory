@@ -283,35 +283,38 @@ public:
 	}
 
 	void Inventory_levels(vector<StrapItems> arr, string categ){
-			cout << right << setw(100) << "----INVENTORY LEVELS----\n";
+			
 			bool low_stock = false;
-			cout << " ";
-			cout << left << setw(5) << "ID"
-			<< setw(25) << "Color"
-			<< setw(15) << "Brand"
-			<< setw(30) << "Leather/Non-Leather"
-			<< setw(10) << "Size"
-			<< setw(10) << "Price" << "\n";
-				
-			for(auto&i : arr){
-				if(i.quantity <= i.reorder_point){
-					cout << " ";
-					cout << "\n " << categ << " \n";
-					cout << " ";
-					cout << left << setw(5) << i.id
-						<< setw(25) << i.color
-						<< setw(15) << i.brand
-						<< setw(30) << i.leather_type
-						<< setw(10) << i.size
-						<< setw(10) << i.price << "\n"
-						<<" Current quantity: " << i.quantity << ". \n" 
-						<<" Reorder point: " << i.reorder_point << ". \n\n\n";
-					low_stock = true;
-				}
-			}
+
 			if(!low_stock){
-				cout << "All straps are at sufficient stock levels.\n";
-			}
+				cout << "\nAll straps are at sufficient stock levels.\n";
+			}else {
+				cout << right << setw(100) << "----INVENTORY LEVELS----\n";
+				cout << " ";
+				cout << left << setw(5) << "ID"
+				<< setw(25) << "Color"
+				<< setw(15) << "Brand"
+				<< setw(30) << "Leather/Non-Leather"
+				<< setw(10) << "Size"
+				<< setw(10) << "Price" << "\n";
+					
+				for(auto&i : arr){
+					if(i.quantity <= i.reorder_point){
+						cout << " ";
+						cout << "\n " << categ << " \n";
+						cout << " ";
+						cout << left << setw(5) << i.id
+							<< setw(25) << i.color
+							<< setw(15) << i.brand
+							<< setw(30) << i.leather_type
+							<< setw(10) << i.size
+							<< setw(10) << i.price << "\n"
+							<<" Current quantity: " << i.quantity << ". \n" 
+							<<" Reorder point: " << i.reorder_point << ". \n\n\n";
+						low_stock = true;
+					}
+				}
+				}
 		}
 
 	void switch_view(int strp){
