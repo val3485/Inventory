@@ -73,17 +73,18 @@ public:
     Pos(Straps &straps, Batteries &bats) : s(straps), b(bats), allstraps_arr(straps.allstraps_arr), allbatt_arr(bats.allbatt_arr) {}
   
     set<string> num_valid = {
-      "00","01","02","03","04","05",
-      "06","07","08","09",
-      "10","11","12","13","14","15","16","17","18","19",
-      "20","21","28","29",
-      "30","38","39",
-      "46","47","48","49",
-      "50","51","52","53",
-      "61","62","63",
-      "70","75","77","78","79",
-      "81","89",
-      "91","92","93","94","95","96","97","98","99"
+      "900","901","902","903","904","905",
+      "906","907","908","909",
+      "817",
+      "910","911","912","913","914","915","916","917","918","919",
+      "920","921","928","926","929",
+      "930","938","939",
+      "946","947","948","949",
+      "950","951","952","953",
+      "961","962","963",
+      "970","975","977","978","979",
+      "981","989",
+      "991","992","993","994","995","996","997","998","999"
     };
 
     //dummy data 
@@ -93,12 +94,12 @@ public:
           1,"Clare Lubiano", "0962 585 8585", 10000, 7300, 2700, 3024, 
           vector<dates> {{2025, 11, 01}}, 
           vector<Straps ::StrapItems>{
-            {3, "stitched", "black w/ white", "no type", "Buffalo Calf", 1, "16-19", 850, ""},
-            {4, "stitched", "brown light", "No type", "Buffalo Calf", 1, "16-19", 850, ""}
+            {3, "stitched", "black w/ white", "No type", "Buffalo Calf", 1, 4, "16-19", 850, ""},
+            {4, "stitched", "brown light", "No type", "Buffalo Calf", 1, 4, "16-19", 850, ""}
             },
           vector<Batteries ::BattItems>{
-             {3, "renata", "Renata 600", 1, 500},
-             {4, "renata", "Renata 700", 1, 500}
+             {3, "renata", "Renata 600", 1, 8, 500},
+             {4, "renata", "Renata 700", 1, 8, 500}
           }
       ),
 
@@ -106,12 +107,12 @@ public:
           2,"Sylvia Heart Sulla", "0962 656 8910", 10000, 6650, 3350, 3752, 
           vector<dates> {{2025, 11, 01}}, 
           vector<Straps ::StrapItems>{
-          {23, "no stitch", "Black", "Alpha", "No type", 10, "16-24", 1500, ""},
-          {4, "stitched", "brown light", "No type", "Buffalo Calf", 1, "16-19", 850, ""}
+          {23, "no stitch", "Black", "Alpha", "No type", 10, 7, "16-24", 1500, ""},
+          {4, "stitched", "brown light", "No type", "Buffalo Calf", 1, 4, "16-19", 850, ""}
             },
           vector<Batteries ::BattItems>{
-             {3, "renata", "Renata 600", 1, 500},
-             {4, "renata", "Renata 700", 1, 500}
+             {3, "renata", "Renata 600", 1, 8, 500},
+             {4, "renata", "Renata 700", 1, 8, 500}
           }
       ),
 
@@ -119,10 +120,10 @@ public:
          3, "Chybs Shantee Naje", "0962 114 5862", 10000, 8650, 1350, 1512 , 
           vector<dates> {{2025, 10, 29}}, 
           vector<Straps ::StrapItems>{
-            {3, "stitched", "black w/ white", "no type", "Buffalo Calf", 1, "16-19", 850, ""}
+            {3, "stitched", "black w/ white", "No type", "Buffalo Calf", 1, 4, "16-19", 850, ""}
             },
           vector<Batteries ::BattItems>{
-             {3, "renata", "Renata 600", 1, 500}
+             {3, "renata", "Renata 600", 1, 8, 500}
           }
       ),
       
@@ -130,16 +131,16 @@ public:
          4,"Vinea Lei", "0962 645 7012", 10000, 7300, 2700, 3024 ,
           vector<dates> {{2025, 10, 27}}, 
           vector<Straps ::StrapItems>{
-            {3, "stitched", "black w/ white", "No type", "Buffalo Calf", 1, "16-19", 850, ""},
-            {4, "stitched", "brown light", "No type", "Buffalo Calf", 1, "16-19", 850, ""}
+            {3, "stitched", "black w/ white", "No type", "Buffalo Calf", 1, 4, "16-19", 850, ""},
+            {4, "stitched", "brown light", "No type", "Buffalo Calf", 1, 4, "16-19", 850, ""}
             },
           vector<Batteries ::BattItems>{
-             {3, "renata", "Renata 600", 2, 500}
+             {3, "renata", "Renata 600", 2, 8, 500}
           }
       )
   };
     
-    //main input for recipts
+     //main input for recipts
     void input()
     {
         id_maker();
@@ -190,6 +191,8 @@ public:
 
     show_current();
     change();
+    a_id.clear(); 
+    a_id_bat.clear();
     all_costumers.push_back(c);
     // clears all costumer so no repeating data
     c.store.clear();
@@ -287,14 +290,14 @@ public:
   }
 
   // totals overall price for both stores
-  float total_price()
+  double total_price()
   {
-    float total_s = 0;
+    double total_s = 0;
     for (const auto &s : c.store)
     {
       total_s += s.price * s.quantity;
     }
-    float total_b = 0;
+    double total_b = 0;
     for (const auto &b : c.store_b)
     {
       total_b += b.price * b.quantity;
@@ -715,10 +718,10 @@ public:
   int mobile_checker()
   {
     string num = c.mobile_num;
-    string extract = num.substr(0,2); 
+    string extract = num.substr(0,3); 
     int found = (num_valid.find(extract) != num_valid.end()) ?  1 : 0;
 
-    if (counter(c.mobile_num) != 9 && counter(c.mobile_num) != 11 || found == 0)
+    if (counter(c.mobile_num) != 10 && counter(c.mobile_num) != 12 || found == 0)
     {
       cout << "invalid number :<";
       return 1;
