@@ -123,8 +123,8 @@ public:
 		{69, "casio w/ cover", "Black", "Casio", "No type", 10, 7, "Large", 1500, "2 hole"},
 		{70, "casio w/ cover", "Blue dark", "Casio", "No type", 8, 4, "Large", 1500, "2 hole"},
 		{71, "casio w/ cover", "Orange", "Casio", "No type", 8, 4, "Large", 1500, "2 hole"},
-		{72, "casio w/ cover", "Red", "Casio", "No type", 3, 4, "Large", 1500, "2 hole"},
-		{73, "casio w/ cover", "White", "Casio", "No type", 3, 7, "Large", 1500, "2 hole"}};
+		{72, "casio w/ cover", "Red", "Casio", "No type", 8, 4, "Large", 1500, "2 hole"},
+		{73, "casio w/ cover", "White", "Casio", "No type", 10, 7, "Large", 1500, "2 hole"}};
 
 	int DisplayStitched(vector<StrapItems> arr, string categ)
 	{
@@ -290,6 +290,7 @@ public:
 			<< setw(25) << "Color"
 			<< setw(15) << "Brand"
 			<< setw(30) << "Leather/Non-Leather"
+			<< setw(10) << "Size"
 			<< setw(10) << "Price" << "\n";
 				
 			for(auto&i : arr){
@@ -301,6 +302,7 @@ public:
 						<< setw(25) << i.color
 						<< setw(15) << i.brand
 						<< setw(30) << i.leather_type
+						<< setw(10) << i.size
 						<< setw(10) << i.price << "\n"
 						<<" Current quantity: " << i.quantity << ". \n" 
 						<<" Reorder point: " << i.reorder_point << ". \n\n\n";

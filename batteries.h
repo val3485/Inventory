@@ -83,8 +83,8 @@ public:
 		{47, "renata", "Renata CR 2032", 10, 8, 550},
 		{48, "renata", "Renata CR 2320", 10, 8, 550},
 		{49, "renata", "Renata CR 2430", 10, 8, 550},
-		{50, "renata", "Renata CR 2477", 2, 8, 550},
-		{51, "renata", "Renata CR 2450", 2, 8, 550}
+		{50, "renata", "Renata CR 2477", 10, 8, 550},
+		{51, "renata", "Renata CR 2450", 10, 8, 550}
 	};
 	
 	int DisplayMaxell(vector<BattItems> arr, string categ) {
@@ -130,17 +130,17 @@ public:
 		cout << left << setw(5) << "ID"
 		<< setw(15) << "Brand"
 		<< setw(10) << "Price" << "\n";
-
+		
 		for(auto&i : arr){
 			if(i.quantity <= i.reorder_point){
 				cout << " ";
 				cout << "\n " << categ << " \n";
 				cout << " ";
 				cout << left << setw(5) << i.id
-					<< setw(15) << i.brand
-					<< setw(10) << i.price << "\n"
-					<<" Current quantity: " << i.quantity << ". \n" 
-					<<" Reorder point: " << i.reorder_point << ". \n\n\n";
+				<< setw(15) << i.brand
+				<< setw(10) << i.price << "\n"
+				<<" Current quantity: " << i.quantity << ". \n" 
+				<<" Reorder point: " << i.reorder_point << ". \n\n\n";
 				low_stock = true;
 			}
 		}
@@ -198,7 +198,7 @@ public:
 	}
     
 	// EDIT
-	void editItems(int id, string newBrand, int newQty, float newPrice)
+	void editItems(int id, string newBrand, int newQty, double newPrice)
 	{
         //capitalized th first letter of newBrand
 		transform(newBrand.begin(), newBrand.end(), newBrand.begin(),
@@ -229,7 +229,7 @@ public:
 	}
 
 	// ADD
-	void addItems(string categ, string itemName, int quantity, float price)
+	void addItems(string categ, string itemName, int quantity, double price)
 	{
         //make categ all lowercase    
 		transform(categ.begin(), categ.end(), categ.begin(),
@@ -252,7 +252,7 @@ public:
 
        Batteries::BattItems newBatt(lastID, categ, itemName, quantity, 5, price);
        
-	   if (categ == "renata" || categ == "maxwell")
+	   if (categ == "renata" || categ == "maxell")
 	   {
 			batt.allbatt_arr.push_back(newBatt);
 			displayItems();
@@ -367,12 +367,10 @@ public:
 		// search the brand part
 		string correctBrand = correctItemName(brandPart);
         
-        cout << left << setw(5) << "ID"
-                     << setw(15) << "BRAND"
-                     << setw(10) << "Qty"
-                     << setw(10) << "Price" << "\n";
+       
         
 		bool found = false;
+		bool printHeader = false;
 		for (const auto &batt : allbatt_arr)
 		{
 			string battNameLower = batt.brand; // brand includes the full name, e.g., "Renata 567"
@@ -384,6 +382,14 @@ public:
             if ((!number.empty() && battNameLower.find(correctBrand + " " + number) != string::npos) ||
                 (number.empty() && battNameLower.find(correctBrand) != string::npos))
             {
+				if(!printHeader){
+					cout << left << setw(5) << "ID"
+						 << setw(15) << "BRAND"
+						 << setw(10) << "Qty"
+						 << setw(10) << "Price" << "\n";
+					printHeader = true;
+				}
+
                 cout << left << setw(5) << batt.id
                      << setw(15) << batt.brand
                      << setw(10) << batt.quantity
