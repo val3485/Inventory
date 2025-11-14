@@ -26,9 +26,9 @@ public:
 		string categ;
 		string brand;
 		int quantity;
-		float price;
+		double price;
 
-				BattItems(int i, string ct, string b, int q, float p) //this is called a constructor, it reads(?) the data from the array in order.
+				BattItems(int i, string ct, string b, int q, double p) //this is called a constructor, it reads(?) the data from the array in order.
 				: id(i), categ (ct), brand(b), quantity(q), price(p) {}
 			};
 			
@@ -165,7 +165,7 @@ public:
 	}
     
 	// EDIT
-	void editItems(int id, string newBrand, int newQty, float newPrice)
+	void editItems(int id, string newBrand, int newQty, double newPrice)
 	{
         //capitalized th first letter of newBrand
 		transform(newBrand.begin(), newBrand.end(), newBrand.begin(),
@@ -196,7 +196,7 @@ public:
 	}
 
 	// ADD
-	void addItems(string categ, string itemName, int quantity, float price)
+	void addItems(string categ, string itemName, int quantity, double price)
 	{
         //make categ all lowercase    
 		transform(categ.begin(), categ.end(), categ.begin(),
@@ -334,12 +334,10 @@ public:
 		// search the brand part
 		string correctBrand = correctItemName(brandPart);
         
-        cout << left << setw(5) << "ID"
-                     << setw(15) << "BRAND"
-                     << setw(10) << "Qty"
-                     << setw(10) << "Price" << "\n";
+       
         
 		bool found = false;
+		bool printHeader = false;
 		for (const auto &batt : allbatt_arr)
 		{
 			string battNameLower = batt.brand; // brand includes the full name, e.g., "Renata 567"
@@ -351,6 +349,14 @@ public:
             if ((!number.empty() && battNameLower.find(correctBrand + " " + number) != string::npos) ||
                 (number.empty() && battNameLower.find(correctBrand) != string::npos))
             {
+				if(!printHeader){
+					cout << left << setw(5) << "ID"
+						 << setw(15) << "BRAND"
+						 << setw(10) << "Qty"
+						 << setw(10) << "Price" << "\n";
+					printHeader = true;
+				}
+
                 cout << left << setw(5) << batt.id
                      << setw(15) << batt.brand
                      << setw(10) << batt.quantity

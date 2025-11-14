@@ -41,12 +41,14 @@ int main()
 			cout << "[0] End\n\n";
 			cout << "Choose an option: ";
 			cin >> opt;
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
 			if(cin.fail())
 			{
 				cin.clear();
 				cin.ignore(numeric_limits<streamsize>::max(), '\n');
 				cout << "Invalid input. Please enter a number.\n";
+				continue;
 			}
 			else if(opt >= 0 && opt <= 3)
 			{
@@ -63,12 +65,14 @@ int main()
 								cout << "[0] back\n\n";
 								cout << "Choose an option: ";
 								cin >> inv;
+								cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
 								if(cin.fail())
 								{
 									cin.clear();
 									cin.ignore(numeric_limits<streamsize>::max(), '\n');
 									cout << "Invalid input. Please enter a number.\n";
+									continue;
 								}
 								else if(inv >= 0 && inv <= 2)
 								{
@@ -86,12 +90,14 @@ int main()
 													cout << "[0] back\n\n";
 													cout << "Choose an option: ";
 													cin >> edit;
+													cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
 													if(cin.fail())
 													{
 														cin.clear();
 														cin.ignore(numeric_limits<streamsize>::max(), '\n');
 														cout << "Invalid input. Please enter a number.\n";
+														continue;
 													}
 													else if(edit >= 0 && edit <= 2)
 													{
@@ -111,11 +117,14 @@ int main()
 																		cout << "[0] back\n";
 																		cout << "Choose an option: ";
 																		cin >> strp;
+																		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+																		
 																		if(cin.fail())
 																		{
 																			cin.clear();
 																			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 																			cout << "Invalid input. Please enter a number.\n";
+																			continue;
 																		}
 																		else if(strp >= 0 && strp <= 4)
 																		{
@@ -208,6 +217,7 @@ int main()
 																		else
 																		{
 																			cout << "Invalid input :<";
+																			continue;
 																		}
 
 																		if(strp == 0)
@@ -236,6 +246,7 @@ int main()
 																			cin.clear();
 																			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 																			cout << "Invalid input. Please enter a number.\n";
+																			continue;
 																		}
 																		else if(bat >= 0 && bat <= 4)
 																		{
@@ -295,14 +306,13 @@ int main()
 
 																				case 0:
 																				break;
-																				default:
-																					cout << "Invalid input :<";
-																					break;
+																				
 																			}
 																		}
 																		else
 																		{
 																			cout << "Invalid input :<";
+																			continue;
 																		}
 																		if (bat == 0)
 																			break;
@@ -314,6 +324,7 @@ int main()
 													else
 													{
 														cout << "Invalid input :<";
+														continue;
 													}
 
 													if(edit == 0)
@@ -375,6 +386,7 @@ int main()
 								else
 								{
 									cout << "Invalid input :<";
+									continue;
 								}
 
 								if (inv == 0)
@@ -414,6 +426,7 @@ int main()
 			else
 			{
 				cout << "Invalid input :<";
+				continue;
 			}
 
 			if (opt == 0)
