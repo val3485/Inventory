@@ -274,7 +274,7 @@ int main()
 																					cin >> brandName;
 																					cout << "Input new item name: ";
 																					cin.ignore(numeric_limits<streamsize>::max(), '\n');
-																					cin >> newItem;
+																					getline(cin, newItem);
 																					cout << "Input new quantity: ";
 																					cin >> newQty;
 																					cout << "Input new price: ";

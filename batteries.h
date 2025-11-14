@@ -219,7 +219,7 @@ public:
 
        Batteries::BattItems newBatt(lastID, categ, itemName, quantity, price);
        
-	   if (categ == "renata" || categ == "maxwell")
+	   if (categ == "renata" || categ == "maxell")
 	   {
 			batt.allbatt_arr.push_back(newBatt);
 			displayItems();
