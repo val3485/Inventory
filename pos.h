@@ -73,17 +73,18 @@ public:
     Pos(Straps &straps, Batteries &bats) : s(straps), b(bats), allstraps_arr(straps.allstraps_arr), allbatt_arr(bats.allbatt_arr) {}
   
     set<string> num_valid = {
-      "00","01","02","03","04","05",
-      "06","07","08","09",
-      "10","11","12","13","14","15","16","17","18","19",
-      "20","21","28","29",
-      "30","38","39",
-      "46","47","48","49",
-      "50","51","52","53",
-      "61","62","63",
-      "70","75","77","78","79",
-      "81","89",
-      "91","92","93","94","95","96","97","98","99"
+      "900","901","902","903","904","905",
+      "906","907","908","909",
+      "817",
+      "910","911","912","913","914","915","916","917","918","919",
+      "920","921","928","926","929",
+      "930","938","939",
+      "946","947","948","949",
+      "950","951","952","953",
+      "961","962","963",
+      "970","975","977","978","979",
+      "981","989",
+      "991","992","993","994","995","996","997","998","999"
     };
 
     //dummy data 
@@ -190,6 +191,8 @@ public:
 
     show_current();
     change();
+    a_id.clear(); 
+    a_id_bat.clear();
     all_costumers.push_back(c);
     // clears all costumer so no repeating data
     c.store.clear();
@@ -715,10 +718,10 @@ public:
   int mobile_checker()
   {
     string num = c.mobile_num;
-    string extract = num.substr(0,2); 
+    string extract = num.substr(0,3); 
     int found = (num_valid.find(extract) != num_valid.end()) ?  1 : 0;
 
-    if (counter(c.mobile_num) != 9 && counter(c.mobile_num) != 11 || found == 0)
+    if (counter(c.mobile_num) != 10 && counter(c.mobile_num) != 12 || found == 0)
     {
       cout << "invalid number :<";
       return 1;
