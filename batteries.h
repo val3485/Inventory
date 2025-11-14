@@ -84,7 +84,7 @@ public:
 		{48, "renata", "Renata CR 2320", 10, 8, 550},
 		{49, "renata", "Renata CR 2430", 10, 8, 550},
 		{50, "renata", "Renata CR 2477", 10, 8, 550},
-		{51, "renata", "Renata CR 2450", 100, 8, 550}
+		{51, "renata", "Renata CR 2450", 10, 8, 550}
 	};
 	
 	int DisplayMaxell(vector<BattItems> arr, string categ) {
@@ -149,8 +149,6 @@ public:
 		}
 	}
 	
-
-
 
     void switch_view(int bat, int strp) {
         switch (bat) {
@@ -250,7 +248,7 @@ public:
         
        int lastID = allbatt_arr.back().id + 1;
 
-       Batteries::BattItems newBatt(lastID, categ, itemName, quantity, 5, price);
+       Batteries::BattItems newBatt(lastID, categ, itemName, quantity, 8, price);
        
 	   if (categ == "renata" || categ == "maxell")
 	   {
