@@ -27,12 +27,12 @@ public:
 		int quantity;
 		string size;
 		string kid_size;
-		float price;
+		double price;
 		string hole;
 		int reorder_point;
 
 
-		StrapItems(int i, string ct, const string c, const string b, const string lt, int q, int rp, const string s, float p, const string h)
+		StrapItems(int i, string ct, const string c, const string b, const string lt, int q, int rp, const string s, double p, const string h)
 			: isActive(true), id(i), categ(ct), color(c), brand(b), leather_type(lt), quantity(q), reorder_point(rp), size(s), kid_size(""), price(p), hole(h) {}
 
 		void setActive(bool active)
