@@ -27,12 +27,12 @@ public:
 		int quantity;
 		string size;
 		string kid_size;
-		int price;
+		float price;
 		string hole;
 		int reorder_point;
 
 
-		StrapItems(int i, string ct, const string c, const string b, const string lt, int q, int rp, const string s, int p, const string h)
+		StrapItems(int i, string ct, const string c, const string b, const string lt, int q, int rp, const string s, float p, const string h)
 			: isActive(true), id(i), categ(ct), color(c), brand(b), leather_type(lt), quantity(q), reorder_point(rp), size(s), kid_size(""), price(p), hole(h) {}
 
 		void setActive(bool active)
@@ -341,7 +341,6 @@ public:
 
 						case 2:
 							DisplayCasioKids(allstraps_arr, "CASIO STRAPS KIDS SIZE W/ COVER");
-							DisplayNoStitched(allstraps_arr, "NO STITCH STRAPS"); 
 							break; 
 						
 						case 3:

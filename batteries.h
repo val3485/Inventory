@@ -84,7 +84,7 @@ public:
 		{48, "renata", "Renata CR 2320", 10, 8, 550},
 		{49, "renata", "Renata CR 2430", 10, 8, 550},
 		{50, "renata", "Renata CR 2477", 10, 8, 550},
-		{51, "renata", "Renata CR 2450", 10, 8, 550}
+		{51, "renata", "Renata CR 2450", 100, 8, 550}
 	};
 	
 	int DisplayMaxell(vector<BattItems> arr, string categ) {
